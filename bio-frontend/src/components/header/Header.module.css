@@ -1,0 +1,104 @@
+.header__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.header__list li, .header__list li button {
+    position: relative;
+    width: 35px;
+    transition: color 0.3s ease-in-out;
+}
+
+.header__list li button {
+    color: #374151;
+    background-color: transparent;
+    border: none;
+}
+
+.header__list li:hover, .header__list li button:hover {
+    color: #16a34a;
+}
+
+
+.header__cloud {
+    display: none;
+    position: absolute;
+    top: 90%;
+    right: -120%;
+    background-color: rgba(200, 200, 200, 0.8);
+    color: #000;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.header__list li:hover .header__cloud {
+    display: block;
+}
+
+.header__profile__button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 20px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--strong-green);
+    background-color: #dcfce7;
+    border: none
+
+}
+
+.header__second__list {
+    position: absolute;
+    top: 30%;
+    right: -100px;
+    background-color: rgba(200, 200, 200, 0.8);
+    color: #000;
+    border-radius: 5px;
+    width: 100px;
+    padding: 5px;
+}
+
+.header__second__item {
+    margin-bottom: 5px;
+}
+
+.header__profile__button:hover {
+    background-color: #bbf7d0;
+}
+
+.header__profile__button svg {
+    width: 30px;
+    height: 30px;
+}
+
+.header__menu__button {
+    font-size: 3.5rem;
+    background-color: transparent;
+    border: none;
+    color: var(--strong-green);
+}
+
+.menu {
+    padding: 30px;
+    position: absolute;
+    top: 0;
+    width: 100dvw;
+    height: 100dvh;
+    z-index: 1000;
+    background: radial-gradient(circle at center top, var(--week-green) 0%, var(--strong-green) 100%);
+    transition: left 0.7s ease-in-out;
+}
+
+.menu__phone {
+    margin: 25% auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    font-size: 2rem;
+    color: var(--background);
+}
