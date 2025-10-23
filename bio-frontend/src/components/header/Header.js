@@ -14,7 +14,7 @@ export default function Header() {
   //Mobile menu
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [ displayMenu, setDisplayMenu ] = useState('none') 
-  const [ displaySecondMenu, setDisplaySecondMenu ] = useState(true)
+  const [ displaySecondMenu, setDisplaySecondMenu ] = useState(false)
 
   // effect resize window
   useEffect(() => {
@@ -24,9 +24,7 @@ export default function Header() {
 
     window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
 
@@ -37,7 +35,7 @@ export default function Header() {
 
   const onClickMobileMenu = async () => {
     await setDisplayMenu('block')
-    setIsMobileMenuOpen(!isMobileMenuOpen)
+    await setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
   const opeSecondMenu = () => {
@@ -181,19 +179,20 @@ export default function Header() {
                   =
                 </li>
                 <li>
-                  <Link href="/">
-                    Home
-                  </Link>
-                  </li>
+                  <Link href="/"> Home</Link>
+                </li>
+                <li>
+                  <Link href="/complaints"> My Complaints</Link>
+                </li>
                 <li>
                   <Link href="/charity">Charity</Link>
-                  </li>
+                </li>
                 <li>
                   <Link href="/education">Education</Link>
-                  </li>
+                </li>
                 <li>
                   <Link  href="/laws">Laws</Link>
-                  </li>
+                </li>
                 <li>
                   <Link href="/map">Map</Link>
                 </li>
