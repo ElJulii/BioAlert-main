@@ -11,7 +11,7 @@ export default function NewComplaint({ params }) {
                     <h2>Complaint for user {params.id}</h2>
                 </div>
                 <div>
-                    <form className={Style.complaints__new__form} action="/complaints/new" method="POST">
+                    <form className={Style.complaints__new__form}  method="POST">
                         <label for="title">Title: </label>
                         <input type="text" id="title" name="title" />
                         <label for="description">Description: </label>
