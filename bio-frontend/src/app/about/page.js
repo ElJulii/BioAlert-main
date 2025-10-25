@@ -13,7 +13,7 @@ export default function About() {
     const handleResize = () => {
       const width = window.innerWidth;
       setWindowWidth(width);
-      setIsWide(width > 900);
+      setIsWide(width > 800);
     };
 
     handleResize();
