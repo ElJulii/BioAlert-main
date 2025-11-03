@@ -27,12 +27,6 @@ export default function Header() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-
-  const handleClickProfile  = () => {
-    window.location.href = "/profile"
-  }
-
   const onClickMobileMenu = async () => {
     await setDisplayMenu('block')
     await setIsMobileMenuOpen(!isMobileMenuOpen)
