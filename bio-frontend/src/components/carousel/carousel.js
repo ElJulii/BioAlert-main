@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Style from "./AnimalCarousel.module.css";
+import Image from "next/image";
 
 export default function AnimalCarousel({ animals, onHover }) {
   const carouselRef = useRef(null);
@@ -17,7 +18,7 @@ export default function AnimalCarousel({ animals, onHover }) {
           onMouseEnter={() => onHover(a)}
           onTouchStart={() => onHover(a)} // para móvil
         >
-          <img src={a.img} alt={a.name} />
+          <Image src={a.img} alt={a.name} />
           <p>{a.name}</p>
         </div>
       ))}

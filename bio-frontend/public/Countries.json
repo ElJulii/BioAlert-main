@@ -1,0 +1,32 @@
+{
+    "Countries": [
+        {
+            "name": "Ecuador",
+            "flag": "/flags/ecuador.png",
+            "map": "/maps/ecuador.png",
+            "laws": [
+                "Ley 611 - Protección de la Fauna Silvestre (2000).",
+                "Ley Orgánica de Medio Ambiente (2008).",
+                "Código Orgánico Penal Ambiental - Art. 250 (2015)."
+            ],
+            "animals": [
+                {
+                    "name": "Condor Andino",
+                    "img": "/animals/condor.png"
+                },
+                {
+                    "name": "Mono Aullador",
+                    "img": "/animals/aullador.png"
+                },
+                {
+                    "name": "Jaguar",
+                    "img": "/animals/jaguar.png"
+                },
+                {
+                    "name": "Tortuga Galápagos",
+                    "img": "/animals/tortuga.png"
+                }
+            ]
+        }
+    ]
+}

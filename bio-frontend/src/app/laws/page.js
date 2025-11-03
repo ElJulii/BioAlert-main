@@ -3,8 +3,40 @@
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import Style from "./Laws.module.css";
+import Image from "next/image";
 import AnimalCarousel from "@/components/carousel/carousel";
 import { useState } from "react";
+
+// Images
+import LatinAmerica from "../../../public/laws-imgs/continent/latinAmerica.jpg";
+import flagEcuador from "../../../public/laws-imgs/flags/flag_ecu.png";
+import flagMexico from "../../../public/laws-imgs/flags/flag_mex.png";
+import flagColombia from "../../../public/laws-imgs/flags/flag_col.png";
+import flagArgentina from "../../../public/laws-imgs/flags/flag_arg.png";
+import flagBrasil from "../../../public/laws-imgs/flags/flag_bra.png";
+
+// Images Animals Ecuador
+import condor from "../../../public/laws-imgs/animals/condor.jpg";
+import howlerMonkey from "../../../public/laws-imgs/animals/mono-aullador.jpeg";
+import jaguar from "../../../public/laws-imgs/animals/jaguar.jpeg";
+import gpTurtle from "../../../public/laws-imgs/animals/tortuga-galapagos.jpg";
+// Images Animals Mexico
+import axolotl from "../../../public/laws-imgs/animals/ajolote.jpg";
+import parrot from "../../../public/laws-imgs/animals/guacamayo-rojo.jpg";
+import ocelot from "../../../public/laws-imgs/animals/ocelote.jpg";
+// Images Animals Colombia
+import beard from "../../../public/laws-imgs/animals/oso-anteojos.jpg";
+import toucan from "../../../public/laws-imgs/animals/tucan.jpg";
+import dolphin from "../../../public/laws-imgs/animals/pink-dolphin.jpg";
+import puma from "../../../public/laws-imgs/animals/puma.jpg";
+// Images Animals Argentina
+import guanaco from "../../../public/laws-imgs/animals/guanaco.jpg";
+import redFox from "../../../public/laws-imgs/animals/zorro.jpg";
+// Images Animals Brasil
+import blueParrot from "../../../public/laws-imgs/animals/blue.jpeg";
+import capuchinMonkey from "../../../public/laws-imgs/animals/capuchino.jpg";
+import peccary from "../../../public/laws-imgs/animals/pecari.png";
+
 
 export default function Laws() {
   const [ selectedCountry, setSelectedCountry ] = useState(null);
@@ -13,23 +45,23 @@ export default function Laws() {
   const countries = [
   {
       name: "Ecuador",
-      flag: "/flags/ecuador.png",
-      map: "/maps/ecuador.png",
+      flag: flagEcuador,
+      map: "",
       laws: [
         "Ley 611 - Protección de la Fauna Silvestre (2000).",
         "Ley Orgánica de Medio Ambiente (2008).",
         "Código Orgánico Penal Ambiental - Art. 250 (2015).",
       ],
       animals: [
-        { name: "Condor Andino", img: "/animals/condor.png" },
-        { name: "Mono Aullador", img: "/animals/aullador.png" },
-        { name: "Jaguar", img: "/animals/jaguar.png" },
-        { name: "Tortuga Galápagos", img: "/animals/tortuga.png" },
+        { name: "Condor", img: condor },
+        { name: "Monkey howler", img: howlerMonkey },
+        { name: "Jaguar", img: jaguar},
+        { name: "Galapagos Turtle", img: gpTurtle },
       ],
     },
     {
       name: "México",
-      flag: "/flags/mexico.png",
+      flag: flagMexico,
       map: "/maps/mexico.png",
       laws: [
         "Ley General de Vida Silvestre (2000).",
@@ -37,15 +69,15 @@ export default function Laws() {
         "Código Penal Federal - Art. 420 (2014).",
       ],
       animals: [
-        { name: "Ajolote", img: "/animals/ajolote.png" },
-        { name: "Guacamaya Roja", img: "/animals/guacamaya.png" },
-        { name: "Jaguar", img: "/animals/jaguar.png" },
-        { name: "Ocelote", img: "/animals/ocelote.png" },
+        { name: "Axolotl", img: axolotl },
+        { name: "red parrot", img: parrot },
+        { name: "Jaguar", img: jaguar },
+        { name: "Ocelot", img: ocelot },
       ],
     },
     {
       name: "Colombia",
-      flag: "/flags/colombia.png",
+      flag: flagColombia,
       map: "/maps/colombia.png",
       laws: [
         "Ley 611 - Manejo y Protección de la Fauna Silvestre (2000).",
@@ -53,15 +85,15 @@ export default function Laws() {
         "Ley 1774 - Protección Animal (2016).",
       ],
       animals: [
-        { name: "Oso de Anteojos", img: "/animals/oso.png" },
-        { name: "Tucán", img: "/animals/tucan.png" },
-        { name: "Delfín Rosado", img: "/animals/delfin.png" },
-        { name: "Puma", img: "/animals/puma.png" },
+        { name: "beard", img: beard },
+        { name: "Toucan", img: toucan },
+        { name: "Dolphin", img: dolphin },
+        { name: "Puma", img: puma },
       ],
     },
     {
       name: "Argentina",
-      flag: "/flags/argentina.png",
+      flag: flagArgentina,
       map: "/maps/argentina.png",
       laws: [
         "Ley 22.421 - Conservación de Fauna Silvestre (1981).",
@@ -69,15 +101,15 @@ export default function Laws() {
         "Código Penal Argentino - Art. 206 (2019).",
       ],
       animals: [
-        { name: "Guanaco", img: "/animals/guanaco.png" },
-        { name: "Cóndor Andino", img: "/animals/condor.png" },
-        { name: "Zorro Colorado", img: "/animals/zorro.png" },
-        { name: "Tucán", img: "/animals/tucan.png" },
+        { name: "Guanaco", img: guanaco },
+        { name: "Condor", img: condor },
+        { name: "Zorro", img: redFox },
+        { name: "Toucan", img: toucan },
       ],
     },
     {
       name: "Brasil",
-      flag: "/flags/brasil.png",
+      flag: flagBrasil,
       map: "/maps/brasil.png",
       laws: [
         "Ley 9.605 - Delitos Ambientales (1998).",
@@ -85,74 +117,73 @@ export default function Laws() {
         "Constitución Federal - Art. 225 (1988).",
       ],
       animals: [
-        { name: "Arara Azul", img: "/animals/arara.png" },
-        { name: "Jaguar", img: "/animals/jaguar.png" },
-        { name: "Mono Capuchino", img: "/animals/capuchino.png" },
-        { name: "Pecarí", img: "/animals/pecari.png" },
+        { name: "blue parrot", img: blueParrot },
+        { name: "Capuchin Monkey", img: capuchinMonkey },
+        { name: "Peccary", img: peccary },
+        { name: "Jaguar", img: jaguar },
       ],
     },
   ];
 
   const currentDisplay =  hoveredAnimal?.img ||
-    (selectedCountry ? selectedCountry.map : "/maps/latinamerica.png");
+    (selectedCountry ? selectedCountry.flag : LatinAmerica);
 
   return (
-    <div className="container">
-        <Header />
-        <div className={Style.laws}>
+     <div className="container">
+      <Header />
+      <div className={Style.laws}>
         {/* --- Lista de países (izquierda) --- */}
         <div className={Style.leftPanel}>
-          {countries.map((country) => (
-            <details
-              key={country.name}
-              open={selectedCountry?.name === country.name}
-              onClick={() =>
-                setSelectedCountry(
-                  selectedCountry?.name === country.name ? null : country
-                )
-              }
-            >
-              <summary>
-                <span>{country.name}</span>
-                <img
-                  src={country.flag}
-                  alt={country.name}
-                  className={Style.flag}
-                />
-              </summary>
-              <ul className={Style.lawsList}>
-                {country.laws.map((law, i) => (
-                  <li key={i}>{law}</li>
-                ))}
-              </ul>
-              <AnimalCarousel
-                animals={country.animals}
-                onHover={setHoveredAnimal}
-              />
-            </details>
-          ))}
+          {countries.map((country) => {
+            const isOpen = selectedCountry?.name === country.name;
+            return (
+              <details
+                key={country.name}
+                open={isOpen}
+                onClick={(e) => {
+                  e.preventDefault(); // evita comportamiento nativo
+                  setSelectedCountry(isOpen ? null : country);
+                  setHoveredAnimal(null);
+                }}
+              >
+                <summary>
+                  <span>{country.name}</span>
+                  <Image
+                    src={country.flag}
+                    alt={country.name}
+                    className={Style.flag}
+                  />
+                </summary>
+
+                {isOpen && (
+                  <>
+                    <ul className={Style.lawsList}>
+                      {country.laws.map((law, i) => (
+                        <li key={i}>{law}</li>
+                      ))}
+                    </ul>
+
+                    <AnimalCarousel
+                      animals={country.animals}
+                      onHover={setHoveredAnimal}
+                    />
+                  </>
+                )}
+              </details>
+            );
+          })}
         </div>
 
         {/* --- Mapa / Imagen dinámica (derecha) --- */}
         <div className={Style.rightPanel}>
-          <img
+          <Image  
             src={currentDisplay}
-            alt="Mapa o animal"
+            alt="Flag or animal"
             className={Style.displayImage}
           />
-          {selectedCountry && (
-            <div className={Style.countryInfo}>
-              <h2>{selectedCountry.name}</h2>
-              <img
-                src={selectedCountry.flag}
-                alt={selectedCountry.name}
-                className={Style.flagLarge}
-              />
-            </div>
-          )}
         </div>
       </div>
-        <Footer />
+      <Footer />
     </div>
   );
 }
