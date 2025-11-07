@@ -15,7 +15,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 body {
@@ -33,9 +33,25 @@ body {
 }
 
 .container {
-    display: grid;
-    min-height: 100dvh;
-    grid-template-rows: auto 1fr auto;
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
+}
+
+.container__background {
+  background-color: var(--foreground);
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container__logReg {
+  border: solid 4px var(--week-green);
+  border-radius: 20px;
+  background-color: var(--background);
+  width: clamp(300px , 60%, 600px);
+  padding: 30px;
 }
 
 header {

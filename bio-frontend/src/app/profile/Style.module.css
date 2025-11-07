@@ -27,8 +27,8 @@
 }
 
 .profile__image {
-    width: clamp(200px, 60%, 250px);
-    height: 27dvh;   
+    width: clamp(180px, 60%, 200px);
+    height: 200px;   
     border: 1px solid #000;
     border-radius: 50%;
 }

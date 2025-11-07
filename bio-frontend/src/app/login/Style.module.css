@@ -1,0 +1,100 @@
+.container__logo {
+    margin-bottom: 30px;
+}
+
+.container__logo h1 {
+    font-size: 3rem;
+}
+
+.container__logo p {
+    font-size: 1.2rem;
+}
+
+.container__form h2 {
+    color: var(--week-green);
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    font-size: 1.2rem;
+}
+
+.form input {
+    padding: 5px 15px;
+    background-color: transparent;
+    color: var(--strong-green);
+    border: none;
+    border-bottom: solid 1px var(--week-green);
+    outline: none;
+    font-size: 1.1rem;
+}
+
+.form button {
+    padding: 8px 15px;
+    background-color: var(--week-green);
+    color: var(--background);
+    width: clamp(150px, 30%, 200px);
+    align-self: center;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.form button:hover {
+    background-color: var(--strong-green);
+}
+
+.input__icon__user, .input__icon__lock {
+    position: absolute;
+    right: 10px;
+}
+
+.input__icon__user {
+    top: 35px;
+}
+
+.input__icon__lock {
+    top: 120px;
+}
+
+.form__remember {
+    font-size: 0.8rem;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.form__remember input {
+    margin-right: 5px;
+}
+
+.form__remember span {
+    text-align: right;
+}
+
+.container__register {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.container__register a {
+    color: #660088;
+    font-weight: 700;
+    transition: color 0.3s ease-in-out;
+}
+
+.container__register a:hover {
+    color: var(--strong-green)
+    
+}
+
+/* Register */
+
+.form__error {
+    color: #aa2222
+}
