@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { RegisterService } from './register.service';
-import { CreateRegisterDto } from './dto/create-register.dto';
-import { UpdateRegisterDto } from './dto/update-register.dto';
+import { CreateRegisterDto } from '../dto/user.dto';
+
 
 @Controller('/register')
 export class RegisterController {
@@ -17,18 +17,4 @@ export class RegisterController {
     return this.registerService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.registerService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateRegisterDto: UpdateRegisterDto) {
-  //   return this.registerService.update(+id, updateRegisterDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.registerService.remove(+id);
-  // }
 }

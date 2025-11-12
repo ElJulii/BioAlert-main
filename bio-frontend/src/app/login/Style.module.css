@@ -98,3 +98,41 @@
 .form__error {
     color: #aa2222
 }
+
+.register__message {
+    position: fixed;
+    width: 100dvw;
+    height: 100dvh;
+    border: none;
+    background-color: #111111ee;
+}
+
+.register__message div {
+    width: clamp(300px, 50%, 700px);
+    border: solid 1px var(--strong-green);
+    border-radius: 20px;
+    background-color: var(--week-green);
+    padding: 40px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 55px;
+}
+
+.register__message div a {
+    border: solid 3px var(--foreground);
+    border-radius: 30px;
+    color: var(--strong-green);
+    background-color: var(--background);
+    padding: 10px 20px;
+    font-weight: 700;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.register__message div a:hover {
+    background-color: var(--strong-green);
+    color: var(--background);
+}

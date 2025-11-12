@@ -3,6 +3,7 @@
 import Style from "../login/Style.module.css";
 import Link from "next/link";
 // Rect
+import { useState } from "react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup"
 import * as yup from "yup";
@@ -25,10 +26,21 @@ export default function SignIn() {
     resolver: yupResolver(schema)
   })
 
+  const [ isRegister, setIsRegister ] = useState(false)
+
   const onSubmit = (data) => {
-    console.log(
-      data
-    )
+    fetch("http://localhost:3001/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error))
+      .then((response) => console.log("The user was create sucessfully"))
+
+    setIsRegister(true)
   }
 
 
@@ -74,6 +86,15 @@ export default function SignIn() {
                 </div> 
             </div>
         </div>
+
+
+        <dialog className={Style.register__message} open={isRegister}>
+          <div>
+            <h2>You have been successfully registered to BioAlert</h2>
+            <p>You can now login to your account</p>
+            <Link href="/login">Login to your account</Link>
+          </div>
+        </dialog>
     </div>
   );
 }

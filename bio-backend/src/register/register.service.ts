@@ -1,30 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRegisterDto } from './dto/create-register.dto';
-import { UpdateRegisterDto } from './dto/update-register.dto';
+import { CreateRegisterDto } from '../dto/user.dto';
+import { PrismaService } from '../prisma.service';
+import * as bcrypt from 'bcrypt';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class RegisterService {
 
-   private arrayUs: any = []
+   constructor(private prisma: PrismaService) {}
 
   create(user: CreateRegisterDto) {
-    this.arrayUs.push(user)
-    return(user)
+    const hashedPassword = bcrypt.hashSync(user.password, 10);
+    const token = randomBytes(32).toString('hex');
+    return this.prisma.user.create({
+      data: {
+        ...user,
+        password: hashedPassword,
+        verificationToken: token
+      }
+    })
   }
 
   findAll() {
-     return this.arrayUs
+     return this.prisma.user.findMany()
   }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} register`;
-  // }
-
-  // update(id: number, updateRegisterDto: UpdateRegisterDto) {
-  //   return `This action updates a #${id} register`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} register`;
-  // }
 }
