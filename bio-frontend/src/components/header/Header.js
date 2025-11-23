@@ -86,9 +86,9 @@ export default function Header() {
                   <div className={Style.header__cloud}><p>News</p></div>
                 </li>
                 <li>
-                    <Link href="/complaints">
+                    <Link href={"/complaints/" + username}>
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style={{
-                        color: path === "/complaints" ? "#22c55e" : "#374151"
+                        color: path ===  `/complaints/${username}` ? "#22c55e" : "#374151"
                       }}>
                         <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 13.5l-6-6 1.41-1.41L13 12.67l8.59-8.59L23 5.5l-10 10z"/>
                       </svg>
@@ -164,7 +164,7 @@ export default function Header() {
           </ul>
       </nav>
       <div className={Style.header__profile}>
-          <Link href={"profile/" + username} className={Style.header__profile__button}>
+          <Link href={"/profile/" + username} className={Style.header__profile__button}>
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"/>
             </svg>
@@ -204,7 +204,7 @@ export default function Header() {
                   <Link href="/"> Home</Link>
                 </li>
                 <li>
-                  <Link href="/complaints"> My Complaints</Link>
+                  <Link href={"/complaints/" + username}> My Complaints</Link>
                 </li>
                 <li>
                   <Link href="/charity">Charity</Link>

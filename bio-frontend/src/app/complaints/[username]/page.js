@@ -23,6 +23,8 @@ export default function Complaints({ params }) {
         
     }, []);
 
+    
+
     const userComplaints = []
 
 
