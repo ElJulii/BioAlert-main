@@ -4,13 +4,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup"
 import Style from "./Style.module.css";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const loginSchema = yup.object().shape({
-    usernameOrEmail: yup.string().min(4, "No valid username or email").required("You must write your username"),
-    password: yup.string().min(7, "No valid password").required("You must write your password")
+    usernameOrEmail: yup.string().required("You must write your username"),
+    password: yup.string().required("You must write your password")
 })
 
 export default function Login() {
+
+    const router = useRouter();
+    const [serverError, setServerError] = useState("")
 
     const {
         register, 
@@ -18,8 +23,34 @@ export default function Login() {
         formState: {errors}
     } = useForm({ resolver: yupResolver(loginSchema) })
 
-    const onLogin = (data) => {
-        console.log(data)
+    const onLogin = async (data) => {
+        setServerError("")
+
+        try {
+            const res = await fetch('http://localhost:3001/auth/login', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { "content-Type": "application/json" },
+                body: JSON.stringify({
+                    identifier: data.usernameOrEmail,
+                    password: data.password
+                })
+            })
+
+            if (!res.ok) {
+                const errData = await res.json()
+                setServerError(errData.message || "Login failed")
+                return
+            }
+
+            const result = await res.json()
+
+            router.push("/profile/" + result.user.id)
+
+        } catch (error) {
+            console.error(error)
+            setServerError("Something went wrong. Please try again later.");
+        }
     }
 
   return (
@@ -49,6 +80,9 @@ export default function Login() {
                         <label htmlFor="remember">Remember me</label>
                         <span>Forgot password?</span>
                     </div>
+                    
+                    {serverError && <p className={Style.form__error}>{serverError}</p>}
+
                     <button type="submit">Login</button>
                 </form>
                 <div className={Style.container__register}>
@@ -59,3 +93,4 @@ export default function Login() {
     </div>
   );
 }
+

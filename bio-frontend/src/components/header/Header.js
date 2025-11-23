@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { set } from "react-hook-form";
 
 export default function Header() {
 
@@ -15,6 +16,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [ displayMenu, setDisplayMenu ] = useState('none') 
   const [ displaySecondMenu, setDisplaySecondMenu ] = useState(false)
+  const [username, setUsername] = useState(null);
 
   // effect resize window
   useEffect(() => {
@@ -26,6 +28,32 @@ export default function Header() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    async function fetchUser() {
+        try {
+          const res = await fetch("http://localhost:3001/auth/profile", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "content-Type": "application/json",
+            }
+          });
+
+          if (!res.ok) throw new Error("Unauthorized"); 
+
+          const data = await res.json();
+          setUsername(data.username);
+      } catch (error) {
+        console.error("Error fetching user profile", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchUser()
+
+  }, [])
 
   const onClickMobileMenu = async () => {
     await setDisplayMenu('block')
@@ -136,7 +164,7 @@ export default function Header() {
           </ul>
       </nav>
       <div className={Style.header__profile}>
-          <Link href="/profile" className={Style.header__profile__button}>
+          <Link href={"profile/" + username} className={Style.header__profile__button}>
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"/>
             </svg>

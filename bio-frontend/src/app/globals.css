@@ -9,6 +9,8 @@
     --foreground: #010101;
     --strong-green: #15803d;
     --week-green: #22c55e;
+    --warning-color-strong: #aa0000;
+    --warning-color-weak: #cc0000;
   }
 }
 
@@ -83,6 +85,18 @@ button {
 footer {
   border-top: solid 5px var(--week-green);
   color: #010101;
+}
+
+.button__logout {
+  background-color: var(--warning-color-strong);
+  color: var(--background);
+  padding: 10px 20px;
+  font-weight: 700;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button__logout:hover {
+  background-color: var(--warning-color-weak);
 }
 
 @media (prefers-color-scheme: dark) {

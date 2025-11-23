@@ -1,20 +1,65 @@
+"use client"
+
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
 import Style from "../Style.module.css";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
+  const router = useRouter();
+  const complaints = [];
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const complaints = [ {title: "complaint 1", description: "description 1"},
-                       {title: "complaint 2", description: "description 2"},
-                       {title: "complaint 3", description: "description 3"},
-                       {title: "complaint 4", description: "description 4"},
-                       {title: "complaint 5", description: "description 5"},
-                       {title: "complaint 6", description: "description 6"},
-                       {title: "complaint 7", description: "description 7"},
-                       {title: "complaint 8", description: "description 8"},
-                       {title: "complaint 9", description: "description 9"},
-                       {title: "complaint 10", description: "description 10"},
-                     ];
+  useEffect(() => {
+    async function fetchUser() {
+        try {
+          const res = await fetch("http://localhost:3001/auth/profile", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "content-Type": "application/json",
+            }
+          });
+
+          if (!res.ok) throw new Error("Unauthorized"); 
+
+          const data = await res.json();
+          setUser(data);
+      } catch (error) {
+        console.error("Error fetching user profile", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchUser()
+
+  }, [])
+
+  
+
+  const logout = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-Type": "application/json",
+        }
+      });
+      if (!res.ok) throw new Error("Unauthorized");
+
+      router.push("/login");
+    } catch (error) {
+      console.error("Error logging out", error);
+    } 
+  }
+
+  if (loading) return <div>Loading...</div>;
+
+  if (!user) return <div>Please login to see your profile.</div>;
 
   return (
     <div className="container">
@@ -22,13 +67,17 @@ export default function Profile() {
         <div>
           <h1>BioAlert</h1>
         </div>
-        <Link href="/" className={Style.button__home} >Back To Home</Link>
+        <div>
+          <Link href="/" className={Style.button__home} >Back To Home</Link>
+          <button onClick={logout} className="button__logout">Log out</button>
+        </div>
+        
       </header>
       <div className={Style.profile}>
         <div className={Style.profile__data}>
           <div className={Style.profile__image}>Photo of the user</div>
-          <h2>Name of the user</h2>
-          <h4>Email of the user</h4>
+          <h2>{user.username}</h2>
+          <h4>{user.email}</h4>
           <p>Setting</p>
         </div>
 
