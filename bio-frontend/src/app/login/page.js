@@ -45,7 +45,7 @@ export default function Login() {
 
             const result = await res.json()
 
-            router.push("/profile/" + result.user.id)
+            router.push("/profile/" + result.user.username)
 
         } catch (error) {
             console.error(error)

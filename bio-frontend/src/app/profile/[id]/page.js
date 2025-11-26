@@ -75,10 +75,13 @@ export default function Profile() {
       </header>
       <div className={Style.profile}>
         <div className={Style.profile__data}>
-          <div className={Style.profile__image}>Photo of the user</div>
+          <div className={Style.profile__image} style={{ 
+              background: `url(${user.picture}) center / cover no-repeat` 
+            }}>
+          </div>
           <h2>{user.username}</h2>
           <h4>{user.email}</h4>
-          <p>Setting</p>
+          <Link href={"/profile/" + user.username + "/settings"}>Settings</Link>
         </div>
 
         <hr />

@@ -53,3 +53,11 @@
 .complaint__cell:hover {
     transform: scale(1.05);
 }
+
+/* Style settings */
+.previewContainer {
+  margin: 20px 0;
+  max-width: 300px;
+  height: 300px;
+}
+
