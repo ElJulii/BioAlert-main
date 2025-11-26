@@ -42,7 +42,7 @@ export default function Complaints({ params }) {
                 </div>
                 <div className={Style.complaints__button__container}>
                     <button className={Style.complaints__button} onClick={() => {
-                        window.location.href = "/complaints/new/" + params.id
+                        window.location.href = "/complaints/" + params.id + "/new"
                     }}>Create a complaint</button>
                 </div>
                 <ol 

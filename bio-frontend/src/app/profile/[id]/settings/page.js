@@ -2,9 +2,12 @@
 
 import Footer from "@/components/footer/Footer";
 import Style from "../../Style.module.css";
+import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SettingsProfile({ params }) {
+  const router = useRouter()
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -14,14 +17,18 @@ export default function SettingsProfile({ params }) {
     async function fetchUserProfile() {
       try {
         const res = await fetch("http://localhost:3001/auth/profile", {
+          method: 'GET',
           credentials: "include",
+          headers: {
+            "Content-Type": "Application/json"
+          }
         });
 
         if (!res.ok) throw new Error("Failed to fetch profile");
 
         const data = await res.json();
-        if (data.image) {
-          setImagePreview(data.image); // URL que viene del backend
+        if (data.picture) {
+          setImagePreview(data.picture); // URL que viene del backend
         }
       } catch (error) {
         console.error(error);
@@ -30,6 +37,26 @@ export default function SettingsProfile({ params }) {
 
     fetchUserProfile();
   }, []);
+
+  const logout = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+
+      if (!res.ok) throw new Error("Unauthorized")
+      router.push("/login")
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  
 
   // Cuando el usuario selecciona una nueva imagen
   const handleImageChange = (event) => {
@@ -60,7 +87,7 @@ export default function SettingsProfile({ params }) {
 
       if (response.ok) {
         alert("Profile picture updated!");
-        setImagePreview(data.profilePicture); // Actualizamos con la URL real de Cloudinary
+        setImagePreview(data.profilePicture); 
       } else {
         alert("Upload failed: " + data.message);
       }
@@ -74,7 +101,14 @@ export default function SettingsProfile({ params }) {
 
   return (
     <div className="container">
-      <header>This is the header of profile</header>
+      <header>
+        <div>
+          <h1>BioAlert</h1>
+        </div>
+        <div className={Style.header__buttons}>
+          <Link href="/" className={Style.button__home} >Back To Home</Link>
+        </div>
+      </header>
 
       <div className={Style.settings}>
         <div>
@@ -105,6 +139,9 @@ export default function SettingsProfile({ params }) {
             </form>
           </div>
         </div>
+
+
+        <button onClick={logout} className="button__logout">Log out</button>
       </div>
 
       <Footer />

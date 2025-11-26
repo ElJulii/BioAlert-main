@@ -4,10 +4,8 @@ import Footer from "@/components/footer/Footer";
 import Link from "next/link";
 import Style from "../Style.module.css";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function Profile() {
-  const router = useRouter();
   const complaints = [];
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -38,24 +36,6 @@ export default function Profile() {
 
   }, [])
 
-  
-
-  const logout = async () => {
-    try {
-      const res = await fetch("http://localhost:3001/auth/logout", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "content-Type": "application/json",
-        }
-      });
-      if (!res.ok) throw new Error("Unauthorized");
-
-      router.push("/login");
-    } catch (error) {
-      console.error("Error logging out", error);
-    } 
-  }
 
   if (loading) return <div>Loading...</div>;
 
@@ -67,9 +47,8 @@ export default function Profile() {
         <div>
           <h1>BioAlert</h1>
         </div>
-        <div>
+        <div className={Style.header__buttons}>
           <Link href="/" className={Style.button__home} >Back To Home</Link>
-          <button onClick={logout} className="button__logout">Log out</button>
         </div>
         
       </header>
