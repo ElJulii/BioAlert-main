@@ -68,3 +68,64 @@
 .complaints__button:hover {
     background-color: var(--strong-green);
 }
+
+/* Complaint new */
+
+.complaints__new h2{
+    text-align: center;
+    color: var(--strong-green);
+    margin: 30px 0 10px;
+    font-size: 2rem;
+}
+
+.complaints__new__container {
+    max-width: 100%;
+}
+
+.complaints__new__form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    width: clamp(300px, 100%, 700px);
+}
+
+.complaints__new__form label {
+    font-size: 1.2rem;
+}
+
+.complaints__new__form input, .complaints__new__form textarea, .complaints__new__form select {
+    padding: 10px 6px;
+    width: 100%;
+    background-color: var(--background);
+    border: solid 2px var(--week-green);
+    border-radius: 10px;
+    color: var(--foreground);
+    outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--week-green);
+}
+
+.complaints__new__form textarea {
+    resize: none;
+    height: 20dvh;
+}
+
+.complaints__new__form button {
+    align-self: center;
+    width: 200px;
+    padding: 7px 30px;
+    background-color: var(--strong-green);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.complaints__new__form button:hover {
+    background-color: var(--week-green);
+}
+
+.complaints__err {
+    color: #800;
+}

@@ -1,8 +1,66 @@
+"use client"
+
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import Style from "../complaints.module.css";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useState } from "react";
+import Image from "next/image";
+
+
+const today = new Date();
+const oneYearAgo = new Date();
+oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+const schema = yup.object().shape({
+    title: yup.string().required("A title is required"),
+    description: yup.string().required("A description is required"),
+    animal: yup.string().required("The animal that you saw is required"),
+    country: yup.string().required("Please select the country"),
+    city: yup.string().required("The city is required"),
+    address: yup.string().required("Please, write the nearest address that you remember"),
+    date: yup.date()
+        .min(oneYearAgo, "The date can not be newer than 1 year ago")
+        .max(today, "It can be in the future")
+        .required("A date is required")
+        .typeError("The date is not valid"),
+    images: yup
+        .mixed()
+        .required("You must upload at least one image")
+        .test("file-required", "You must upload at least one image", (value) => {
+            return value && value.length > 0
+        })
+        .test("max-3", "You can upload up to 3 images", (value) => {
+            return value && value.length <= 3
+        })
+        .test("file-type", "Only images are allowed", (value) => {
+            return (
+                value && Array.from(value).every((file) => file.type.startsWith("image/"))
+            )
+        })
+})
 
 export default function NewComplaint({ params }) {
+
+    const [ imagesPreview, setImagesPreview ] = useState([])
+    const { register, handleSubmit, formState: {errors} } = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    const checkingLengthImages = (e) => {
+        const images = Array.from(e.target.files)
+        if (images.length > 3 ) {
+            return
+        }
+        setImagesPreview(images.map((image) => URL.createObjectURL(image)))
+    }
+
+    const onSubmit = () => {
+        console.log("works")
+    }
+
     return (
         <div className="container">
             <Header />
@@ -10,19 +68,22 @@ export default function NewComplaint({ params }) {
                 <div>
                     <h2>Complaint for user {params.id}</h2>
                 </div>
-                <div>
-                    <form className={Style.complaints__new__form}  method="POST">
-                        <label for="title">Title: </label>
-                        <input type="text" id="title" name="title" />
+                <div className={Style.complaints__new__container}>
+                    <form className={Style.complaints__new__form} onSubmit={handleSubmit(onSubmit)} noValidate>
+                        <label htmlFor="title">Title: </label>
+                        <input type="text" id="title" name="title" placeholder="Tittle" {...register("title")}/>
+                        {errors.title && <span className={Style.complaints__err}>{errors.title.message}</span>}
 
-                        <label for="description">Description: </label>
-                        <textarea id="description" name="description"></textarea>
+                        <label htmlFor="description">Description: </label>
+                        <textarea id="description" name="description" placeholder="Description of the situation" maxLength="800" {...register("description")}></textarea>
+                        {errors.description && <span className={Style.complaints__err}>{errors.description.message}</span>}
 
-                        <label for="animal">Animal: </label>
-                        <input id="animal" type="text" name="animal" />
+                        <label htmlFor="animal">Animal: </label>
+                        <input id="animal" type="text" name="animal" placeholder="Animal" {...register("animal")}/>
+                        {errors.animal && <span className={Style.complaints__err}>{errors.animal.message}</span>}
 
-                        <label for="country">Country:</label>
-                        <select class="form-select" id="country" name="country">
+                        <label htmlFor="country">Country:</label>
+                        <select id="country" name="country" {...register("country")}>
                             <option>select country</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AX">Åland Islands</option>
@@ -277,18 +338,32 @@ export default function NewComplaint({ params }) {
                             <option value="ZM">Zambia</option>
                             <option value="ZW">Zimbabwe</option>
                         </select>
+                        {errors.country && <span className={Style.complaints__err}>{errors.country.message}</span>}
 
-                        <label for="city" >City:</label>
-                        <input id="city" type="text" name="city"/>
+                        <label htmlFor="city" >City:</label>
+                        <input id="city" type="text" name="city" placeholder="City" {...register("city")}/>
+                        {errors.city && <span className={Style.complaints__err}>{errors.city.message}</span>}
 
-                        <label for="address">Address: </label>
-                        <input id="address" type="text" name="address" />
+                        <label htmlFor="address">Address: </label>
+                        <input id="address" type="text" name="address" placeholder="Address" {...register("address")}/>
+                        {errors.address && <span className={Style.complaints__err}>{errors.address.message}</span>}
 
-                        <label for="date">Date:</label>
-                        <input id="date" type="date" name="date"/>
+                        <label htmlFor="date">Date(No newer than 1 year ago):</label>
+                        <input id="date" type="date" name="date" placeholder="Date of the situation" {...register("date")}/>
+                        {errors.date && <span className={Style.complaints__err}>{errors.date.message}</span>}
 
-                        <label for="image">Image (only images): </label>
-                        <input id="image" type="file" name="image" accept="image/*"/>
+                        <label htmlFor="images">Image (1 to 3 images): </label>
+                        <input id="images" type="file" name="images" accept="image/*" multiple {...register("images")} onChange={(e) => {checkingLengthImages(e)}} />
+                        {
+                            imagesPreview.length > 0 && 
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px"}}>
+                                {
+                                    imagesPreview.map((url, i) => <Image height={100} width={80} key={i} src={url} alt={i + "img"}></Image>)
+                                }
+                            </div>
+                            
+                        }
+                        {errors.images && <span className={Style.complaints__err}>{errors.images.message}</span>}
 
                         <button type="submit">Create</button>
                     </form>

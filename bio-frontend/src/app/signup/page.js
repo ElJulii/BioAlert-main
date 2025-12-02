@@ -38,7 +38,7 @@ export default function SignIn() {
     })
       .then((response) => response.json())
       .catch((error) => console.log(error))
-      .then((response) => console.log("The user was create sucessfully"))
+      .then((response) => console.log("The user was created successfully"))
 
     setIsRegister(true)
   }

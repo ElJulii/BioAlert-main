@@ -5,10 +5,12 @@ import Link from "next/link";
 import Style from "./complaints.module.css";
 import Footer from "@/components/footer/Footer";
 import { useState ,useEffect } from "react";
+import React from "react";
 
 export default function Complaints({ params }) {
 
-    const [windowWidth, setWindowWidth] = useState(0);
+    const [ windowWidth, setWindowWidth ] = useState(0);
+    const { username } = React.use(params)
 
     useEffect(() => {
         const handleResize = () => {
@@ -35,14 +37,14 @@ export default function Complaints({ params }) {
                 <div className={Style.complaints__introduction}>
                     <h2 className={Style.complaints__title}>Complaints</h2>
                     <p>
-                        This is the complaints page of user {params.id}. Where it will
+                        This is the complaints page of user {username}. Where it will
                         show all the complaints of the user and also here some text to 
                         guide the user to create a new complaint.
                     </p>  
                 </div>
                 <div className={Style.complaints__button__container}>
                     <button className={Style.complaints__button} onClick={() => {
-                        window.location.href = "/complaints/" + params.id + "/new"
+                        window.location.href = "/complaints/" + username + "/new"
                     }}>Create a complaint</button>
                 </div>
                 <ol 
