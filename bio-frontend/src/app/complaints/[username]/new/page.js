@@ -58,7 +58,15 @@ export default function NewComplaint({ params }) {
     }
 
     const onSubmit = () => {
-        console.log("works")
+        try {
+            const req = fetch("http://localhost:3001/reports", {
+                method: 'POST',
+                credentials: 'include',
+                
+            })
+        } catch (e) {
+            console.error('There was an error fetching the report')
+        }
     }
 
     return (

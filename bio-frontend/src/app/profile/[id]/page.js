@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 export default function Profile() {
   const complaints = [];
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUser() {
@@ -27,17 +26,12 @@ export default function Profile() {
           setUser(data);
       } catch (error) {
         console.error("Error fetching user profile", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     }
     
     fetchUser()
 
   }, [])
-
-
-  if (loading) return <div>Loading...</div>;
 
   if (!user) return <div>Please login to see your profile.</div>;
 

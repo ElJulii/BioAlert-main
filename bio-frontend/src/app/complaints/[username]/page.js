@@ -4,13 +4,14 @@ import Headers from "@/components/header/Header";
 import Link from "next/link";
 import Style from "./complaints.module.css";
 import Footer from "@/components/footer/Footer";
-import { useState ,useEffect } from "react";
+import { useState ,useEffect, use } from "react";
 import React from "react";
 
 export default function Complaints({ params }) {
 
     const [ windowWidth, setWindowWidth ] = useState(0);
     const { username } = React.use(params)
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -25,10 +26,7 @@ export default function Complaints({ params }) {
         
     }, []);
 
-    
-
     const userComplaints = []
-
 
     return (
         <div className="container">

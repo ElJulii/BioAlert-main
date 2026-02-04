@@ -40,15 +40,17 @@ export default function Header() {
             }
           });
 
-          if (!res.ok) throw new Error("Unauthorized"); 
+          // if (!res.ok) throw new Error("Unauthorized"); 
+          if (!res.ok) {
+            console.log("user not found")
+            setUsername("someone")
+          }; 
 
           const data = await res.json();
           setUsername(data.username);
       } catch (error) {
         console.error("Error fetching user profile", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     }
     
     fetchUser()
