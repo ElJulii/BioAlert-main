@@ -2,7 +2,7 @@ import { Body, Controller, UseGuards, Post, Get, Req, UseInterceptors, UploadedF
 import { ReportsService } from "./reports.service";
 import { ReportDto } from "src/dto/report.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { FileInterceptor } from "@nestjs/platform-express";
+import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
 
 @Controller("reports")
 export class ReportsController {
@@ -18,10 +18,27 @@ export class ReportsController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @Get("me")
+    async getUserReports(@Req() req) {
+        const userId = req.user.sub
+        return this.reportsService.getByUser(userId)
+
+    }
+
+    
     @Post()
-    async create(@Req() req, @Body() dto: ReportDto) {
-        const userId = req.user.userId || req.user.sub || req.user.id;
-        return this.reportsService.create(userId, dto)
+    @UseGuards(JwtAuthGuard)
+    @UseInterceptors(FilesInterceptor('evidences', 3))
+    async create(
+        @Req() req,
+        @Body() dto: ReportDto,
+        @UploadedFile() files:Express.Multer.File[]     
+    ) {
+        console.log("User: ", req.user)
+        console.log("DTO: ", dto)
+
+        const userId = req.user.sub
+        return this.reportsService.create(userId, dto, files)
     }
 
     @UseGuards(JwtAuthGuard)

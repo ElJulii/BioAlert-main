@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 const today = new Date();
@@ -44,6 +45,9 @@ const schema = yup.object().shape({
 
 export default function NewComplaint({ params }) {
 
+    const router = useRouter()
+    // const username = React.use(params)
+
     const [ imagesPreview, setImagesPreview ] = useState([])
     const { register, handleSubmit, formState: {errors} } = useForm({
         resolver: yupResolver(schema)
@@ -57,24 +61,39 @@ export default function NewComplaint({ params }) {
         setImagesPreview(images.map((image) => URL.createObjectURL(image)))
     }
 
-    const onSubmit = () => {
-        try {
-            const req = fetch("http://localhost:3001/reports", {
-                method: 'POST',
-                credentials: 'include',
-                
-            })
-        } catch (e) {
-            console.error('There was an error fetching the report')
-        }
-    }
+    const onSubmit = async (data) => {
+        const formData = new FormData();
+
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        formData.append("animal", data.animal);
+        formData.append("country", data.country);
+        formData.append("city", data.city);
+        formData.append("address", data.address);
+        formData.append("date", data.date);
+
+        Array.from(data.images).forEach((file) => {
+            formData.append("evidences", file);
+        });
+
+        const res = await fetch("http://localhost:3001/reports", {
+            method: "POST",
+            credentials: "include",
+            body: formData,
+        });
+
+        if (!res.ok) throw new Error("Error creating report");
+
+        const report = await res.json();
+        router.push(`/profile/${report.userId}`);
+    };
 
     return (
         <div className="container">
             <Header />
             <div className={Style.complaints__new}>
                 <div>
-                    <h2>Complaint for user {params.id}</h2>
+                    <h2>Complaint for user {params.userId}</h2>
                 </div>
                 <div className={Style.complaints__new__container}>
                     <form className={Style.complaints__new__form} onSubmit={handleSubmit(onSubmit)} noValidate>

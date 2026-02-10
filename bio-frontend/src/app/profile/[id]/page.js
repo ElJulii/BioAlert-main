@@ -6,7 +6,7 @@ import Style from "../Style.module.css";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
-  const complaints = [];
+  const [ complaints, setComplaints ] = useState([]);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -32,8 +32,32 @@ export default function Profile() {
     fetchUser()
 
   }, [])
+  
+  // For the data of complaints
+  useEffect(() => {
+    async function fetchComplaints() {
+      try {
+        const res = await fetch("http://localhost:3001/reports/me", {
+          credentials: "include",
+      })
+      
+      if (!res.ok) throw new Error("Error fetching the complaints")
+      
+        const data = await res.json()
+        setComplaints(data)
+        console.log(data)
+        console.log(complaints)
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
-  if (!user) return <div>Please login to see your profile.</div>;
+    fetchComplaints()
+  }, [])
+    
+    
+
+  if (!user) return <div>Loading profile</div>;
 
   return (
     <div className="container">
@@ -60,7 +84,7 @@ export default function Profile() {
         <hr />
 
         <div className={Style.complaints}>
-          {complaints.length > 1 ? complaints.map((complaint, i) => (
+          {complaints.length > 0 ? complaints.map((complaint, i) => (
             <div key={i} className={Style.complaint__cell}>
               <h3>{complaint.title}</h3>
               <p>{complaint.description}</p>

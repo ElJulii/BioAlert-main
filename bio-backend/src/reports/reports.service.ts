@@ -11,8 +11,13 @@ export class ReportsService{
         @Inject('CLOUDINARY') private cloudinary
     ) {}
 
-    async create(userId: number, dto: ReportDto) {
-        const report = await this.prisma.report.create({
+    async create(
+        userId: number, 
+        dto: ReportDto,
+        files: Express.Multer.File[]
+    ) {
+        return this.prisma.$transaction(async (tx) => {
+        const report = await tx.report.create({
             data: {
                 userId,
                 title: dto.title,
@@ -21,9 +26,33 @@ export class ReportsService{
                 country: dto.country,
                 city: dto.city,
                 address: dto.address,
-                date: new Date(dto.date)
-            }
-        })
+                date: new Date(dto.date),
+            },
+        });
+
+        if (files?.length) {
+            const evidences = await Promise.all(
+                files.map(async (file) => {
+                    const base64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+
+                    const upload = await this.cloudinary.uploader.upload(base64, {
+                        folder: "bioalert/reports/evidences",
+                    });
+
+                    return {
+                        reportId: report.id,
+                        url: upload.secure_url,
+                    };
+                })
+            );
+
+            await tx.evidence.createMany({
+                data: evidences,
+            });
+        }
+
+        return report;
+    });
 
         // const aiResult = await this.aiService.analyzeReport(report);
         // await this.prisma.report.update({
@@ -34,7 +63,7 @@ export class ReportsService{
         //     }
         // })
 
-        // return report;
+         
     }
 
 
@@ -57,5 +86,15 @@ export class ReportsService{
 
     async getAll() {
         return this.prisma.report.findMany()
+    }
+
+    async getByUser(userId: number) {
+        return this.prisma.report.findMany({
+            where: { userId },
+            orderBy: { createAt: 'desc' },
+            include: {
+                evidences: true
+            }
+        })
     }
 }
