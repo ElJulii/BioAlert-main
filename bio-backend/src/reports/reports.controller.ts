@@ -1,4 +1,4 @@
-import { Body, Controller, UseGuards, Post, Get, Req, UseInterceptors, UploadedFile, Param } from "@nestjs/common";
+import { Body, Controller, UseGuards, Post, Get, Req, UseInterceptors, UploadedFile, Param, UploadedFiles } from "@nestjs/common";
 import { ReportsService } from "./reports.service";
 import { ReportDto } from "src/dto/report.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -32,7 +32,7 @@ export class ReportsController {
     async create(
         @Req() req,
         @Body() dto: ReportDto,
-        @UploadedFile() files:Express.Multer.File[]     
+        @UploadedFiles() files:Express.Multer.File[]     
     ) {
         console.log("User: ", req.user)
         console.log("DTO: ", dto)

@@ -11,6 +11,7 @@ export default function Complaints({ params }) {
 
     const [ windowWidth, setWindowWidth ] = useState(0);
     const { username } = React.use(params)
+    const [ userComplaints, setUserComplaints ] = useState([])
 
 
     useEffect(() => {
@@ -26,7 +27,24 @@ export default function Complaints({ params }) {
         
     }, []);
 
-    const userComplaints = []
+    useEffect(() => {
+        async function fetchComplaints() {
+            try {
+                const res = await fetch('http://localhost:3001/reports/me',  {
+                    credentials: 'include'
+                })
+
+                if (!res.ok) throw new Error('It was en error with the response')
+                const data = await res.json()
+                setUserComplaints(data)
+            } catch (error) {
+                console.error('Error fetching: ', error)
+            }
+        }
+
+        fetchComplaints()
+    }, [])
+
 
     return (
         <div className="container">

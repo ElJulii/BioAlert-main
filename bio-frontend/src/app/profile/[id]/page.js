@@ -3,6 +3,7 @@
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
 import Style from "../Style.module.css";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
@@ -38,15 +39,13 @@ export default function Profile() {
     async function fetchComplaints() {
       try {
         const res = await fetch("http://localhost:3001/reports/me", {
-          credentials: "include",
+          credentials: 'include'
       })
       
       if (!res.ok) throw new Error("Error fetching the complaints")
       
-        const data = await res.json()
-        setComplaints(data)
-        console.log(data)
-        console.log(complaints)
+      const data = await res.json()
+      setComplaints(data)
       } catch (error) {
         console.log(error)
       }
@@ -85,9 +84,17 @@ export default function Profile() {
 
         <div className={Style.complaints}>
           {complaints.length > 0 ? complaints.map((complaint, i) => (
+
             <div key={i} className={Style.complaint__cell}>
               <h3>{complaint.title}</h3>
               <p>{complaint.description}</p>
+              <img
+                src={complaint.evidences?.[0]?.url}
+                width={200}
+                height={200}
+              >
+
+              </img>
             </div>
           )) :
             <h3>No complaints</h3>

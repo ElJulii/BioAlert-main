@@ -51,7 +51,12 @@ export class ReportsService{
             });
         }
 
-        return report;
+        return tx.report.findUnique({
+            where: { id: report.id },
+            include: {
+                    evidences: true
+                }
+        });
     });
 
         // const aiResult = await this.aiService.analyzeReport(report);
