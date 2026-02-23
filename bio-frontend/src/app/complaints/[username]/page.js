@@ -12,6 +12,7 @@ export default function Complaints({ params }) {
     const [ windowWidth, setWindowWidth ] = useState(0);
     const { username } = React.use(params)
     const [ userComplaints, setUserComplaints ] = useState([])
+    const [ colorState, setColorState ] = useState("#E0BC00");
 
 
     useEffect(() => {
@@ -37,6 +38,25 @@ export default function Complaints({ params }) {
                 if (!res.ok) throw new Error('It was en error with the response')
                 const data = await res.json()
                 setUserComplaints(data)
+
+                switch (data.state) {
+                    case "PENDING":
+                        setColorState("#E0BC00")
+                        break;
+                    case "IN_PROGRESS":
+                        setColorState("#00008A")
+                        break;
+                    case "RESOLVED":
+                        setColorState("#008000")
+                        break;
+                    case "REJECTED":
+                        setColorState("#FF0000")
+                        break;
+                    default:
+                        setColorState("#E0BC00")
+                        break;
+                }
+
             } catch (error) {
                 console.error('Error fetching: ', error)
             }
@@ -44,6 +64,8 @@ export default function Complaints({ params }) {
 
         fetchComplaints()
     }, [])
+
+
 
 
     return (
@@ -84,7 +106,13 @@ export default function Complaints({ params }) {
                                     </div>
                                     <div className={Style.complaints__itemData}>
                                         <p>Date: {complaint.date}</p>
-                                        <p>status: {complaint.status}</p>  
+                                        <div>
+                                            <p>State:</p>
+                                            <span style={{
+                                                color: colorState,
+                                                fontWeight: "bold"
+                                            }}>{complaint.state}</span>
+                                        </div>
                                     </div>
                                 </li>
                             ))
