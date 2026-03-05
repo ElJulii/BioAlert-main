@@ -39,24 +39,6 @@ export default function Complaints({ params }) {
                 const data = await res.json()
                 setUserComplaints(data)
 
-                switch (data.state) {
-                    case "PENDING":
-                        setColorState("#E0BC00")
-                        break;
-                    case "IN_PROGRESS":
-                        setColorState("#00008A")
-                        break;
-                    case "RESOLVED":
-                        setColorState("#008000")
-                        break;
-                    case "REJECTED":
-                        setColorState("#FF0000")
-                        break;
-                    default:
-                        setColorState("#E0BC00")
-                        break;
-                }
-
             } catch (error) {
                 console.error('Error fetching: ', error)
             }
@@ -65,6 +47,28 @@ export default function Complaints({ params }) {
         fetchComplaints()
     }, [])
 
+    const onChangeColorState = (state) => {
+        switch (state) {
+            case "PENDING":
+                setColorState("#E0BC00")
+                break;
+            case "ACCEPTED":
+                setColorState("#00008A")
+                break;
+            case "IN_PROGRESS":
+                setColorState("#b6441b")
+                break;
+            case "RESOLVED":
+                setColorState("#008000")
+                break;
+            case "REJECTED":
+                setColorState("#FF0000")
+                break;
+            default:
+                setColorState("#E0BC00")
+                break;
+        }
+    }
 
 
 
@@ -111,7 +115,7 @@ export default function Complaints({ params }) {
                                             <span style={{
                                                 color: colorState,
                                                 fontWeight: "bold"
-                                            }}>{complaint.state}</span>
+                                            }} onChange={onChangeColorState}>{complaint.state}</span>
                                         </div>
                                     </div>
                                 </li>

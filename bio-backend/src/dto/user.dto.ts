@@ -17,8 +17,8 @@ export class CreateRegisterDto {
   @MinLength(7)
   password: string;
 
-  @IsOptional()
-  role?: string; // "user" o "admin"
+  // @IsOptional()
+  // role?: string; // "user" o "admin"
 
   @IsOptional()
   @IsBoolean()

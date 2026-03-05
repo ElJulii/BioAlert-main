@@ -2,6 +2,7 @@ import { IsDate, IsOptional, IsString, IsEnum } from "class-validator";
 
 export enum ReportStateDto {
     PENDING= 'PENDING',
+    ACCEPTED= 'ACCEPTED',
     IN_PROGRESS= 'IN_PROGRESS',
     RESOLVED= 'RESOLVED',
     REJECTED= 'REJECTED'

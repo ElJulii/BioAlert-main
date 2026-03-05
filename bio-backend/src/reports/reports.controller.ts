@@ -41,13 +41,13 @@ export class ReportsController {
         return this.reportsService.create(userId, dto, files)
     }
 
-    @UseGuards(JwtAuthGuard)
-    @Post(":id/upload-evidence")
-    @UseInterceptors(FileInterceptor('image'))
-    async uploadEvidence(
-        @Param('id') reportId: string,
-        @UploadedFile() file: Express.Multer.File
-    ) {
-        return this.reportsService.addEvidence(file, reportId)
-    }
+    // @UseGuards(JwtAuthGuard)
+    // @Post(":id/upload-evidence")
+    // @UseInterceptors(FileInterceptor('image'))
+    // async uploadEvidence(
+    //     @Param('id') reportId: string,
+    //     @UploadedFile() file: Express.Multer.File
+    // ) {
+    //     return this.reportsService.addEvidence(file, reportId)
+    // }
 }
