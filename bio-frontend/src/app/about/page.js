@@ -2,12 +2,14 @@
 
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Style from "./About.module.css";
 import { useEffect, useState } from "react";
 
 export default function About() {
   const [windowWidth, setWindowWidth] = useState(0);
   const [isWide, setIsWide] = useState(false);
+  const [ user, setUser ] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,10 +24,32 @@ export default function About() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    async function fetchUser() {
+        try {
+          const res = await fetch("http://localhost:3001/auth/profile", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "content-Type": "application/json",
+            }
+          })
+          if (!res.ok) throw new Error("Unauthorized"); 
+          const data = await res.json();
+          setUser(data);
+      } catch (error) {
+        console.error("Error fetching user profile", error);
+      } 
+    }
+    
+    fetchUser()
+  }, [])
+
+  if (!user) return <div>Loading profile</div>;
 
   return (
     <div className="container">
-      <Header />
+      { user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/> }
       <div className={Style.about} style={{padding: windowWidth > 800 ? "30px 15%" : "30px 5%"}}>
         <h2>About BioAlert</h2>
         <details className={Style.about__details}

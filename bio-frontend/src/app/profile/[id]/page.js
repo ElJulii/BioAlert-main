@@ -93,7 +93,6 @@ export default function Profile() {
                 width={200}
                 height={200}
               >
-
               </img>
             </div>
           )) :

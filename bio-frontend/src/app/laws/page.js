@@ -2,10 +2,11 @@
 
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Style from "./Laws.module.css";
 import Image from "next/image";
 import AnimalCarousel from "@/components/carousel/carousel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Images
 import LatinAmerica from "../../../public/laws-imgs/continent/latinAmerica.jpg";
@@ -41,6 +42,28 @@ import peccary from "../../../public/laws-imgs/animals/pecari.png";
 export default function Laws() {
   const [ selectedCountry, setSelectedCountry ] = useState(null);
   const [hoveredAnimal, setHoveredAnimal] = useState(null);
+  const [ user, setUser ] = useState(null);
+
+  useEffect(() => {
+      async function fetchUser() {
+          try {
+            const res = await fetch("http://localhost:3001/auth/profile", {
+              method: "GET",
+              credentials: "include",
+              headers: {
+                "content-Type": "application/json",
+              }
+            })
+            if (!res.ok) throw new Error("Unauthorized"); 
+            const data = await res.json();
+            setUser(data);
+        } catch (error) {
+          console.error("Error fetching user profile", error);
+        } 
+      }
+      
+      fetchUser()
+    }, [])
 
   const countries = [
   {
@@ -128,9 +151,11 @@ export default function Laws() {
   const currentDisplay =  hoveredAnimal?.img ||
     (selectedCountry ? selectedCountry.flag : LatinAmerica);
 
+    if (!user) return <div>Loading profile</div>;
+
   return (
      <div className="container">
-      <Header />
+      { user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/> }
       <div className={Style.laws}>
         {/* --- Lista de países (izquierda) --- */}
         <div className={Style.leftPanel}>
