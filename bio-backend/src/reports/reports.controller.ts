@@ -12,7 +12,7 @@ export class ReportsController {
 
 
     @UseGuards(JwtAuthGuard)
-    @Get()
+    @Get("all")
     async getAllReports() {
         return this.reportsService.getAll()
     }

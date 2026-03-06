@@ -82,23 +82,32 @@ export default function Profile() {
 
         <hr />
 
-        <div className={Style.complaints}>
-          {complaints.length > 0 ? complaints.map((complaint, i) => (
+        {
+          user.role === "ADMIN" ?
+              <div className={Style.complaints}>
+                <h3>HERE WILL BE THE COMPLAINTS TAKEN FOR THE ADMIN</h3>
+              </div>
+            :
+              <div className={Style.complaints}>
+                {complaints.length > 0 ? complaints.map((complaint, i) => (
 
-            <div key={i} className={Style.complaint__cell}>
-              <h3>{complaint.title}</h3>
-              <p>{complaint.description}</p>
-              <img
-                src={complaint.evidences?.[0]?.url}
-                width={200}
-                height={200}
-              >
-              </img>
-            </div>
-          )) :
-            <h3>No complaints</h3>
-          }
-        </div>
+                  <div key={i} className={Style.complaint__cell}>
+                    <h3>{complaint.title}</h3>
+                    <p>{complaint.description}</p>
+                    <img
+                      src={complaint.evidences?.[0]?.url}
+                      width={200}
+                      height={200}
+                    >
+                    </img>
+                  </div>
+                )) :
+                  <h3>No complaints</h3>
+                }
+              </div>
+        }
+
+        
       </div>
       <Footer />
     </div>
