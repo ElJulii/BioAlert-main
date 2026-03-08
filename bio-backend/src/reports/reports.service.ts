@@ -63,24 +63,6 @@ export class ReportsService{
     });      
     }
 
-
-    // async addEvidence(file: Express.Multer.File, reportId: string) {
-
-    //     if (!file) throw new Error("The file could not be found");
-
-    //     const base64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`
-
-    //     const upload = await this.cloudinary.uploader.upload(base64, {
-    //         folder: 'bioalert/reports/evidences',
-    //     })
-    //     return this.prisma.evidence.create({
-    //         data: {
-    //             reportId,
-    //             url: upload.secure_url
-    //         }
-    //     })
-    // }
-
     async getAll() {
         return this.prisma.report.findMany()
     }
@@ -123,6 +105,16 @@ export class ReportsService{
                     analysisResult: response.data
                 }
             })
+
+            if (!animalDetected) {
+                setTimeout(async () => {
+                    try {
+                        await this.prisma.report.delete({ where: {id: reportId} })
+                    } catch (error) {
+                        console.error(`Error deleting the report ${reportId}: `, error)
+                    }
+                }, 60 * 1000)
+            }
             
         } catch (error) {
             console.error("Error analyzing report images: ", error)

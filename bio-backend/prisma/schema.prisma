@@ -43,7 +43,7 @@ model Report {
   analysisResult Json?
   analysisStatus String?        @default("pending")
   updatedAt      DateTime       @updatedAt
-  evidences      Evidence[]
+  evidences      Evidence[]    
   notifications  Notification[]
   user           User           @relation(fields: [userId], references: [id])
 
@@ -57,7 +57,7 @@ model Evidence {
   url       String
   date      DateTime @default(now())
   createdAt DateTime @default(now())
-  report    Report   @relation(fields: [reportId], references: [id])
+  report    Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
 }
 
 model Notification {
