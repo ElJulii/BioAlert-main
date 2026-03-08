@@ -36,7 +36,20 @@ export class AuthController {
 
     @UseGuards(JwtAuthGuard)
     @Get('profile')
-    getProfile(@Req() req: any) {
-        return req.user
+    async getProfile(@Req() req: any) {
+        const userId = req.user.sub
+
+        const user = await this.authService.getUserById(userId) // vamos a crear este método
+
+        if (!user) {
+            throw new UnauthorizedException("User not found");
+        }
+
+        return {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            picture: user.profilePicture,
+        }
     }
 }

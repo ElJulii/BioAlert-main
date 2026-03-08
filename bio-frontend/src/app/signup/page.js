@@ -79,7 +79,7 @@ export default function SignIn() {
                     <input id="confirmPassword" type="password" placeholder="Confirm Password" {...register("confirmPassword")}/>
                     {errors.confirmPassword && <span className={Style.form__error}>{errors.confirmPassword.message}</span>}
                     
-                    <button type="submit">Login</button>
+                    <button type="submit">Register</button>
                 </form>
                 <div className={Style.container__register}>
                     <Link href="/login">I already have an account</Link>

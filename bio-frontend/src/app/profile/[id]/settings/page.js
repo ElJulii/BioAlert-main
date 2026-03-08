@@ -3,7 +3,7 @@
 import Footer from "@/components/footer/Footer";
 import Style from "../../Style.module.css";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SettingsProfile({ params }) {
@@ -87,7 +87,8 @@ export default function SettingsProfile({ params }) {
 
       if (response.ok) {
         alert("Profile picture updated!");
-        setImagePreview(data.profilePicture); 
+        setImagePreview(data.image);
+        router.push(`/profile/${params.id}`)
       } else {
         alert("Upload failed: " + data.message);
       }

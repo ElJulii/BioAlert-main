@@ -32,7 +32,7 @@ export class ProfileService {
 
         return {
             message: 'Profile picture was updated successfully',
-            image: updateUser.profilePicture,
+            image: `${updateUser.profilePicture}`,
         };
     }
 
