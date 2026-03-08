@@ -85,14 +85,17 @@ export default function AdminPage() {
     //     fetchUser()
     // }, [])
 
+    
+
 
     return (
         <div className="container">
              <HeaderAdmin/>
             <div className={Styles.admin}>
                 <h1> Complaints from users</h1>
-                <div>
-                    <select onChange={onChangeComplaints}>
+                <div className={Styles.admin__filters}>
+                    <h2>Filter by state: </h2>
+                    <select className={Styles.admin__state_query} onChange={onChangeComplaints}>
                         <option value="available">Available</option>
                         <option value="in_progress">In progress</option>
                         <option value="resolved">Resolved</option>
@@ -104,11 +107,29 @@ export default function AdminPage() {
                         <ol>
                             {
                                 filteredComplaints.map((complaint) => (
-                                    <li key={complaint.id}>
-                                        <h3>{complaint.title}</h3>
-                                        <p>{complaint.description}</p>
-                                        <p>{complaint.userId}</p>
-                                        <p>{complaint.state}</p>
+                                    <li className={Styles.admin__com_item} key={complaint.id}>
+                                        <div>
+                                            <h3>
+                                                {complaint.title}
+                                            </h3>
+                                            <p>
+                                                <b className={Styles.com_item__b}>Description:</b> {complaint.description}
+                                            </p>
+                                            <p>
+                                                <b className={Styles.com_item__b}>Animal:</b> {complaint.animal}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                <b className={Styles.com_item__b}>Date published: </b> 
+                                                {
+                                                    new Date(complaint.createAt).toLocaleString()
+                                                }
+                                            </p>
+                                            <p> 
+                                                <b className={Styles.com_item__b}>State:</b> {complaint.state}
+                                            </p>
+                                        </div>
                                     </li>))
                             }
                         </ol> 

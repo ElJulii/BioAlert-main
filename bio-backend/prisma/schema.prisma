@@ -24,6 +24,8 @@ model User {
   newsLikes         NewsLikes[]
   notifications     Notification[]
   reports           Report[]
+
+  assignedReports   Report[]       @relation("AssignedReports")
 }
 
 model Report {
@@ -44,6 +46,9 @@ model Report {
   evidences      Evidence[]
   notifications  Notification[]
   user           User           @relation(fields: [userId], references: [id])
+
+  assignedToId     Int?          
+  assignedTo       User?         @relation("AssignedReports", fields: [assignedToId], references: [id])
 }
 
 model Evidence {
