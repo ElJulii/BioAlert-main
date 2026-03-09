@@ -1,4 +1,4 @@
-import { Body, Controller, UseGuards, Post, Get, Req, UseInterceptors, UploadedFile, Param, UploadedFiles } from "@nestjs/common";
+import { Body, Controller, UseGuards, Post, Get, Req, UseInterceptors, UploadedFile, Param, UploadedFiles} from "@nestjs/common";
 import { ReportsService } from "./reports.service";
 import { ReportDto } from "src/dto/report.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -25,9 +25,8 @@ export class ReportsController {
 
     }
 
-    
-    @Post()
     @UseGuards(JwtAuthGuard)
+    @Post()
     @UseInterceptors(FilesInterceptor('evidences', 3))
     async create(
         @Req() req,
@@ -39,6 +38,14 @@ export class ReportsController {
 
         const userId = req.user.sub
         return this.reportsService.create(userId, dto, files)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post(":id/assign")
+    async setWorker(@Param('id') reportId: string, @Req() req: any) {
+        const workerId = req.user.sub
+
+        return this.reportsService.setReportWorker(reportId, workerId)
     }
 
     // @UseGuards(JwtAuthGuard)

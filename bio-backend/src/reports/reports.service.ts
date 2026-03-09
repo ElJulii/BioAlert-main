@@ -126,4 +126,36 @@ export class ReportsService{
             })
         }
     }
+
+    async setReportWorker(reportId: string, workerId: number) {
+
+        const report = await this.prisma.report.findUnique({
+            where: { id: reportId },
+        })
+
+        if (!report) throw new Error("Report not found")
+        if (report.assignedToId) {
+            throw new Error("Report already assigned to a worker")
+        }
+        
+        return this.prisma.report.update({
+            where: { id: reportId },
+            data: {
+                assignedTo: {
+                    connect: {
+                        id: workerId
+                    }
+                },
+                state: ReportState.IN_PROGRESS
+            }, 
+            include: {
+                assignedTo: {
+                    select: {
+                        id: true,
+                        username: true
+                    }
+                }
+            }
+        })
+    }
 }

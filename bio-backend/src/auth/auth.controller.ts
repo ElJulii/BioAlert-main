@@ -39,7 +39,7 @@ export class AuthController {
     async getProfile(@Req() req: any) {
         const userId = req.user.sub
 
-        const user = await this.authService.getUserById(userId) // vamos a crear este método
+        const user = await this.authService.getUserById(userId) 
 
         if (!user) {
             throw new UnauthorizedException("User not found");
@@ -50,6 +50,7 @@ export class AuthController {
             username: user.username,
             email: user.email,
             picture: user.profilePicture,
+            role: user.role
         }
     }
 }

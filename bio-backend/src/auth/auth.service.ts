@@ -35,8 +35,8 @@ export class AuthService {
             sub: user.id, 
             username: user.username, 
             email: user.email, 
-            picture: user.profilePicture,
-            role: user.role
+            // picture: user.profilePicture,
+            // role: user.role
         }
         const token = this.jwtService.sign(payload)
 
@@ -54,6 +54,7 @@ export class AuthService {
                 username: true,
                 email: true,
                 profilePicture: true,
+                role: true
             }
         })
     }

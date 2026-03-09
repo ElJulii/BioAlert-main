@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 
 export default function AdminPage() {
 
-    // const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
     const [ complaints, setComplaints ] = useState([]);
     const [filteredComplaints, setFilteredComplaints] = useState([])
     const [ selectedComplaints, setSelectedComplaints ] = useState("available");
+    const [ dialog, setDialog ] = useState(false);
+    const [ currentComplaint, setCurrentComplaint ] = useState(null);
 
 
     useEffect(() => {
@@ -63,30 +65,57 @@ export default function AdminPage() {
         setSelectedComplaints(e.target.value)
     }
 
-    // useEffect(() => {
-    //     async function fetchUser() {
-    //         try {
-    //           const res = await fetch("http://localhost:3001/auth/profile", {
-    //             method: "GET",
-    //             credentials: "include",
-    //             headers: {
-    //               "content-Type": "application/json",
-    //             }
-    //           });
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+              const res = await fetch("http://localhost:3001/auth/profile", {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                  "content-Type": "application/json",
+                }
+              });
 
-    //           if (!res.ok) throw new Error("Unauthorized"); 
+              if (!res.ok) throw new Error("Unauthorized"); 
 
-    //           const data = await res.json();
-    //           setUser(data);
-    //       } catch (error) {
-    //         console.error("Error fetching user profile", error);
-    //       } 
-    //     }
-    //     fetchUser()
-    // }, [])
+              const data = await res.json();
+              setUser(data);
+          } catch (error) {
+            console.error("Error fetching user profile", error);
+          } 
+        }
+        fetchUser()
+    }, [])
+
+    const setComplaintToUser = async (complaintId) => {
+        try {
+            const res = await fetch(`http://localhost:3001/reports/${complaintId}/assign`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "content-Type": "application/json",
+                }
+            });
+            if (!res.ok) throw new Error("Unauthorized");
+            const data = await res.json();
+            console.log("Data: ", data);
+        } catch (error) {
+            console.error("Error assigning complaint to user", error);
+        }
+    }
+
+    const openDialogConfirm = (complaintId) => {
+        setCurrentComplaint(complaintId)
+        setDialog(true)
+    }
+
+    const closeDialogConfirm = () => {
+        setCurrentComplaint(null)
+        setDialog(false)
+    }
 
     
-
+    if (!user) return <div>Loading...</div>
 
     return (
         <div className="container">
@@ -107,7 +136,7 @@ export default function AdminPage() {
                         <ol>
                             {
                                 filteredComplaints.map((complaint) => (
-                                    <li className={Styles.admin__com_item} key={complaint.id}>
+                                    <li onClick={() => openDialogConfirm(complaint.id)} className={Styles.admin__com_item} key={complaint.id}>
                                         <div>
                                             <h3>
                                                 {complaint.title}
@@ -136,6 +165,11 @@ export default function AdminPage() {
                         :
                         <h2>No complaints</h2>
                 }
+                <dialog className={Styles.dialog_confirm} open={dialog}>
+                    <p>Are you sure you want to assign this complaint?</p>
+                    <button className={Styles.dialog_confirm__button} onClick={closeDialogConfirm}>No</button>
+                    <button className={Styles.dialog_confirm__button} onClick={() => setComplaintToUser(currentComplaint)}>Yes</button>
+                </dialog>
             </div>
             <Footer /> 
         </div>    

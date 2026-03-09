@@ -22,9 +22,4 @@ export class JwtAuthGuard implements CanActivate {
       throw new UnauthorizedException('Invalid token');
     }
   }
-
-  // private extractTokenFromHeader(request: Request): string | undefined {
-  //   const [type, token] = request.headers.authorization?.split(' ') ?? [];
-  //   return type === 'Bearer' ? token : undefined;
-  // }
 }
