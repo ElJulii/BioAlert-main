@@ -26,6 +26,14 @@ export class ReportsController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @Get("assigned")
+    async getAssignedReports(@Req() req) {
+        const workerId = req.user.sub
+        return this.reportsService.getByWorker(workerId)
+
+    }
+
+    @UseGuards(JwtAuthGuard)
     @Post()
     @UseInterceptors(FilesInterceptor('evidences', 3))
     async create(

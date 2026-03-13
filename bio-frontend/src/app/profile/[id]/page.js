@@ -6,8 +6,11 @@ import Style from "../Style.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import ComplaintListUser from "@/components/complaintList/complaintListUser";
+import ComplaintListAdmin from "@/components/complaintList/complaintListAdmin";
+
 export default function Profile() {
-  const [ complaints, setComplaints ] = useState([]);
+  
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -32,29 +35,7 @@ export default function Profile() {
     
     fetchUser()
 
-  }, [])
-  
-  // For the data of complaints
-  useEffect(() => {
-    async function fetchComplaints() {
-      try {
-        const res = await fetch("http://localhost:3001/reports/me", {
-          credentials: 'include'
-      })
-      
-      if (!res.ok) throw new Error("Error fetching the complaints")
-      
-      const data = await res.json()
-      setComplaints(data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    fetchComplaints()
-  }, [])
-    
-    
+  }, [])  
 
   if (!user) return <div>Loading profile</div>;
 
@@ -83,31 +64,11 @@ export default function Profile() {
         <hr />
 
         {
-          user.role === "ADMIN" ?
-              <div className={Style.complaints}>
-                <h3>HERE WILL BE THE COMPLAINTS TAKEN FOR THE ADMIN</h3>
-              </div>
+          user?.role === "ADMIN" ?
+              <ComplaintListAdmin />
             :
-              <div className={Style.complaints}>
-                {complaints.length > 0 ? complaints.map((complaint, i) => (
-
-                  <div key={i} className={Style.complaint__cell}>
-                    <h3>{complaint.title}</h3>
-                    <p>{complaint.description}</p>
-                    <img
-                      src={complaint.evidences?.[0]?.url}
-                      width={200}
-                      height={200}
-                    >
-                    </img>
-                  </div>
-                )) :
-                  <h3>No complaints</h3>
-                }
-              </div>
+              <ComplaintListUser />
         }
-
-        
       </div>
       <Footer />
     </div>

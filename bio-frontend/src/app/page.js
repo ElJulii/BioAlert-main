@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 
-  const [user, setUser] = useState(null);
+  const [ user, setUser ] = useState(null);
+  const [ Loading, setLoading ] = useState(true);
 
   useEffect(() => {
     async function fetchUser() {
@@ -23,10 +24,15 @@ export default function Home() {
             }
           });
 
-          if (!res.ok) throw new Error("Unauthorized"); 
+          if (!res.ok) {
+            console.log("Error fetching user profile or there is no user logged in")
+            setLoading(false)
+          }
 
           const data = await res.json();
           setUser(data);
+          setLoading(false)
+          
       } catch (error) {
         console.error("Error fetching user profile", error);
       } 
@@ -34,13 +40,11 @@ export default function Home() {
     fetchUser()
   }, [])
 
-  
-
-  if (!user) return <div>Loading profile</div>;
+  if (Loading) return <div>Loading...</div>
 
   return (
     <div className={styles.page}>
-      {user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/>}
+      {user && user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/>}
 
       <main className={styles.main}>
         <h1>Welcome to Next.js!</h1>

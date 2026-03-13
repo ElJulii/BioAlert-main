@@ -33,27 +33,6 @@
     border-radius: 50%;
 }
 
-.complaints {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 30px;
-}
-
-.complaint__cell {
-    border: solid 1px #000;
-    border-radius: 10px;
-    padding: 20px;
-    flex-grow: 1;
-    flex-basis: 300px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.complaint__cell:hover {
-    transform: scale(1.05);
-}
-
 /* Style settings */
 .previewContainer {
   margin: 20px 0;

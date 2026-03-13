@@ -77,6 +77,16 @@ export class ReportsService{
         })
     }
 
+    async getByWorker(workerId: number) {
+        return this.prisma.report.findMany({
+            where: { assignedToId: workerId },
+            orderBy: { createAt: 'desc' },
+            include: {
+                evidences: true
+            }
+        })
+    }
+
     private async analyzeReportImages(reportId: string, files: Express.Multer.File[]) {
         try {
             if (!files?.length) return
