@@ -171,6 +171,7 @@ export default function AdminPage() {
                                                 <b className={Styles.com_item__b}>State:</b> {complaint.state}
                                             </p>
                                         </div>
+                                        
                                     </li>))
                             }
                         </ol> 
@@ -178,9 +179,12 @@ export default function AdminPage() {
                         <h2>No complaints</h2>
                 }
                 <dialog className={Styles.dialog_confirm} open={dialog}>
-                    <p>Are you sure you want to assign this complaint?</p>
-                    <button className={Styles.dialog_confirm__button} onClick={closeDialogConfirm}>No</button>
-                    <button className={Styles.dialog_confirm__button} onClick={() => setComplaintToUser(currentComplaint)}>Yes</button>
+                    <div>
+                        <h4>Are you sure you want to assign this complaint?</h4>
+                        <button className={Styles.dialog_confirm__button} onClick={closeDialogConfirm}>No</button>
+                        <button className={Styles.dialog_confirm__button} onClick={() => setComplaintToUser(currentComplaint)}>Yes</button>
+                    </div>
+                    
                 </dialog>
             </div>
             <Footer /> 

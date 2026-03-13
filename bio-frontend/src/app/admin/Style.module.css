@@ -54,24 +54,47 @@
 }
 
 .dialog_confirm {
-    width: clamp(250px, 75%, 500px);
-    padding: 20px;
-    background-color: aqua;
-    color: #000;
-    display: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    border: none;
+}
+
+.dialog_confirm > div {
+    position: absolute;
+    width: clamp(300px, 75%, 500px);
+    padding: 30px;
+    background-color: var(--background);
+    color: var(--strong-green);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-decoration: pretty;
+    border-radius: 20px;
+    box-shadow: 0 0 15px var(--foreground);
+    text-align: center;
+}
+
+.dialog_confirm > div > h4 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 .dialog_confirm__button {
-    background-color: var(--strong-green);
-    color: var(--foreground);
+    background-color: var(--warning-color-strong);
+    color: var(--background);
     border: none;
     padding: 10px;
     margin: 10px;
+    width: clamp(150px, 75%, 200px);
     cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.dialog_confirm__button:last-child {
+    background-color: var(--strong-green);
 }
 
 @media screen and (width > 576px) {
