@@ -55,14 +55,4 @@ export class ReportsController {
 
         return this.reportsService.setReportWorker(reportId, workerId)
     }
-
-    // @UseGuards(JwtAuthGuard)
-    // @Post(":id/upload-evidence")
-    // @UseInterceptors(FileInterceptor('image'))
-    // async uploadEvidence(
-    //     @Param('id') reportId: string,
-    //     @UploadedFile() file: Express.Multer.File
-    // ) {
-    //     return this.reportsService.addEvidence(file, reportId)
-    // }
 }

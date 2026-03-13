@@ -4,6 +4,7 @@ import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Styles from "../Style.module.css"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AdminPage() {
@@ -14,6 +15,7 @@ export default function AdminPage() {
     const [ selectedComplaints, setSelectedComplaints ] = useState("available");
     const [ dialog, setDialog ] = useState(false);
     const [ currentComplaint, setCurrentComplaint ] = useState(null);
+    const router = useRouter();
 
 
     useEffect(() => {
@@ -30,8 +32,7 @@ export default function AdminPage() {
                 if (!res.ok) throw new Error("Error fetching complaints")
                 const data = await res.json()
                 setComplaints(data)
-                setFilteredComplaints(data)
-                
+                setFilteredComplaints(data)               
             } catch (error) {
                 console.error("Error fetching complaints: ", error)
             }
@@ -97,8 +98,10 @@ export default function AdminPage() {
                 }
             });
             if (!res.ok) throw new Error("Unauthorized");
-            const data = await res.json();
-            console.log("Data: ", data);
+            // const data = await res.json();
+            setDialog(false)
+            setCurrentComplaint(null)
+            router.push("/profile/" + user.username)
         } catch (error) {
             console.error("Error assigning complaint to user", error);
         }
@@ -136,7 +139,16 @@ export default function AdminPage() {
                         <ol>
                             {
                                 filteredComplaints.map((complaint) => (
-                                    <li onClick={() => openDialogConfirm(complaint.id)} className={Styles.admin__com_item} key={complaint.id}>
+                                    <li 
+                                        
+                                        onClick={ 
+                                            complaint.state === "ACCEPTED" 
+                                            ? () => openDialogConfirm(complaint.id) 
+                                            : null 
+                                        }
+                                        className={Styles.admin__com_item} 
+                                        key={complaint.id}
+                                    >
                                         <div>
                                             <h3>
                                                 {complaint.title}
