@@ -64,7 +64,7 @@ ANIMAL_CLASSES = [
     "Tapeworm","Leech","Earthworm","SegmentedWorm","Nematode",
     "Roundworm","Hookworm","Ascaris","Trichinella","Filaria",
     "Snail","Slug","Nudibranch","Whelk","Conch",
-    "Periwinkle","Abalone","Chiton","SeaSlugBlue","SeaSlugRed"
+    "Periwinkle","Abalone","Chiton","SeaSlugBlue","SeaSlugRed", "Cattle"
 ]
 
 model = YOLO("model/best.pt")

@@ -25,7 +25,8 @@ model User {
   notifications     Notification[]
   reports           Report[]
 
-  assignedReports   Report[]       @relation("AssignedReports")
+  assignedReports Report[]       @relation("AssignedReports")
+  reportUpdates   ReportUpdate[]
 }
 
 model Report {
@@ -43,16 +44,37 @@ model Report {
   analysisResult Json?
   analysisStatus String?        @default("pending")
   updatedAt      DateTime       @updatedAt
-  evidences      Evidence[]    
+  evidences      Evidence[]
   notifications  Notification[]
   user           User           @relation(fields: [userId], references: [id])
 
-  assignedToId     Int?          
-  assignedTo       User?         @relation("AssignedReports", fields: [assignedToId], references: [id])
+  assignedToId  Int?
+  assignedTo    User?          @relation("AssignedReports", fields: [assignedToId], references: [id])
+  reportUpdates ReportUpdate[]
+}
+
+model ReportUpdate {
+  id String @id @default(uuid())
+
+  reportId String
+  report   Report @relation(fields: [reportId], references: [id], onDelete: Cascade)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  actorRole UserRole
+
+  type ReportUpdateType
+
+  message String?
+
+  createdAt DateTime @default(now())
+
+  requestClose Boolean @default(false)
 }
 
 model Evidence {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   reportId  String
   url       String
   date      DateTime @default(now())
@@ -112,4 +134,14 @@ enum ReportState {
   RESOLVED
   REJECTED
   ACCEPTED
+}
+
+enum ReportUpdateType {
+  USER_RESPONSE
+  REQUEST_INFO
+  PROGRESS_UPDATE
+  REQUEST_CLOSE
+  CLOSE_APPROVED
+  CLOSE_REJECTED
+  STATUS_CHANGE
 }

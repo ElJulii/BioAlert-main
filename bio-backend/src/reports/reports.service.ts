@@ -1,15 +1,18 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { ReportDto } from "src/dto/report.dto";
 import { PrismaService } from "src/prisma.service";
+import { CloudinaryService } from "src/AI/cloudinary.service";
 import FormData from 'form-data';
 import axios from "axios";
 import { ReportState } from "@prisma/client";
+import { UserRole } from "@prisma/client";
+import { ReportUpdateType } from "@prisma/client";
 
 @Injectable()
 export class ReportsService{
     constructor (
         private prisma: PrismaService,
-        @Inject('CLOUDINARY') private cloudinary
+        private cloudinaryService: CloudinaryService
     ) {}
 
     async create(
@@ -17,8 +20,9 @@ export class ReportsService{
         dto: ReportDto,
         files: Express.Multer.File[]
     ) {
-        return this.prisma.$transaction(async (tx) => {
-        const report = await tx.report.create({
+        
+        // Create report
+        const report = await this.prisma.report.create({
             data: {
                 userId,
                 title: dto.title,
@@ -30,37 +34,10 @@ export class ReportsService{
                 date: new Date(dto.date),
             },
         });
+        // Set IA
+        this.analyzeReportImages(report.id, files);
 
-        // Upload evidences
-        if (files?.length) {
-            const evidences = await Promise.all(
-                files.map(async (file) => {
-                    const base64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
-
-                    const upload = await this.cloudinary.uploader.upload(base64, {
-                        folder: "bioalert/reports/evidences",
-                    });
-
-                    return {
-                        reportId: report.id,
-                        url: upload.secure_url,
-                    };
-                })
-            );
-
-            await tx.evidence.createMany({
-                data: evidences,
-            });
-        }
-
-        // Call AI in secondary transaction
-        this.analyzeReportImages(report.id, files)
-
-        return tx.report.findUnique({
-            where: { id: report.id },
-            include: { evidences: true }
-        });
-    });      
+        return report;
     }
 
     async getAll() {
@@ -107,14 +84,43 @@ export class ReportsService{
             const { animalDetected, animals } = response.data
 
             // Update state based on animals detected
-            await this.prisma.report.update({
+            const report = await this.prisma.report.update({
                 where: { id: reportId },
                 data: {
                     state: animalDetected ? ReportState.ACCEPTED : ReportState.REJECTED,
                     analysisStatus: "completed",
                     analysisResult: response.data
+                },
+                select: {
+                    id: true,
+                    userId: true,
+                    state: true
                 }
             })
+
+            if (report.state === ReportState.ACCEPTED && files?.length) {
+                // Subimos las evidencias solo si fue aceptado
+                const evidences = await Promise.all(
+                    files.map((file) => this.cloudinaryService.uploadImage(file).then(upload => ({
+                        reportId: report.id,
+                        url: upload.secure_url
+                    })))
+                );
+
+                await this.prisma.evidence.createMany({ data: evidences });
+
+                // Creamos la primera ReportUpdate
+                await this.prisma.reportUpdate.create({
+                    data: {
+                        reportId: report.id,
+                        userId: report.userId,
+                        actorRole: UserRole.USER,
+                        type: ReportUpdateType.USER_RESPONSE,
+                        message: "Report created and accepted for review."
+                    }
+                });
+            }
+
 
             if (!animalDetected) {
                 setTimeout(async () => {
