@@ -1,8 +1,10 @@
-import { Body, Controller, UseGuards, Post, Get, Req, UseInterceptors, UploadedFile, Param, UploadedFiles} from "@nestjs/common";
+import { Body, Controller, UseGuards, Post, Get, Req, UseInterceptors, Param, UploadedFiles} from "@nestjs/common";
 import { ReportsService } from "./reports.service";
 import { ReportDto } from "src/dto/report.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
+import { FilesInterceptor } from "@nestjs/platform-express";
+import { Roles } from "src/auth/roles.decorator";
+import { RolesGuard } from "src/auth/roles.guard";
 
 @Controller("reports")
 export class ReportsController {
@@ -25,7 +27,8 @@ export class ReportsController {
 
     }
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles("ADMIN")
     @Get("assigned")
     async getAssignedReports(@Req() req) {
         const workerId = req.user.sub
@@ -41,8 +44,6 @@ export class ReportsController {
         @Body() dto: ReportDto,
         @UploadedFiles() files:Express.Multer.File[]     
     ) {
-        console.log("User: ", req.user)
-        console.log("DTO: ", dto)
 
         const userId = req.user.sub
         return this.reportsService.create(userId, dto, files)

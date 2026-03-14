@@ -37,7 +37,7 @@
 }
 
 .admin__com_item:hover {
-    transform: scale(1.1);
+    transform: scale(1.03);
 }
 
 .admin__com_item > div {

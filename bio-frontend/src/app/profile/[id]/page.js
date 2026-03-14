@@ -3,7 +3,6 @@
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
 import Style from "../Style.module.css";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import ComplaintListUser from "@/components/complaintList/complaintListUser";

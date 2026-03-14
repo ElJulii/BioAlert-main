@@ -7,7 +7,8 @@ export function middleware(req) {
 
     const protectedRoutes = [
         "/profile", 
-        "/complaints", 
+        "/complaints",
+        "/admin" 
     ]
 
     const isProtectedRoute = protectedRoutes.some((path) => pathname.startsWith(path))
@@ -16,9 +17,24 @@ export function middleware(req) {
         return NextResponse.redirect(new URL("/login", req.url))
     }
 
+    if (pathname.startsWith("/admin")) {
+        try {
+            const payload = JSON.parse(
+                Buffer.from(token.split(".")[1], "base64").toString()
+            )
+
+            if (payload.role !== "ADMIN") {
+                return NextResponse.redirect(new URL("/forbidden", req.url))
+            }
+
+        } catch (error) {
+            return NextResponse.redirect(new URL("/login", req.url))
+        }
+    }
+
     return NextResponse.next()
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/complaints/:path*"],
+  matcher: ["/profile/:path*", "/complaints/:path*", "/admin/:path"],
 };

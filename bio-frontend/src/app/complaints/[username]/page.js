@@ -4,7 +4,7 @@ import Headers from "@/components/header/Header";
 import Link from "next/link";
 import Style from "./complaints.module.css";
 import Footer from "@/components/footer/Footer";
-import { useState ,useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 
 export default function Complaints({ params }) {
@@ -68,8 +68,6 @@ export default function Complaints({ params }) {
                 break;
         }
     }
-
-
 
     return (
         <div className="container">
