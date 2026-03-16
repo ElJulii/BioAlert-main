@@ -1,7 +1,6 @@
 "use client"
 
 import Style from "./Header.module.css"
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -88,7 +87,7 @@ export default function HeaderAdmin() {
                 <li>
                     <Link href={"/admin/" + username}>
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style={{
-                        color: path ===  `/complaints/${username}` ? "#22c55e" : "#374151"
+                        color: path.startsWith( "/admin") ? "#22c55e" : "#374151"
                       }}>
                         <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 13.5l-6-6 1.41-1.41L13 12.67l8.59-8.59L23 5.5l-10 10z"/>
                       </svg>

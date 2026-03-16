@@ -20,6 +20,18 @@ export class ReportsController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @Get("get/:id")
+    async getReport(@Param('id') reportId: string) {
+        return this.reportsService.getByReportId(reportId)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("updates/:id")
+    async getReportUpdates(@Param('id') reportId: string) {
+        return this.reportsService.getReportUpdatesByReportId(reportId)
+    }
+
+    @UseGuards(JwtAuthGuard)
     @Get("me")
     async getUserReports(@Req() req) {
         const userId = req.user.sub
@@ -33,7 +45,6 @@ export class ReportsController {
     async getAssignedReports(@Req() req) {
         const workerId = req.user.sub
         return this.reportsService.getByWorker(workerId)
-
     }
 
     @UseGuards(JwtAuthGuard)

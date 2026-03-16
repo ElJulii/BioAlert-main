@@ -134,6 +134,7 @@ enum ReportState {
   RESOLVED
   REJECTED
   ACCEPTED
+  CANCELED
 }
 
 enum ReportUpdateType {

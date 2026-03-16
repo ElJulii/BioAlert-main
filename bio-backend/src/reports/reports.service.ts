@@ -64,6 +64,28 @@ export class ReportsService{
         })
     }
 
+    async getByReportId(reportId: string) {
+        return this.prisma.report.findUnique({
+            where: { id: reportId },
+            include: {
+                evidences: true,
+                assignedTo: true,
+                user: true
+            }
+        })
+    }
+
+    async getReportUpdatesByReportId(reportId: string) {
+        return this.prisma.reportUpdate.findMany({
+            where: { reportId: reportId },
+            include: {
+                user: true,
+                report: true
+            },
+            orderBy: { createdAt: 'desc' }
+        })
+    }
+
     private async analyzeReportImages(reportId: string, files: Express.Multer.File[]) {
         try {
             if (!files?.length) return
@@ -153,6 +175,23 @@ export class ReportsService{
         if (report.assignedToId) {
             throw new Error("Report already assigned to a worker")
         }
+
+        const workerUsername = await this.prisma.user.findUnique({
+            where: { id: workerId },
+            select: {
+                username: true
+            }
+        })
+        
+        await this.prisma.reportUpdate.create({
+            data: {
+                reportId: reportId,
+                userId: workerId,
+                message: `Report assigned to ${workerUsername}`,
+                actorRole: UserRole.ADMIN,
+                type: ReportUpdateType.STATUS_CHANGE
+            }
+        })
         
         return this.prisma.report.update({
             where: { id: reportId },
