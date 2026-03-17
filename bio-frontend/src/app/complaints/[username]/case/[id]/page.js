@@ -81,50 +81,22 @@ export default function Office({ params }) {
                     sizeScreen > 749 && (
                         <div className={Styles.container__actions_pc}>
                             <div className={Styles.actions_pc__head}>
-                                <h3>Worker Actions</h3>
-                                <p>Case Management Operations</p>
+                                <h3>Management complaint</h3>
+                                <p>You can send more Information or Request to Cancel Request</p>
                             </div>
                             <div className={Styles.actions_pc__body}>
                                 <div className={Styles.actions__info}>
                                     <div>Icon</div>
                                     <div>
-                                        <h5>Request Info</h5>
-                                        <p>Ask user for details</p>
+                                        <h5>Send Information</h5>
+                                        <p>Text Worker</p>
                                     </div>
                                 </div>
-                                <div className={Styles.actions__up}>
+                                <div className={Styles.actions__req}>
                                     <div>Icon</div>
                                     <div>
-                                        <h5>Progress Update</h5>
-                                        <p>Post case progress</p>
-                                    </div>
-                                </div>
-                                <div className={Styles.actions__app}>
-                                    <div>Icon</div>
-                                    <div>
-                                        <h5>Approve Closure</h5>
-                                        <p>Accept closure  request</p>
-                                    </div>
-                                </div>
-                                <div className={Styles.actions__rej}>
-                                    <div>Icon</div>
-                                    <div>
-                                        <h5>Reject Closure</h5>
-                                        <p>Deny closure request</p>
-                                    </div>
-                                </div>
-                                <div className={Styles.actions__cl}>
-                                    <div>Icon</div>
-                                    <div>
-                                        <h5>Close Complaint</h5>
-                                        <p>Mark as resolved</p>
-                                    </div>
-                                </div>
-                                <div className={Styles.actions__pub}>
-                                    <div>Icon</div>
-                                    <div>
-                                        <h5>Publish Complaint</h5>
-                                        <p>Create New of Complaint</p>
+                                        <h5>Request Closure</h5>
+                                        <p>Cancel the complaint</p>
                                     </div>
                                 </div>
                             </div>
@@ -139,23 +111,11 @@ export default function Office({ params }) {
                         <div className={Styles.container__actions_phone}>
                             <div className={Styles.actions__info}>
                                 <div>Icon</div>
-                                <h5>Info</h5>
+                                <h5>Send Response</h5>
                             </div>
-                            <div className={Styles.actions__up}>
+                            <div className={Styles.actions__req}>
                                 <div>Icon</div>
-                                <h5>Update</h5>
-                            </div>
-                            <div className={Styles.actions__app}>
-                                <div>Icon</div>
-                                <h5>Approve</h5>
-                            </div>
-                            <div className={Styles.actions__rej}>
-                                <div>Icon</div>
-                                <h5>Reject</h5>
-                            </div>
-                            <div className={Styles.actions__cl}>
-                                <div>Icon</div>
-                                <h5>Close</h5>
+                                <h5>Request Closure</h5>
                             </div>
                         </div>
                     )

@@ -167,13 +167,13 @@ input::placeholder, textarea::placeholder {
 .actions_pc__body {
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
     gap: 15px;
     padding: 20px;
 }
 
 .actions_pc__body > div {
-    flex-basis: 250px;
+    flex-basis: 150px;
+    max-width: 250;
     border: solid 1px;
     border-radius: 10px;
     padding: 10px;
@@ -201,32 +201,12 @@ input::placeholder, textarea::placeholder {
     text-align: center;
 }
 
-.actions__info {
-    border-color: #bfdbfe;
-    color: #bfdbfe;
-}
-
-.actions__up {
-    border-color: #15803d;
-    color: #15803d;
-}
-
-.actions__app {
-    border-color: #e39b48;
-    color: #e39b48;
-}
-
-.actions__rej {
+.actions__req {
     border-color: #c44537;
     color: #c44537;
 }
 
-.actions__cl {
-    border-color: #8446ee;
-    color: #8446ee;
-}
-
-.actions__pub {
+.actions__info {
     border-color: #2312ff;
     color: #2312ff;
-}
+} 
