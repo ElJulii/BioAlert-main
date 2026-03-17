@@ -36,7 +36,32 @@ export default function Home() {
         console.error("Error fetching user profile", error);
       } 
     }
+
+    async function fetchTest() {
+        try {
+          const res = await fetch("http://localhost:3001/reports/test", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "content-Type": "application/json",
+            }
+          });
+
+          if (!res.ok) {
+            console.log("Error fetching user profile or there is no user logged in")
+            setLoading(false)
+          }
+
+          const data = await res.json();
+          console.log(data)
+          
+      } catch (error) {
+        console.error("Error fetching user profile", error);
+      } 
+    }
+
     fetchUser()
+    fetchTest()
   }, [])
 
   if (Loading) return <div>Loading...</div>

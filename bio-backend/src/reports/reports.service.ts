@@ -82,7 +82,7 @@ export class ReportsService{
                 user: true,
                 report: true
             },
-            orderBy: { createdAt: 'desc' }
+            orderBy: { createdAt: 'asc' }
         })
     }
 
@@ -187,7 +187,7 @@ export class ReportsService{
             data: {
                 reportId: reportId,
                 userId: workerId,
-                message: `Report assigned to ${workerUsername}`,
+                message: `Report assigned to ${workerUsername?.username}`,
                 actorRole: UserRole.ADMIN,
                 type: ReportUpdateType.STATUS_CHANGE
             }
