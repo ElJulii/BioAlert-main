@@ -27,7 +27,7 @@ export default function ComplaintListUser() {
         <div className={Styles.complaints}>
             {complaints.length > 0 ? complaints.map((complaint, i) => (
 
-                <div key={i} className={Styles.complaint__cell}>
+                <div key={i} className={Styles.complaint__cell_user}>
                 <h3>{complaint.title}</h3>
                 <p>{complaint.description}</p>
                 <img

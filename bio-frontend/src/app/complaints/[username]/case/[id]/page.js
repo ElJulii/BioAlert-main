@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Footer from "@/components/footer/Footer";
-import HeaderAdmin from "@/components/header/HeaderAdmin";
-import Styles from "../../../Style.module.css"
+import Header from "@/components/header/Header";
+import Styles from "../../complaints.module.css"
 import { use } from "react";
 import ComplaintInformation from "@/components/complaintInformation/ComplaintInformation";
 import ComplaintTimeline from "@/components/ComplaintTimeline/ComplaintTimeline";
@@ -73,7 +73,7 @@ export default function Office({ params }) {
 
     return (
         <div className="container">
-            <HeaderAdmin />
+            <Header />
             <div className={Styles.office}>
                 <ComplaintInformation complaint={complaint} updates={updates} />
                 

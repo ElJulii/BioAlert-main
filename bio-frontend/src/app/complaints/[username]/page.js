@@ -6,12 +6,14 @@ import Style from "./complaints.module.css";
 import Footer from "@/components/footer/Footer";
 import { useState, useEffect } from "react";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function Complaints({ params }) {
 
     const [ windowWidth, setWindowWidth ] = useState(0);
     const { username } = React.use(params)
     const [ userComplaints, setUserComplaints ] = useState([])
+    const router = useRouter();
 
 
     useEffect(() => {
@@ -69,6 +71,10 @@ export default function Complaints({ params }) {
         }
     }
 
+    const goToCasePage = (id) => {
+        router.push(`/complaints/${username}/case/${id}`)
+    }
+
     return (
         <div className="container">
             <Headers />
@@ -97,7 +103,9 @@ export default function Complaints({ params }) {
                     {
                         userComplaints.length > 0 ? (
                             userComplaints.map((complaint, index) => (
-                                <li className={Style.complaints__item} key={index}>
+                                <li className={Style.complaints__item} key={index} onClick={() => {
+                                    goToCasePage(complaint.id)
+                                }}>
                                     <div className={Style.complaints__itemID}>
                                         <p>ID: {complaint.id}</p>
                                     </div>

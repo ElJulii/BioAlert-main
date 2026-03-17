@@ -104,8 +104,7 @@
     background-color: #f4f6f5;
 }
 
-.container__updates_data, .container__updates_description,
-.office__content {
+.container__actions_pc {
     background-color: var(--background);
     max-width: 1000px;
     margin: 0 auto;
@@ -115,168 +114,38 @@
     margin-bottom: 30px;
 }
 
-.updates_data__head h2 {
-    margin: 10px 0 20px;
-}
 
-.updates_data__head > div  {
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.updates_data__head > div:first-child {
-    background-color: #f4f6f5;
-    color: #a0b5ac;
-    padding: 10px 15px;
-    border-radius: 8px;
-    margin-right: 20px;
-}
-
-.updates_data__head_last_child {
-    background-color: #f0fdf4; 
-    color: #16803e;
-    padding: 10px 10px 10px 25px;
-    border-radius: 30px;
-    position: relative;
-}
-
-.updates_data__head_last_child::before {
-    content: "";
-    position: absolute;
-    top: 39%;
-    left: 7%;
-    width: 8px;
-    height: 8px;
-    font-weight: 800;
-    background-color: #16803e;
-    border-radius: 50%;
-}
-
-.container__updates_data__body {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px 50px;
-    flex-wrap: wrap;
-}
-
-.container__updates_data__body > div {
-    min-width: 175px;
-}
-
-.container__updates_data__body h4 {
-    color: #a0b5ac;
-    font-size: 0.8rem;
-    margin-bottom: 0.4rem;
-}
-
-/* description */
-.container__updates_description > div > h3,
-.container__description_ia_icon,
-.container__description_ia_results {
+/* actions pc */
+.actions_pc__head h3, .actions_pc__head p {
     display: inline-block;
 }
 
-.description__i {
-    padding: 8px;
-    background-color: #e8f5ee;
-    display: inline-block;
-    border-radius: 10px;
-    margin-right: 10px;
-}
-
-.container__description_title,
-.container__description_des {
-    border-bottom: solid 2px #ddd;
-    padding: 10px 0 25px;
-    margin-bottom: 20px;
-}
-
-.container__description_des > p {
-    color: #6b8075;
-}
-
-.container__updates_description > h3 {
-    color: #a0b5ac ;
-}
-
-.container__description_ia {
-    background-color: #e8f5ee;
-    padding: 20px;
-    border-radius: 20px;
-    margin-top: 10px;
-}
-
-.container__description_ia_icon {
-    background-color: #d1e6db;
-    padding: 10px;
-    border-radius: 10px;
-    position: relative;
-    bottom: 10px;
-}
-
-.container__description_ia_results {
-    margin-left: 20px;
-    line-height: 25px;
-    color: #2d7a4f;
-}
-
-
-/*  Office timeline */
-
-.container__content_header {
+.actions_pc__head {
     border-bottom: solid 2px #aaa;
-    display: flex;
-    justify-content: space-between;
     padding: 10px;
 }
 
-.container__content_timeline {
-    padding: 10px 0 10px 10px;
-    border: #ddd solid 2px;
-    margin-top: 10px;
-    background-color: #f4f6f5;
-    position: relative;
-}
-
-.timeline__item_update {
-    padding: 0 0 10px 5px;
-    border-left: solid 2px var(--strong-green);
-}
-
-.timeline__data {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    margin-left: 7px;
-}
-
-.timeline__data p {
-    display: inline-block;
-}
-
-.timeline__data p:first-child {
+.actions_pc__head h3 {
     margin-right: 20px;
 }
 
-.timeline__message {
-    background-color: #d1e6db;
+.actions_pc__body {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 15px;
     padding: 20px;
-    border-radius: 15px;
-    margin: 0 15px 0 5px;
 }
 
-.timeline__data::after {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: 6px;
-    width: 10px;
-    height: 10px;
-    background-color: var(--strong-green);
-    border-radius: 50%;
+.actions_pc__body > div {
+    flex-basis: 250px;
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
 }
 
-/* Actions buttons*/
+/* Actions buttons phone */
 
 .container__actions_phone {
     display: flex;
@@ -297,29 +166,34 @@
     text-align: center;
 }
 
-.actions_phone__info {
+.actions__info {
     border-color: #bfdbfe;
     color: #bfdbfe;
 }
 
-.actions_phone__up {
+.actions__up {
     border-color: #15803d;
     color: #15803d;
 }
 
-.actions_phone__app {
+.actions__app {
     border-color: #e39b48;
     color: #e39b48;
 }
 
-.actions_phone__rej {
+.actions__rej {
     border-color: #c44537;
     color: #c44537;
 }
 
-.actions_phone__cl {
+.actions__cl {
     border-color: #8446ee;
     color: #8446ee;
+}
+
+.actions__pub {
+    border-color: #2312ff;
+    color: #2312ff;
 }
 
 @media screen and (width > 576px) {
