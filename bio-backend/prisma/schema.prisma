@@ -51,6 +51,8 @@ model Report {
   assignedToId  Int?
   assignedTo    User?          @relation("AssignedReports", fields: [assignedToId], references: [id])
   reportUpdates ReportUpdate[]
+
+  requestClose Boolean @default(false)
 }
 
 model ReportUpdate {
@@ -69,8 +71,6 @@ model ReportUpdate {
   message String?
 
   createdAt DateTime @default(now())
-
-  requestClose Boolean @default(false)
 }
 
 model Evidence {
