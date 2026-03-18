@@ -105,7 +105,7 @@ export class UpdatesService {
 
     async setRequestClose(userId: number, reportId: string) {
 
-        const user = await this.prisma.user.findUnique({ // cambiar luego
+        const user = await this.prisma.user.findUnique({ 
             where: { id: userId },
             select: {
                 username: true

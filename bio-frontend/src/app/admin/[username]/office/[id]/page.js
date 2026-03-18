@@ -155,8 +155,25 @@ export default function Office({ params }) {
         }
     }
 
-    const acceptRequestClose = () => {
-        console.log('acceptRequestClose')
+    const acceptRequestClose = async (id) => {
+        try {
+            const res = await fetch("http://localhost:3001/actions/accept/close/" + id, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: message })
+            })
+
+            if (!res.ok) throw new Error("Error sending information")
+
+            setDialogAccept(false)
+            await loadUpdates()
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const rejectRequestClose = async () => {
@@ -181,8 +198,25 @@ export default function Office({ params }) {
         }
     }
 
-    const closeComplaint = async () => {
-        console.log('closeComplaint')
+    const closeComplaint = async (id) => {
+        try {
+            const res = await fetch("http://localhost:3001/actions/resolve/" + id, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: message })
+            })
+
+            if (!res.ok) throw new Error("Error sending information")
+
+            setDialogClose(false)
+            await loadUpdates()
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const publishComplaint = () => {
@@ -364,7 +398,7 @@ export default function Office({ params }) {
                         <p style={{ marginBottom: "10px" }}>Are you sure you want to cancel this complaint closure?</p>
                         <p style={{ color: "#771112" }}>This will close the complaint and set is as "canceled"</p>
                         <div>
-                            <button className={Styles.dialog__body__button_send}>Confirm</button>
+                            <button className={Styles.dialog__body__button_send} onClick={() => acceptRequestClose(complaint?.id)}>Confirm</button>
                             <button className={Styles.dialog__body__button_cancel} onClick={() => setDialogAccept(false)}>Cancel</button>
                         </div>
                     </div>
@@ -384,7 +418,7 @@ export default function Office({ params }) {
                         <h3>Close Complaint</h3>
                         <p style={{ color: "#771112" }}>Are you sure you want to close this complaint?</p>
                         <div>
-                            <button className={Styles.dialog__body__button_send}>Confirm</button>
+                            <button className={Styles.dialog__body__button_send} onClick={() => closeComplaint(complaint?.id)}>Confirm</button>
                             <button className={Styles.dialog__body__button_cancel} onClick={() => setDialogClose(false)}>Cancel</button>
                         </div>
                     </div>

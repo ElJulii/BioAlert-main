@@ -27,10 +27,26 @@ export class UpdatesController {
 
     @UseGuards(JwtAuthGuard)
     @Roles("ADMIN")
+    @Post("accept/close/:id")
+    async acceptClose(@Param("id") id: string, @Req() req) {
+        const workerId = req.user.sub
+        return this.updatesService.setAcceptanceClose(id, workerId)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Roles("ADMIN")
     @Post("reject/close/:id")
     async rejectClose(@Param("id") id: string, @Req() req, @Body('message') message: string) {
         const workerId = req.user.sub
         return this.updatesService.setRejectionClose(id, message, workerId)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Roles("ADMIN")
+    @Post("resolve/:id")
+    async resolveComplaint(@Param("id") id: string, @Req() req) {
+        const workerId = req.user.sub
+        return this.updatesService.setResolvedComplaint(id, workerId)
     }
 
     // user
