@@ -1,7 +1,8 @@
-import { Controller, Get, UseGuards, Param, Post, Req, Body } from "@nestjs/common";
+import { Controller, Get, UseGuards, Param, Post, Req, Body, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { UpdatesService } from "./updates.service";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { Roles } from "src/auth/roles.decorator";
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller("actions")
 export class UpdatesController {
@@ -55,5 +56,14 @@ export class UpdatesController {
     async requestClose(@Param("id") id: string, @Req() req) {
         const userId = req.user.sub
         return this.updatesService.setRequestClose(userId, id)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post("new/information/:id")
+    @UseInterceptors(FileInterceptor('image'))
+    async newInformation(@Param("id") id: string, @Req() req, @Body() body: any, @UploadedFile() file: Express.Multer.File) {
+        const userId = req.user.sub
+        const message = body.message
+        return this.updatesService.setNewInformation(id, message, userId, file)
     }
 }

@@ -242,7 +242,11 @@ export default function Office({ params }) {
                             <div className={Styles.actions_pc__body}>
                                 <div 
                                     className={Styles.actions__info}
-                                    onClick={() => setDialogInformation(true)}
+                                    {
+                                        ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                            onClick: () => setDialogInformation(true)
+                                        } : null
+                                    }
                                 >
                                     <div>Icon</div>
                                     <div>
@@ -252,7 +256,11 @@ export default function Office({ params }) {
                                 </div>
                                 <div 
                                     className={Styles.actions__up}
-                                    onClick={() => setDialogProgress(true)}
+                                    {
+                                        ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                            onClick: () => setDialogProgress(true)
+                                        } : null
+                                    }
                                 >
                                     <div>Icon</div>
                                     <div>
@@ -262,9 +270,13 @@ export default function Office({ params }) {
                                 </div>
                                 <div 
                                     className={Styles.actions__app}
-                                    { ...complaint?.requestClose ?  {
-                                        onClick: () => setDialogAccept(true)
-                                    } : null }
+                                    {
+                                        ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                            ...complaint?.requestClose ? {
+                                                onClick: () => setDialogAccept(true)
+                                            } : null
+                                        } : null
+                                    }                       
                                 >
                                     <div>Icon</div>
                                     <div>
@@ -274,9 +286,13 @@ export default function Office({ params }) {
                                 </div>
                                 <div 
                                     className={Styles.actions__rej}
-                                    { ...complaint?.requestClose ?  {
-                                        onClick: () => setDialogReject(true)
-                                    } : null }
+                                    {
+                                        ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                            ...complaint?.requestClose ? {
+                                                onClick: () => setDialogReject(true)
+                                            } : null
+                                        } : null
+                                    }
                                 >
                                     <div>Icon</div>
                                     <div>
@@ -286,7 +302,11 @@ export default function Office({ params }) {
                                 </div>
                                 <div 
                                     className={Styles.actions__cl}
-                                    onClick={() => setDialogClose(true)}
+                                    {
+                                        ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                            onClick: () => setDialogClose(true)
+                                        } : null
+                                    }
                                 >
                                     <div>Icon</div>
                                     <div>

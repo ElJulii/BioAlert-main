@@ -255,6 +255,24 @@ input::placeholder, textarea::placeholder {
     scrollbar-color: var(--strong-green) var(--background);
 }
 
+.dialog__body__file {
+    width: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 350px) auto;
+    grid-template-rows: auto 1fr 1fr;
+    gap: 10px;
+    text-align: left;
+}
+.dialog__body__file label {
+    grid-column: 1/span 2;
+    grid-row-start: 1;
+}
+
+.dialog__body__file img {
+    grid-row: 1/span 3;
+    grid-column-start: 2;
+}
+
 .dialog__body__button_send {
     background-color: var(--strong-green);
     color: var(--background);

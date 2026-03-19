@@ -20,6 +20,10 @@ export default function Office({ params }) {
     const [ dialogInformation, setDialogInformation ] = useState(false);
     const [ dialogRequestClose, setDialogRequestClose ] = useState(false);
 
+    // information sent
+    const [ image, setImage ] = useState(null);
+    const [ message, setMessage ] = useState("");
+
     useEffect(() => {
         const handleResize = () => {
             setSizeScreen(window.innerWidth);
@@ -106,8 +110,32 @@ export default function Office({ params }) {
     }
 
     // Actions functions
-    const sendInformation = () => {
-        console.log('sendInformation')
+    const sendInformation = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("message", message);
+
+            if (image) formData.append("image", image);
+
+            const res = await fetch("http://localhost:3001/actions/new/information/" + id, {
+                method: "POST",
+                credentials: "include",
+                body: formData,
+            });
+
+            if (!res.ok) throw new Error("Error sending information")
+
+            console.log(formData)
+
+            setDialogInformation(false)
+            setImage(null)
+            setMessage("")
+            await loadUpdates()
+
+        } catch (error) {
+            console.error(error)
+        }
+
     }
 
     const requestClose = async (id) => {
@@ -208,7 +236,15 @@ export default function Office({ params }) {
                     <div className={Styles.dialog__body}>
                         <h3>Request Information</h3>
                         <div>
-                            <textarea placeholder="Write your message here" maxLength={400}></textarea>
+                            <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write your message here" maxLength={400}></textarea>
+                            <div className={Styles.dialog__body__file}>
+                                <label style={{ fontWeight: 700 }}>Upload a photo: </label>
+                                <input onChange={(e) => setImage(e.target.files[0])} type="file" accept="image/*"/>
+                                {
+                                    image && <img src={URL.createObjectURL(image)} alt="image" style={{ width: "50px", height: "auto" }}/>
+                                } 
+                            </div>
+                            
                             <button className={Styles.dialog__body__button_send} onClick={sendInformation}>Send</button>
                             <button className={Styles.dialog__body__button_cancel} onClick={() => setDialogInformation(false)}>Cancel</button>
                         </div>

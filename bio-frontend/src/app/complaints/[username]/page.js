@@ -65,6 +65,9 @@ export default function Complaints({ params }) {
             case "REJECTED":
                 return "#FF0000"
                 break;
+            case "CANCELED":
+                return "#FF0000"
+                break;
             default:
                 return "#E0BC00"
                 break;

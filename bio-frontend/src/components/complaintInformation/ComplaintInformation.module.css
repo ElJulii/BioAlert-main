@@ -137,7 +137,7 @@
 
 .evidence__item img {
     width: 100%;
-    height: auto;
+    max-height: 225px;
     opacity: 1;
     transition: opacity 0.2s ease-in-out;
     position: relative;

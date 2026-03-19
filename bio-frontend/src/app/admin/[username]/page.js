@@ -53,6 +53,9 @@ export default function AdminPage() {
             case "resolved":
                 filtered = complaints.filter(complaint => complaint.state === "RESOLVED")
                 break;
+            case "canceled":
+                filtered = complaints.filter(complaint => complaint.state === "CANCELED")
+                break;
             case "all":
                 filtered = complaints
                 break;
@@ -131,6 +134,7 @@ export default function AdminPage() {
                         <option value="available">Available</option>
                         <option value="in_progress">In progress</option>
                         <option value="resolved">Resolved</option>
+                        <option value="canceled">Canceled</option>
                         <option value="all">All</option>
                     </select>
                 </div>

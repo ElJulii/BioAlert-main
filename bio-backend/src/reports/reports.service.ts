@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ReportDto } from "src/dto/report.dto";
 import { PrismaService } from "src/prisma.service";
-import { CloudinaryService } from "src/AI/cloudinary.service";
+import { CloudinaryService } from "src/cloudinary/cloudinary.service";
 import FormData from 'form-data';
 import axios from "axios";
 import { ReportState } from "@prisma/client";
