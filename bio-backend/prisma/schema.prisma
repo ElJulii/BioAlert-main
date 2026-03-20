@@ -87,6 +87,7 @@ model Notification {
   userId   Int
   message  String
   state    ReportUpdateType
+  isVerified Boolean @default(false)
   createAt DateTime @default(now())
   reportId String?
   report   Report?  @relation(fields: [reportId], references: [id])

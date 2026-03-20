@@ -225,7 +225,7 @@ export class ReportsService{
             data: {
                 userId: workerId,
                 reportId: reportId,
-                message: `Yuo have been assigned to report ${reportId}`,
+                message: `You have been assigned to report ${reportId}`,
                 state: ReportUpdateType.STATUS_CHANGE
             }
         });

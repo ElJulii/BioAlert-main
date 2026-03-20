@@ -16,7 +16,17 @@ export class NotificationsService {
             where: { userId },
             orderBy: { createAt: 'desc' },
             include: {
-                user: true
+                user: true,
+                report: true
+            }
+        })
+    }
+
+    async setAsVerified(id: number) {
+        return this.prisma.notification.update({
+            where: { id },
+            data: {
+                isVerified: true
             }
         })
     }

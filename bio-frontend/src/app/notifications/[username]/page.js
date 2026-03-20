@@ -3,14 +3,16 @@
 import Header from "@/components/header/Header";
 import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Footer from "@/components/footer/Footer";
-import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
+import { use, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Styles from "../Style.module.css";
 
 export default function Notifications() {
 
     const [ user, setUser ] = useState(null);
     const [ loading, setLoading ] = useState(true);
     const [ notifications, setNotifications ] = useState([])
+    const router = useRouter();
 
     useEffect(() => {
 
@@ -52,6 +54,27 @@ export default function Notifications() {
         fetchData()
     }, [])
 
+    const verifyNotification = async (idNotification, idComplaint) => {
+        console.log(idNotification, " ", idComplaint)
+        try {
+            const res = await fetch("http://localhost:3001/notifications/verify/" + idNotification, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "content-Type": "application/json",
+                }
+            })
+
+            if (!res.ok) throw new Error("Error verifying notification")
+
+            if (user?.role === "ADMIN") router.push(`/admin/${user?.username}/office/${idComplaint}`)
+            else router.push(`/complaints/${user?.username}/case/${idComplaint}`)
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     if (loading) return <div>Loading...</div>
 
     return (
@@ -59,19 +82,32 @@ export default function Notifications() {
             {
                 user && user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/>
             }
-            <main className="notifications">
+            <main className={Styles.notifications}>
                 <h1>Notifications</h1>
-                <div className="notifications__body">
+                <div className={Styles.notifications__body}>
                     {
                         notifications.length > 0 ? (
                             notifications.map((notification, index) => (
-                                <div className="notifications__item" key={index}>
-                                    <div className="notifications__topic">
-                                        <h3>Report ID: {notification.reportId}</h3>
+                                <div 
+                                    className={Styles.notifications__item}
+                                    style={{
+                                        backgroundColor: notification.isVerified 
+                                        ? "#ddd" 
+                                        : "var(--background)"
+                                    }}
+                                    key={index}
+                                    onClick={() => verifyNotification(notification.id, notification.reportId)}
+                                >
+                                    <div className={Styles.notifications__topic}>
+                                        <div className={Styles.notifications__topic__header}>
+                                            <h3>Report ID: {notification.reportId}</h3>
+                                            <p>{ new Date(notification.createAt).toLocaleString() }</p>
+                                        </div>
+                                        
                                         <p>{notification.state}</p>
-                                        <p>{ new Date(notification.createAt).toLocaleString() }</p>
+                                        
                                     </div>
-                                    <div className="notifications__item__content">
+                                    <div className={Styles.notifications__item__content}>
                                         <p>{notification.message}</p>
                                     </div>
                                 </div>

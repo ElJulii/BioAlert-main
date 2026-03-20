@@ -67,7 +67,7 @@ export default function HeaderAdmin() {
   return (
     <header>
       <div className={Style.header__logo}>
-        <h1>BioAlert</h1>
+        <h1 className={Style.header__logo__title}>BioAlert</h1>
       </div>
       <nav className={Style.nav}>
           <ul className={Style.header__list}>
@@ -76,7 +76,7 @@ export default function HeaderAdmin() {
                 <li>
                   <Link href="/">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style={{
-                      color: path === "/" ? "#22c55e" : "#374151"
+                      color: path === "/" ? "#22c55e" : "#ffffff"
                     }}>
                       <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
                       <path d="M2 3h20a1 1 0 011 1v16a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1zm2 2v14h16V5H4z"/>
@@ -87,7 +87,7 @@ export default function HeaderAdmin() {
                 <li>
                     <Link href={"/admin/" + username}>
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style={{
-                        color: path.startsWith( "/admin") ? "#22c55e" : "#374151"
+                        color: path.startsWith( "/admin") ? "#22c55e" : "#ffffff"
                       }}>
                         <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 13.5l-6-6 1.41-1.41L13 12.67l8.59-8.59L23 5.5l-10 10z"/>
                       </svg>
@@ -97,7 +97,7 @@ export default function HeaderAdmin() {
                 <li>
                     <Link href="/laws">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style={{
-                        color: path === "/laws" ? "#22c55e" : "#374151"
+                        color: path === "/laws" ? "#22c55e" : "#ffffff"
                     }}>
                         <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg></Link>
@@ -105,7 +105,7 @@ export default function HeaderAdmin() {
                 </li>
                 <li>
                   <button onClick={opeSecondMenu}>
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" color="#ffffff">
                       <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
                     </svg>
                   </button>

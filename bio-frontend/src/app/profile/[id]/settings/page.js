@@ -104,7 +104,7 @@ export default function SettingsProfile({ params }) {
     <div className="container">
       <header>
         <div>
-          <h1>BioAlert</h1>
+          <h1 className={Style.header__title}>BioAlert</h1>
         </div>
         <div className={Style.header__buttons}>
           <Link href="/" className={Style.button__home} >Back To Home</Link>

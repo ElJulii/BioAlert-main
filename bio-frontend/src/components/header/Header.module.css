@@ -17,6 +17,10 @@
     border: none;
 }
 
+.header__logo__title {
+    color: var(--background);
+}
+
 .header__list li:hover, .header__list li button:hover {
     color: #16a34a;
 }

@@ -1,3 +1,7 @@
+.header__title {
+    color: var(--background);
+}
+
 .button__home {
     padding: 0.5rem 1rem;
     border-radius: 5px;

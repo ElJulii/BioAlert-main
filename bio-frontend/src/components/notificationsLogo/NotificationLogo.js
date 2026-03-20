@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function NotificationLogo({ username }) {
     const router = useRouter();
     const [ notifications, setNotifications ] = useState([])
+    const [ verifiedNotifications, setVerifiedNotifications ] = useState([])
 
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -21,6 +22,9 @@ export default function NotificationLogo({ username }) {
 
                 const data = await res.json()
                 setNotifications(data)
+
+                const verifiedNotifications = data.filter(notification => !notification.isVerified)
+                setVerifiedNotifications(verifiedNotifications)
             } catch (error) {
                 console.error(error)
             }
@@ -28,6 +32,7 @@ export default function NotificationLogo({ username }) {
 
         fetchNotifications()
     }, [])
+
 
     const StylesContainer = {
         position: "sticky",
@@ -65,9 +70,9 @@ export default function NotificationLogo({ username }) {
                  alt="notifications"
             />
             {
-                notifications.length > 0 && (
+                verifiedNotifications.length > 0 && (
                     <div style={StylesCounter} className="notifications__logo__counter">
-                        <span>{notifications.length}</span>
+                        <span>{verifiedNotifications.length}</span>
                     </div>
                 )
             }
