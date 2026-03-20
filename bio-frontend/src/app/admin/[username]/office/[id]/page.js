@@ -340,39 +340,59 @@ export default function Office({ params }) {
                         <div className={Styles.container__actions_phone}>
                             <div 
                                 className={Styles.actions__info}
-                                onClick={() => setDialogInformation(true)}
+                                {
+                                    ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                        onClick: () => setDialogInformation(true)
+                                    } : null
+                                }
                             >
                                 <div>Icon</div>
                                 <h5>Info</h5>
                             </div>
                             <div 
                                 className={Styles.actions__up}
-                                onClick={setDialogProgress}
+                                {
+                                    ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                        onClick: () => setDialogProgress(true)
+                                    } : null
+                                }
                             >
                                 <div>Icon</div>
                                 <h5>Update</h5>
                             </div>
                             <div 
                                 className={Styles.actions__app}
-                                { ...complaint?.requestClose ?  {
-                                    onClick: () => setDialogAccept(true)
-                                } : null }
+                                {
+                                    ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                        ...complaint?.requestClose ? {
+                                            onClick: () => setDialogAccept(true)
+                                        } : null
+                                    } : null
+                                }
                             >
                                 <div>Icon</div>
                                 <h5>Approve</h5>
                             </div>
                             <div 
                                 className={Styles.actions__rej}
-                                { ...complaint?.requestClose ?  {
-                                    onClick: () => setDialogReject(true)
-                                } : null }
+                                {
+                                    ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                        ...complaint?.requestClose ? {
+                                            onClick: () => setDialogReject(true)
+                                        } : null
+                                    } : null
+                                }
                             >
                                 <div>Icon</div>
                                 <h5>Reject</h5>
                             </div>
                             <div 
                                 className={Styles.actions__cl}
-                                onClick={() => setDialogClose(true)}
+                                {
+                                    ...complaint?.state !== 'RESOLVED' && complaint?.state !== 'CANCELED' ? {
+                                        onClick: () => setDialogClose(true)
+                                    } : null
+                                }
                             >
                                 <div>Icon</div>
                                 <h5>Close</h5>

@@ -37,7 +37,7 @@ body {
 .container {
   display: grid;
   min-height: 100dvh;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(90vh, 1fr) auto;
 }
 
 .container__background {
@@ -85,6 +85,15 @@ button {
 footer {
   border-top: solid 5px var(--week-green);
   color: #010101;
+  background: linear-gradient(to bottom, var(--week-green), var(--strong-green));
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+hr {
+  width: 100%;
 }
 
 .button__logout {

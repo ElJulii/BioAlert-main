@@ -6,6 +6,7 @@ import "../components/header/Header.js";
 import Header from "../components/header/Header.js";
 import HeaderAdmin from "../components/header/HeaderAdmin.js";
 import { useEffect, useState } from "react";
+import Footer from "@/components/footer/Footer";
 
 export default function Home() {
 
@@ -67,7 +68,7 @@ export default function Home() {
   if (Loading) return <div>Loading...</div>
 
   return (
-    <div className={styles.page}>
+    <div className="container">
       {user && user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/>}
 
       <main className={styles.main}>
@@ -84,6 +85,7 @@ export default function Home() {
           </li>
         </ol>
       </main>
+      <Footer/>
     </div>
   );
 }
