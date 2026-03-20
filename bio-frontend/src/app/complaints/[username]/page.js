@@ -7,6 +7,7 @@ import Footer from "@/components/footer/Footer";
 import { useState, useEffect } from "react";
 import React from "react";
 import { useRouter } from "next/navigation";
+import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 
 export default function Complaints({ params }) {
 
@@ -81,7 +82,7 @@ export default function Complaints({ params }) {
     return (
         <div className="container">
             <Headers />
-            <div className={Style.complaints__body}>
+            <main className={Style.complaints__body}>
                 <div className={Style.complaints__introduction}>
                     <h2 className={Style.complaints__title}>Complaints</h2>
                     <p>
@@ -135,8 +136,10 @@ export default function Complaints({ params }) {
                             </li>
                         )
                     }
-                </ol>            
-            </div>
+                </ol>        
+                <NotificationLogo username={username}/>    
+            </main>
+            
             <Footer />
         </div>
     )

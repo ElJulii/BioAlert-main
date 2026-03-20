@@ -8,6 +8,7 @@ export function middleware(req) {
     const protectedRoutes = [
         "/profile", 
         "/complaints",
+        "/notifications",
         "/admin" 
     ]
 
@@ -36,5 +37,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/complaints/:path*", "/admin/:path"],
+  matcher: ["/profile/:path*", "/complaints/:path*", "/notifications/:path*", "/admin/:path*"],
 };

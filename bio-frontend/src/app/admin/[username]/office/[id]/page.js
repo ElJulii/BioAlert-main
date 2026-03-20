@@ -8,6 +8,7 @@ import { use } from "react";
 import ComplaintInformation from "@/components/complaintInformation/ComplaintInformation";
 import ComplaintTimeline from "@/components/ComplaintTimeline/ComplaintTimeline";
 import { useRouter } from "next/navigation";
+import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 
 export default function Office({ params }) {
 
@@ -229,7 +230,7 @@ export default function Office({ params }) {
     return (
         <div className="container">
             <HeaderAdmin />
-            <div className={Styles.office}>
+            <main className={Styles.office}>
                 <ComplaintInformation complaint={complaint} updates={updates} />
                 
                 {
@@ -332,9 +333,9 @@ export default function Office({ params }) {
                         </div>
                     )
                 }
-                
                 <ComplaintTimeline updates={updates} />
-            </div>
+                <NotificationLogo username={username}/>
+            </main>
             {
                     sizeScreen < 750 && (
                         <div className={Styles.container__actions_phone}>

@@ -7,6 +7,7 @@ import Style from "./Laws.module.css";
 import Image from "next/image";
 import AnimalCarousel from "@/components/carousel/carousel";
 import { useState, useEffect } from "react";
+import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 
 // Images
 import LatinAmerica from "../../../public/laws-imgs/continent/latinAmerica.jpg";
@@ -43,6 +44,7 @@ export default function Laws() {
   const [ selectedCountry, setSelectedCountry ] = useState(null);
   const [hoveredAnimal, setHoveredAnimal] = useState(null);
   const [ user, setUser ] = useState(null);
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
       async function fetchUser() {
@@ -54,9 +56,13 @@ export default function Laws() {
                 "content-Type": "application/json",
               }
             })
-            if (!res.ok) throw new Error("Unauthorized"); 
+            if (!res.ok) {
+              console.log("Error fetching user profile or there is no user logged in")
+              setLoading(false)
+            }
             const data = await res.json();
             setUser(data);
+            setLoading(false)
         } catch (error) {
           console.error("Error fetching user profile", error);
         } 
@@ -151,12 +157,12 @@ export default function Laws() {
   const currentDisplay =  hoveredAnimal?.img ||
     (selectedCountry ? selectedCountry.flag : LatinAmerica);
 
-    if (!user) return <div>Loading profile</div>;
+    if (loading) return <div>Loading...</div>;
 
   return (
      <div className="container">
       { user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/> }
-      <div className={Style.laws}>
+      <main className={Style.laws}>
         {/* --- Lista de países (izquierda) --- */}
         <div className={Style.leftPanel}>
           {countries.map((country) => {
@@ -207,7 +213,8 @@ export default function Laws() {
             className={Style.displayImage}
           />
         </div>
-      </div>
+        <NotificationLogo username={user?.username}/>
+      </main>
       <Footer />
     </div>
   );

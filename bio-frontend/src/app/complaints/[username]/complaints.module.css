@@ -71,6 +71,10 @@
 
 /* Complaint new */
 
+.complaints__new {
+    padding: 20px;
+}
+
 .complaints__new h2{
     text-align: center;
     color: var(--strong-green);

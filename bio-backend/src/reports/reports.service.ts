@@ -141,6 +141,16 @@ export class ReportsService{
                         message: "Report created and accepted for review."
                     }
                 });
+
+                // First notification of creation
+                await this.prisma.notification.create({
+                    data: {
+                        userId: report.userId,
+                        reportId: report.id,
+                        message: "Report created and accepted for review. Waiting for operator's response.",
+                        state: ReportUpdateType.USER_RESPONSE
+                    }
+                });
             }
 
 
@@ -192,6 +202,33 @@ export class ReportsService{
                 type: ReportUpdateType.STATUS_CHANGE
             }
         })
+
+        const user = await this.prisma.report.findUnique({
+            where: { id: reportId },
+            select: {
+                userId: true
+            }
+        })
+
+        if (!user) throw new Error("User not found")
+
+        await this.prisma.notification.create({
+            data: {
+                userId: user?.userId,
+                reportId: reportId,
+                message: `Report assigned to ${workerUsername?.username}`,
+                state: ReportUpdateType.STATUS_CHANGE
+            }
+        });
+
+        await this.prisma.notification.create({
+            data: {
+                userId: workerId,
+                reportId: reportId,
+                message: `Yuo have been assigned to report ${reportId}`,
+                state: ReportUpdateType.STATUS_CHANGE
+            }
+        });
         
         return this.prisma.report.update({
             where: { id: reportId },

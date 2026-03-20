@@ -7,8 +7,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
+
 
 
 const today = new Date();
@@ -44,6 +47,8 @@ const schema = yup.object().shape({
 })
 
 export default function NewComplaint({ params }) {
+
+    const { username } = React.use(params)
 
     const router = useRouter()
     // const username = React.use(params)
@@ -91,7 +96,7 @@ export default function NewComplaint({ params }) {
     return (
         <div className="container">
             <Header />
-            <div className={Style.complaints__new}>
+            <main className={Style.complaints__new}>
                 <div>
                     <h2>Complaint for user {params.userId}</h2>
                 </div>
@@ -395,7 +400,8 @@ export default function NewComplaint({ params }) {
                         <button type="submit">Create</button>
                     </form>
                 </div>
-            </div>
+                <NotificationLogo username={username}/>
+            </main>
             <Footer />
         </div>
     )

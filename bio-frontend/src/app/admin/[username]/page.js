@@ -6,6 +6,7 @@ import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Styles from "../Style.module.css"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 
 export default function AdminPage() {
 
@@ -126,7 +127,7 @@ export default function AdminPage() {
     return (
         <div className="container">
              <HeaderAdmin/>
-            <div className={Styles.admin}>
+            <main className={Styles.admin}>
                 <h1> Complaints from users</h1>
                 <div className={Styles.admin__filters}>
                     <h2>Filter by state: </h2>
@@ -190,7 +191,8 @@ export default function AdminPage() {
                     </div>
                     
                 </dialog>
-            </div>
+                <NotificationLogo username={user?.username}/>
+            </main>
             <Footer /> 
         </div>    
     )

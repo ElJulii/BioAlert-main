@@ -86,6 +86,7 @@ model Notification {
   id       Int      @id @default(autoincrement())
   userId   Int
   message  String
+  state    ReportUpdateType
   createAt DateTime @default(now())
   reportId String?
   report   Report?  @relation(fields: [reportId], references: [id])

@@ -64,6 +64,10 @@ header {
   border-bottom: solid 5px #22c55e;
 }
 
+main {
+  position: relative;
+}
+
 h1 {
   color: var(--strong-green);
 }

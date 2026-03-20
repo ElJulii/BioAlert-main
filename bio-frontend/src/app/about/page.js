@@ -5,11 +5,13 @@ import Header from "@/components/header/Header";
 import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Style from "./About.module.css";
 import { useEffect, useState } from "react";
+import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 
 export default function About() {
   const [windowWidth, setWindowWidth] = useState(0);
   const [isWide, setIsWide] = useState(false);
   const [ user, setUser ] = useState(null);
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,7 +36,10 @@ export default function About() {
               "content-Type": "application/json",
             }
           })
-          if (!res.ok) throw new Error("Unauthorized"); 
+          if (!res.ok) {
+            console.log("Error fetching user profile or there is no user logged in")
+            setLoading(false)
+          }
           const data = await res.json();
           setUser(data);
       } catch (error) {
@@ -50,7 +55,7 @@ export default function About() {
   return (
     <div className="container">
       { user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/> }
-      <div className={Style.about} style={{padding: windowWidth > 800 ? "30px 15%" : "30px 5%"}}>
+      <main className={Style.about} style={{padding: windowWidth > 800 ? "30px 15%" : "30px 5%"}}>
         <h2>About BioAlert</h2>
         <details className={Style.about__details}
           open={isWide} 
@@ -156,7 +161,8 @@ export default function About() {
             <li>The platform prioritizes user anonymity and safety as a fundamental ethical principle.</li>
           </ol>
         </details>
-      </div>
+        <NotificationLogo username={user?.username}/>
+      </main>
       <Footer />
     </div>
   )
