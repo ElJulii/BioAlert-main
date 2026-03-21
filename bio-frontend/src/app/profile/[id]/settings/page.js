@@ -119,7 +119,7 @@ export default function SettingsProfile({ params }) {
             <h3>Profile Picture</h3>
 
             <div className={Style.previewContainer} style={{
-                background: `url(${imagePreview || "/default-profile.png"}) center / cover no-repeat`
+                background: `url(${imagePreview || "/default-profile.jpg"}) center / cover no-repeat`
             }}>
               
             </div>

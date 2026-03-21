@@ -221,7 +221,16 @@ export default function Office({ params }) {
     }
 
     const publishComplaint = () => {
-        alert('publishComplaint')
+        const query = new URLSearchParams({
+            id: complaint.id,
+            title: complaint.title,
+            description: complaint.description,
+            country: complaint.country,
+            city: complaint.city,
+        }).toString();
+
+        router.push(`/publication/${username}/new?${query}`)
+        
     }
 
 

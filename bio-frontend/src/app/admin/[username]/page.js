@@ -138,6 +138,13 @@ export default function AdminPage() {
                         <option value="canceled">Canceled</option>
                         <option value="all">All</option>
                     </select>
+                    <button className={Styles.admin__create_publication}
+                        onClick={() => {
+                            router.push(`/publication/${user.username}/new`)
+                        }}
+                    >
+                        Create Publication 
+                    </button>
                 </div>
                 {
                     filteredComplaints.length > 0 ?

@@ -53,6 +53,8 @@ model Report {
   reportUpdates ReportUpdate[]
 
   requestClose Boolean @default(false)
+
+  new           News?
 }
 
 model ReportUpdate {
@@ -96,12 +98,14 @@ model Notification {
 
 model News {
   id        String        @id @default(uuid())
+  idReport  String?       @unique 
   title     String
   context   String
   date_new  DateTime      @default(now())
-  image_url String
+  image_url String?
   comments  NewsComment[]
   likes     NewsLikes[]
+  report    Report?       @relation(fields: [idReport], references: [id])
 }
 
 model NewsComment {
