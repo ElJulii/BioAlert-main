@@ -11,34 +11,43 @@ import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 export default function Home() {
 
   const [ user, setUser ] = useState(null);
+  const [ news, setNews ] = useState(null);
   const [ Loading, setLoading ] = useState(true);
 
   useEffect(() => {
-    async function fetchUser() {
-        try {
-          const res = await fetch("http://localhost:3001/auth/profile", {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              "content-Type": "application/json",
-            }
-          });
+    async function fetchData() {
+      try {
+          const [userRes, newsRes] = await Promise.all([
+            fetch("http://localhost:3001/auth/profile", {
+              method: "GET",
+              credentials: "include",
+              headers: {
+                "content-Type": "application/json",
+              }
+            }),
+            fetch("http://localhost:3001/publications/all", {
+              method: "GET",
+              credentials: "include",
+              headers: {
+                "content-Type": "application/json",
+              }
+            })
+          ]);
 
-          if (!res.ok) {
+          if (!userRes.ok || !newsRes.ok) {
             console.log("Error fetching user profile or there is no user logged in")
             setLoading(false)
           }
 
-          const data = await res.json();
-          setUser(data);
+          const [userData, newsData] = await Promise.all([userRes.json(), newsRes.json()]);
+          setUser(userData);
+          setNews(newsData);
           setLoading(false)
-          
       } catch (error) {
-        console.error("Error fetching user profile", error);
-      } 
+        console.error("Error fetching data", error);
+      }
     }
-
-    fetchUser()
+    fetchData()
   }, [])
 
   if (Loading) return <div>Loading...</div>
@@ -49,17 +58,22 @@ export default function Home() {
 
       <main>
         <h1>Welcome to Next.js!</h1>
-        <p>
-          Get started by editing <code>app/page.js</code>
-        </p>
-        <ol>
-          <li>
-            <Link href="/about">About</Link>
-          </li>
-          <li>
-            <Link href="/profile">Profile</Link>
-          </li>
-        </ol>
+        <div className="news">
+          {
+            news?.map((news, i) => (
+              <div key={i} className="news__item">
+                <h2>{news.title}</h2>
+                <p>{news.context}</p>
+                <p>{news.place}</p>
+                {
+                  news.image_url && (
+                    <img src={news.image_url} alt={news.title}/>
+                  )
+                }
+              </div>
+            ))
+          }
+        </div>
         <NotificationLogo username={user?.username}/>
       </main>
       <Footer/>

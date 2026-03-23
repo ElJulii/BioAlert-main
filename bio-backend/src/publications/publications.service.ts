@@ -10,6 +10,26 @@ export class PublicationsService {
         private cloudinaryService: CloudinaryService
     ) {}
 
+    async getAllPublications() {
+        return await this.prisma.news.findMany({
+            orderBy: {
+                 date_new: "desc"
+            }
+        });
+    }
+
+    async getPublicationById(id: number) {
+        return await this.prisma.news.findMany({
+            where: {
+                idWorker: id
+            },
+            include: {
+                comments: true,
+                likes: true
+            }
+        });
+    }
+
     async createPublication(userId: number, publicationDto: PublicationDTO, complaintId?: string,  image?: Express.Multer.File) {
 
         return this.prisma.$transaction(async (tx) => {
