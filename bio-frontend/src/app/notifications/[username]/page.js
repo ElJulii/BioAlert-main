@@ -3,7 +3,7 @@
 import Header from "@/components/header/Header";
 import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Footer from "@/components/footer/Footer";
-import { use, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Styles from "../Style.module.css";
 

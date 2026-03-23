@@ -46,6 +46,9 @@ export default function Profile() {
         </div>
         <div className={Style.header__buttons}>
           <Link href="/" className={Style.button__home} >Back To Home</Link>
+          {
+            user.role === "ADMIN" && <Link href={"/publication/" + user.username} className={Style.button__publications} >Publications</Link>
+          }
         </div>
         
       </header>

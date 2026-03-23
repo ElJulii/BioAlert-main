@@ -2,6 +2,12 @@
     color: var(--background);
 }
 
+.header__buttons {
+    margin-left: 25px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 .button__home {
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -12,7 +18,20 @@
 }
 
 .button__home:hover {
-    background-color: var(--strong-green);
+    background-color: #15f03d;
+}
+
+.button__publications {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: var(--week-green);
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button__publications:hover {
+    background-color: #15f03d;
 }
 
 .profile, .complaints {

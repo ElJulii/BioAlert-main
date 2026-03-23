@@ -7,6 +7,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { ReportsModule } from './reports/reports.module';
 import { UpdatesModule } from './updates/updates.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { PublicationsModule } from './publications/publications.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { NotificationsModule } from './notifications/notifications.module';
     CloudinaryModule, 
     ReportsModule, 
     UpdatesModule,
-    NotificationsModule
+    NotificationsModule,
+    PublicationsModule
   ],
   providers: [PrismaService],
 })

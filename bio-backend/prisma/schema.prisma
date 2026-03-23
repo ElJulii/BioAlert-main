@@ -27,6 +27,7 @@ model User {
 
   assignedReports Report[]       @relation("AssignedReports")
   reportUpdates   ReportUpdate[]
+  publications    News[]         @relation("News")
 }
 
 model Report {
@@ -98,14 +99,17 @@ model Notification {
 
 model News {
   id        String        @id @default(uuid())
-  idReport  String?       @unique 
+  idReport  String?       @unique
+  idWorker  Int        
   title     String
   context   String
+  place     String
   date_new  DateTime      @default(now())
   image_url String?
   comments  NewsComment[]
   likes     NewsLikes[]
   report    Report?       @relation(fields: [idReport], references: [id])
+  worker    User          @relation("News", fields: [idWorker], references: [id])
 }
 
 model NewsComment {
@@ -141,6 +145,7 @@ enum ReportState {
   REJECTED
   ACCEPTED
   CANCELED
+  PUBLISHED
 }
 
 enum ReportUpdateType {

@@ -2,45 +2,39 @@
 
 import HeaderAdmin from "@/components/header/HeaderAdmin";
 import Footer from "@/components/footer/Footer";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import { use } from "react";
 
-export default function Publication() {
+export default function Publication({ params }) {
 
-    const [ reportInformation, setReportInformation ] = useState(null);
-    const [ user, setUser ] = useState(null);
-    const [ loading, setLoading ] = useState(true);
-
-
-    useEffect(() => {
-        async function fetchUser() {
-            try {
-                const res = await fetch("http://localhost:3001/auth/profile", {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                        "content-Type": "application/json",
-                    }
-                })
-
-                if (!res.ok) throw new Error("The user is not logged in")
-
-                const userData = await res.json();
-
-                setUser(userData);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching user profile", error);
-            }
-        }
-
-        fetchUser()
-    }, [])
+    const { username } = use(params)
+    const [ publications, setPublications] = useState([])
 
     return (
         <div className="container">
             <HeaderAdmin />
             <main>
-                <h1>My publications</h1>
+                <div className="publication">
+                    <h1>My publications</h1>
+                </div>
+                {
+                    publications.length > 0 ? (
+                        <lo className="publication__list">
+                            {
+                                publications.map((publication, index) => (
+                                    <li className="publication__list__item" key={index}>
+                                        <h3>{publication.title}</h3>
+                                        <p>{publication.context}</p>
+                                        <p>{publication.date_new}</p>
+                                        <p>{publication.image_url}</p>
+                                    </li>
+                                ))
+                            }
+                        </lo>
+                    ) : (
+                        <h2>No publications</h2>
+                    )
+                }
             </main>
             <Footer />
         </div>

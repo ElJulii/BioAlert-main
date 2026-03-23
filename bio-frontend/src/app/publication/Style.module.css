@@ -52,6 +52,7 @@
 
 .publication__new__form__body__form textarea {
     max-width: 500px;
+    min-height: 150px;
     outline: none;
     padding: 15px 10px;
     border-radius: 10px;

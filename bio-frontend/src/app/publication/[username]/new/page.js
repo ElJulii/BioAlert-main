@@ -5,16 +5,23 @@ import Footer from "@/components/footer/Footer";
 import Styles from "../../Style.module.css";
 import {useState, useEffect, use} from "react";
 import { useSearchParams } from "next/navigation";
-import { set } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
-export default function NewPublication() {
+export default function NewPublication({ params }) {
+    const { username } = use(params)
     const searchParams = useSearchParams();
 
     const [ report, setReport ] = useState(null);
+    const [ reportId, setReportId ] = useState(null);
     const [ reportTitle, setReportTitle ] = useState("");
     const [ reportDescription, setReportDescription ] = useState("");
     const [ reportPlace, setReportPlace ] = useState("");
+    const [ image, setImage ] = useState(null);
     const [ imagePreview, setImagePreview ] = useState(null);
+
+    // upload info
+    const router = useRouter();
+    const [ uploading, setUploading ] = useState(false);
 
     useEffect(() => {
         const id = searchParams.get("id");
@@ -26,6 +33,7 @@ export default function NewPublication() {
         if (id) {
             setReport({ id})
 
+            setReportId(id);
             setReportTitle(title || "");
             setReportDescription(description || "");
             setReportPlace(country && city ? country + ", " + city : "");
@@ -36,6 +44,7 @@ export default function NewPublication() {
         const file = event.target.files[0];
         if (!file) return;
 
+        setImage(file);
         setImagePreview(URL.createObjectURL(file));
     };
     
@@ -48,12 +57,49 @@ export default function NewPublication() {
             case "context":
                 setReportDescription(value);
                 break;
-            case "date":
+            case "place":
                 setReportPlace(value);
                 break;
             default:
                 break;
         }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        setUploading(true);
+
+        const formData = new FormData();
+        formData.append("title", reportTitle);
+        formData.append("description", reportDescription);
+        formData.append("place", reportPlace);
+        
+        if (image) {
+            formData.append("image", image);
+        }
+
+        if (reportId) {
+            formData.append("idReport", reportId);
+        }
+            
+
+        try {
+            const res = await fetch(`http://localhost:3001/publications/create`, {
+                method: "POST",
+                credentials: "include",
+                body: formData,
+            });
+
+            if (!res.ok) throw new Error("Error creating report");
+
+            alert("Publication created successfully");
+            router.push(`/publication/${username}`);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setUploading(false);
+        }    
     };
 
 
@@ -81,26 +127,24 @@ export default function NewPublication() {
                                 }}
                             >    
                             </div>
-                            <form className={Styles.publication__new__form__body__form}>
+                            <form className={Styles.publication__new__form__body__form} onSubmit={handleSubmit}>
                                 <label htmlFor="title">Title</label>
-                                <input onChange={handleChange} type="text" id="title" name="title" placeholder="Set a new title" required value={reportTitle} max={100} />
+                                <input onChange={handleChange} type="text" id="title" name="title" placeholder="Set a new title" required value={reportTitle} />
                                 <label htmlFor="context">Context</label>
                                 <textarea onChange={handleChange} id="context" name="context" placeholder="Write the new description" required value={reportDescription}></textarea>
-                                <label htmlFor="date">Place (country and city)</label>
-                                <input onChange={handleChange} type="text" id="date" name="date" placeholder="Write a place (country and city)" required  value={reportPlace} />
+                                <label htmlFor="place">Place (country and city)</label>
+                                <input onChange={handleChange} type="text" id="place" name="place" placeholder="Write a place (country and city)" required  value={reportPlace} />
                                 
                                 <label htmlFor="image">Image</label>
                                 <input onChange={handleImageChange} type="file" id="image" name="image" accept="image/*" />
                                 
-                                <button type="submit">Submit</button>
+                                <button type="submit">
+                                    { uploading ? "Uploading..." : "Submit" }
+                                </button>
                             </form>
                         </div>
-                        
-                        
                     </div>
                 </div>
-                
-
             </main>
             <Footer />
         </div>
