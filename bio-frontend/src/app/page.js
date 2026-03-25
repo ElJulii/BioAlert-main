@@ -11,46 +11,58 @@ import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 export default function Home() {
 
   const [ user, setUser ] = useState(null);
-  const [ news, setNews ] = useState(null);
-  const [ Loading, setLoading ] = useState(true);
+  const [ news, setNews ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchUser = async () => {
       try {
-          const [userRes, newsRes] = await Promise.all([
-            fetch("http://localhost:3001/auth/profile", {
-              method: "GET",
-              credentials: "include",
-              headers: {
-                "content-Type": "application/json",
-              }
-            }),
-            fetch("http://localhost:3001/publications/all", {
-              method: "GET",
-              credentials: "include",
-              headers: {
-                "content-Type": "application/json",
-              }
-            })
-          ]);
+        const res = await fetch("http://localhost:3001/auth/profile", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
 
-          if (!userRes.ok || !newsRes.ok) {
-            console.log("Error fetching user profile or there is no user logged in")
-            setLoading(false)
-          }
+        if (!res.ok) console.log("User not logged in");
 
-          const [userData, newsData] = await Promise.all([userRes.json(), newsRes.json()]);
-          setUser(userData);
-          setNews(newsData);
-          setLoading(false)
+        const user = await res.json();
+        
+        setUser(user);
+        setLoading(false);
+        
       } catch (error) {
-        console.error("Error fetching data", error);
+        console.log(error)
       }
     }
-    fetchData()
+    fetchUser();
   }, [])
 
-  if (Loading) return <div>Loading...</div>
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/publications/all", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+
+        if (!res.ok) throw new Error("Error fetching news ");
+
+        const news = await res.json();
+        setNews(news);
+        
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchNews();
+  }, [])
+
+  if (!user) return <div>Loading...</div>
 
   return (
     <div className="container">

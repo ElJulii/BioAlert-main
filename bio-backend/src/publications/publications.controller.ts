@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Param, UploadedFile, UseGuards, Body, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Req, Param, UploadedFile, UseGuards, Body, UseInterceptors, ParseIntPipe } from '@nestjs/common';
 import { PublicationsService } from './publications.service';
 import { PublicationDTO } from 'src/dto/publication.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -22,8 +22,6 @@ export class PublicationsController {
     return await this.publicationsService.createPublication(req.user.sub, dto, dto.idReport ?? undefined, image);
   }
 
-
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('all')
   async getAllPublications() {
     return await this.publicationsService.getAllPublications();
@@ -32,7 +30,7 @@ export class PublicationsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('ADMIN')
   @Get('id/:id')
-  async getPublicationById(@Param('id') id: number) {
+  async getPublicationById(@Param('id', ParseIntPipe) id: number) {
     return await this.publicationsService.getPublicationById(id);
   }
 }

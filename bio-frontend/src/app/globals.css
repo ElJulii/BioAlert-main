@@ -11,6 +11,7 @@
     --week-green: #22c55e;
     --warning-color-strong: #aa0000;
     --warning-color-weak: #cc0000;
+    --soft--yellow: #e9cf50;
   }
 }
 
@@ -58,6 +59,9 @@ body {
 
 header {
   background-color: var(--strong-green);
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -14,6 +14,9 @@ export class PublicationsService {
         return await this.prisma.news.findMany({
             orderBy: {
                  date_new: "desc"
+            }, include: {
+                comments: true,
+                likes: true
             }
         });
     }
@@ -26,6 +29,9 @@ export class PublicationsService {
             include: {
                 comments: true,
                 likes: true
+            },
+            orderBy: {
+                date_new: "desc"
             }
         });
     }

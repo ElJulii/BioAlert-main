@@ -18,13 +18,17 @@ export default function NotificationLogo({ username }) {
                     }
                 })
 
-                if (!res.ok) throw new Error("Error fetching notifications")
+                if (res.ok) {
+                    const data = await res.json()
+                    setNotifications(data)
 
-                const data = await res.json()
-                setNotifications(data)
+                    const verifiedNotifications = data.filter(notification => !notification.isVerified)
+                    setVerifiedNotifications(verifiedNotifications)
 
-                const verifiedNotifications = data.filter(notification => !notification.isVerified)
-                setVerifiedNotifications(verifiedNotifications)
+                } else {
+                    console.log("The user is not logged in, no notifications")
+                }
+
             } catch (error) {
                 console.error(error)
             }
