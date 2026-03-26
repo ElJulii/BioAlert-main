@@ -4,7 +4,7 @@ import Link from "next/link";
 import "../components/header/Header.js";
 import Header from "../components/header/Header.js";
 import HeaderAdmin from "../components/header/HeaderAdmin.js";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Footer from "@/components/footer/Footer";
 import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 
@@ -13,6 +13,8 @@ export default function Home() {
   const [ user, setUser ] = useState(null);
   const [ news, setNews ] = useState([]);
   const [ loading, setLoading ] = useState(true);
+  const [ comments, setComments ] = useState([]);
+  const [ commentInputs, setCommentInputs ] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -96,6 +98,87 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+
+    async function loadComments() {
+      const data = {}
+
+      for (const item of news) {
+        const res = await fetch(`http://localhost:3001/comments/get/${item.id}`)
+        const comments = await res.json()
+        data[item.id] = comments
+      }
+
+      setComments(data)
+    }
+
+    if (news.length > 0) loadComments()
+
+  }, [news])
+
+  const addComment = async (newsId) => {
+    const content = commentInputs[newsId]
+    if (!content?.trim()) return
+
+    const temp= {
+      id: Date.now(),
+      content,
+      user: {
+        username: user?.username
+      }
+    }
+
+    setComments(prev => ({
+      ...prev,
+      [newsId]: [temp, ...(prev[newsId] || [])]
+    }))
+
+    setCommentInputs(prev => ({
+      ...prev,
+      [newsId]: ""
+    }))
+
+    try {
+      const res = await fetch(`http://localhost:3001/comments/create/${newsId}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content })
+      })
+
+      if (!res.ok) throw new Error("Error creating comment")
+      const saved = await res.json()
+      setComments(prev => ({
+        ...prev,
+        [newsId]: prev[newsId].map(c => 
+          c.id === saved.id ? saved : c
+        )
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteComment = async (commentId, newsId) => {
+    setComments(prev => ({
+      ...prev,
+      [newsId]: prev[newsId].filter(c => c.id !== commentId)
+    }))
+    try {
+      const res = await fetch(`http://localhost:3001/comments/delete/${commentId}`, {
+        method: "DELETE",
+        credentials: "include",
+      })
+
+      if (!res.ok) throw new Error("Error deleting comment")
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   if (loading) return <div>Loading...</div>
 
@@ -121,7 +204,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p>Likes: {news.likes.length}</p>
-                  <p>Comments: {news.comments.length}</p>
+                  <p>Comments: {comments[news.id]?.length || 0}</p>
                 </div>
                 <div>
                   <button onClick={() => toggleLike(news.id)}>
@@ -131,7 +214,43 @@ export default function Home() {
                         : "🤍"
                     }
                   </button>
-                  <input type="text" />
+
+                  <input
+                    type="text"
+                    placeholder="Add comment..."
+                    value={commentInputs[news.id] || ""}
+                    onChange={(e) =>
+                      setCommentInputs(prev => ({
+                        ...prev,
+                        [news.id]: e.target.value
+                      }))
+                    }
+                  />
+
+                  <button onClick={() => addComment(news.id)}>
+                    Post
+                  </button>
+
+                  <div>
+                    {
+                      comments[news.id]?.map(comment => (
+                        <div key={comment.id}>
+                          <strong>{comment.user.username}</strong>
+                          <p>{comment.content}</p>
+
+                          {
+                            comment.user.username === user.username && (
+                              <button
+                                onClick={() => deleteComment(comment.id, news.id)}
+                              >
+                                delete
+                              </button>
+                            )
+                          }
+                        </div>
+                      ))
+                    }
+                  </div>
                 </div>
               </div>
             ))
