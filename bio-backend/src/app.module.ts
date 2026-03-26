@@ -8,6 +8,7 @@ import { ReportsModule } from './reports/reports.module';
 import { UpdatesModule } from './updates/updates.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PublicationsModule } from './publications/publications.module';
+import { LikesModule } from './likes/likes.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { PublicationsModule } from './publications/publications.module';
     ReportsModule, 
     UpdatesModule,
     NotificationsModule,
-    PublicationsModule
+    PublicationsModule,
+    LikesModule
   ],
   providers: [PrismaService],
 })

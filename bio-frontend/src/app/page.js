@@ -62,7 +62,42 @@ export default function Home() {
     fetchNews();
   }, [])
 
-  if (!user) return <div>Loading...</div>
+  
+  const toggleLike = async (publicationId) => {
+    const liked = news.find(n => n.id === publicationId)
+      ?.likes.some(l => l.userId === user.id)
+
+    setNews(prev =>
+      prev.map(item => {
+        if (item.id === publicationId) {
+          return {
+            ...item,
+            likes: liked
+              ? item.likes.filter(l => l.userId !== user.id)
+              : [...item.likes, { userId: user.id }]
+          }
+        }
+        return item
+      })
+    )
+    try {
+      const res = await fetch(`http://localhost:3001/likes/toggle/${publicationId}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      if (!res.ok) alert("Error setting like")
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  if (loading) return <div>Loading...</div>
 
   return (
     <div className="container">
@@ -74,14 +109,30 @@ export default function Home() {
           {
             news?.map((news, i) => (
               <div key={i} className="news__item">
-                <h2>{news.title}</h2>
-                <p>{news.context}</p>
-                <p>{news.place}</p>
-                {
-                  news.image_url && (
-                    <img src={news.image_url} alt={news.title}/>
-                  )
-                }
+                <div>
+                  <h2>{news.title}</h2>
+                  <p>{news.context}</p>
+                  <p>{news.place}</p>
+                  {
+                    news.image_url && (
+                      <img src={news.image_url} alt={news.title}/>
+                    )
+                  }
+                </div>
+                <div>
+                  <p>Likes: {news.likes.length}</p>
+                  <p>Comments: {news.comments.length}</p>
+                </div>
+                <div>
+                  <button onClick={() => toggleLike(news.id)}>
+                    {
+                      news.likes.some(l => l.userId === user?.id)
+                        ? "❤️"
+                        : "🤍"
+                    }
+                  </button>
+                  <input type="text" />
+                </div>
               </div>
             ))
           }
