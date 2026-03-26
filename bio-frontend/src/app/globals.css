@@ -91,6 +91,25 @@ button {
   border-radius: 10px;
 }
 
+.button__google {
+  background-color: var(--background);
+  border: solid 1px var(--week-green);
+  color: var(--week-green);
+  padding: 10px 20px;
+  font-weight: 700;
+  width: clamp(150px, 30%, 200px);
+  align-self: center;
+  font-size: 1.2rem;
+  
+}
+
+.button__google > img {
+  width: 20%;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+
 footer {
   border-top: solid 5px var(--week-green);
   color: #010101;

@@ -10,6 +10,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { PublicationsModule } from './publications/publications.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -22,7 +23,10 @@ import { CommentsModule } from './comments/comments.module';
     NotificationsModule,
     PublicationsModule,
     LikesModule,
-    CommentsModule
+    CommentsModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
   providers: [PrismaService],
 })

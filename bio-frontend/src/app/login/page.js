@@ -83,7 +83,15 @@ export default function Login() {
                     
                     {serverError && <p className={Style.form__error}>{serverError}</p>}
 
-                    <button type="submit">Login</button>
+                    <button type="submit" className={Style.button__login}>Login</button>
+                    <button
+                      type="button"
+                      className="button__google"
+                      onClick={() => window.location.href = "http://localhost:3001/auth/google"}
+                    >
+                      <img src="/google.png" alt="google" />
+                      Login with Google
+                    </button>
                 </form>
                 <div className={Style.container__register}>
                     <Link href="/signup">Not a member? Sign up</Link>

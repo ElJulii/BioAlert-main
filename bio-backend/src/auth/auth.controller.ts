@@ -1,11 +1,13 @@
-import { Controller, Post, Body, Res, UnauthorizedException, Get, Req, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, Res, UnauthorizedException, Get, Req, UseGuards, Query, NotFoundException } from "@nestjs/common";
 import type { Response } from "express";
 import { AuthService } from "./auth.service";
 import { JwtAuthGuard } from "./jwt-auth.guard";
+import { AuthGuard } from "@nestjs/passport";
+import { PrismaService } from "../prisma.service";
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService, private prisma: PrismaService) {}
 
     @Post('login')
     async login(
@@ -53,4 +55,40 @@ export class AuthController {
             role: user.role
         }
     }
+
+    //By Google
+    @Get('google')
+    @UseGuards(AuthGuard('google'))
+    async googleAuth() {}
+
+    @Get('google/callback')
+    @UseGuards(AuthGuard('google'))
+    async googleAuthCallback(@Req() req: any, @Res({ passthrough: true }) res: Response) {
+        const { user, token } = await this.authService.googleLogin(req.user)
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+            // secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 1000 * 60 * 60 * 24
+        })
+
+        return res.redirect('http://localhost:3000')
+    }
+
+    // @Get('verify-email')
+    // async verifyEmail(@Query('token') token: string) {
+    // const user = await this.prisma.user.findFirst({ where: { verificationToken: token } });
+    // if (!user) throw new NotFoundException("Invalid token");
+
+    // await this.prisma.user.update({
+    //     where: { id: user.id },
+    //     data: { isVerified: true, verificationToken: null }
+    // });
+
+    // return "Email verified successfully!";
+    // }
 }
+
+// godv hewn lwte kwti

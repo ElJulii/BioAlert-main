@@ -35,7 +35,7 @@
     font-size: 1.1rem;
 }
 
-.form button {
+.button__login {
     padding: 8px 15px;
     background-color: var(--week-green);
     color: var(--background);
@@ -45,7 +45,7 @@
     transition: background-color 0.3s ease-in-out;
 }
 
-.form button:hover {
+.button__login:hover {
     background-color: var(--strong-green);
 }
 

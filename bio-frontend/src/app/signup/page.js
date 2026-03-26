@@ -79,7 +79,15 @@ export default function SignIn() {
                     <input id="confirmPassword" type="password" placeholder="Confirm Password" {...register("confirmPassword")}/>
                     {errors.confirmPassword && <span className={Style.form__error}>{errors.confirmPassword.message}</span>}
                     
-                    <button type="submit">Register</button>
+                    <button type="submit" className={Style.button__login}>Register</button>
+                    <button
+                      type="button"
+                      className="button__google"
+                      onClick={() => window.location.href = "http://localhost:3001/auth/google"}
+                    >
+                      <img src="/google.png" alt="google" />
+                      Register with Google
+                    </button>
                 </form>
                 <div className={Style.container__register}>
                     <Link href="/login">I already have an account</Link>
