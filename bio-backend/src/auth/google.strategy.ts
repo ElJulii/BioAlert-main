@@ -15,6 +15,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     })
   }
 
+  authorizationParams() {
+    return {
+      prompt: 'select_account'
+    }
+  }
+
   async validate(accessToken: string, refreshToken: string, profile: Profile) {
     return {
       googleId: profile.id,

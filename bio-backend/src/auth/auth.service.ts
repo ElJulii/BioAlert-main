@@ -88,9 +88,9 @@ export class AuthService {
                 }
             })
 
-            // this.mailService
-            //     .sendMailVerification(user.email, verificationToken)
-            //     .catch(err => console.log("Mail error:", err.message))
+            this.mailService
+                .sendMailVerification(user.email, verificationToken)
+                .catch(err => console.log("Mail error:", err.message))
         }
 
         const payload = { 

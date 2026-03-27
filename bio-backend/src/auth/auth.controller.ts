@@ -59,9 +59,7 @@ export class AuthController {
     //By Google
     @Get('google')
     @UseGuards(AuthGuard('google'))
-    async googleAuth() {
-        console.log("Google route hit")
-    }
+    async googleAuth() {}
 
     @Get('google/callback')
     @UseGuards(AuthGuard('google'))
