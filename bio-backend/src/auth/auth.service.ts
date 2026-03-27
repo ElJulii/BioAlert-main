@@ -3,23 +3,15 @@ import { PrismaService } from "../prisma.service";
 import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { randomBytes } from "node:crypto";
+import { MailService } from "../mail/mail.service";
 
 @Injectable()
 export class AuthService {
     constructor(
         private prisma: PrismaService,
         private jwtService: JwtService,
+        private mailService: MailService,
     ) {}
-
-    // private transporter = nodemailer.createTransport({
-    //     host: process.env.SMTP_HOST,
-    //     port: parseInt(process.env.SMTP_PORT),
-    //     secure: false,
-    //     auth: {
-    //         user: process.env.SMTP_USER,
-    //         pass: process.env.SMTP_PASSWORD,
-    //     },
-    // });
 
     async validateUser(username: string, password: string) {
         const user = await this.prisma.user.findFirst({
@@ -71,29 +63,6 @@ export class AuthService {
         })
     }
 
-    // send verification email
-    // async sendVerificationEmail(email: string, token: string) {
-    //     const verificationUrl = `http://localhost:3000/verify-email?token=${token}`;
-
-    //     const mailOptions = {
-    //     from: `"BioAlert" <${process.env.SMTP_USER}>`,
-    //     to: email,
-    //     subject: "Verify your email",
-    //     html: `
-    //         <h2>Verify your email for BioAlert</h2>
-    //         <p>Click the link below to verify your account:</p>
-    //         <a href="${verificationUrl}">Verify Email</a>
-    //     `
-    //     };
-
-    //     try {
-    //     await this.transporter.sendMail(mailOptions);
-    //     console.log(`Verification email sent to ${email}`);
-    //     } catch (error) {
-    //     console.error("Error sending email:", error);
-    //     }
-    // }
-
     //Google
     async googleLogin(googleUser: any) {
         let user = await this.prisma.user.findFirst({
@@ -110,7 +79,7 @@ export class AuthService {
                     surname: googleUser.surname,
                     username: googleUser.email.split("@")[0] + Math.floor(Math.random()*1000),
                     email: googleUser.email,
-                    password: "", // google no usa password
+                    password: "", 
                     googleId: googleUser.googleId,
                     provider: "google",
                     profilePicture: googleUser.picture,
@@ -119,7 +88,9 @@ export class AuthService {
                 }
             })
 
-            // await this.sendVerificationEmail(user.email, verificationToken)
+            // this.mailService
+            //     .sendMailVerification(user.email, verificationToken)
+            //     .catch(err => console.log("Mail error:", err.message))
         }
 
         const payload = { 
@@ -135,5 +106,31 @@ export class AuthService {
             user,
             token
         }
+    }
+
+    async verifyEmail(token: string) {
+        const user = await this.prisma.user.findFirst({
+            where: {
+                verificationToken: token
+            }
+        })
+
+        if (!user) {
+            throw new Error("Invalid token")
+        }
+
+        const updatedUser = await this.prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                isVerified: true,
+                verificationToken: null
+            }
+        })
+
+        this.mailService.sendVerifiedSuccessEmail(user.email)
+
+        return updatedUser
     }
 }

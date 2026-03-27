@@ -59,7 +59,9 @@ export class AuthController {
     //By Google
     @Get('google')
     @UseGuards(AuthGuard('google'))
-    async googleAuth() {}
+    async googleAuth() {
+        console.log("Google route hit")
+    }
 
     @Get('google/callback')
     @UseGuards(AuthGuard('google'))
@@ -74,21 +76,14 @@ export class AuthController {
             maxAge: 1000 * 60 * 60 * 24
         })
 
-        return res.redirect('http://localhost:3000')
+        res.redirect('http://localhost:3000')
     }
 
-    // @Get('verify-email')
-    // async verifyEmail(@Query('token') token: string) {
-    // const user = await this.prisma.user.findFirst({ where: { verificationToken: token } });
-    // if (!user) throw new NotFoundException("Invalid token");
+    @Get('verify-email')
+    async verifyEmail(@Query('token') token: string, @Res() res: Response) {
 
-    // await this.prisma.user.update({
-    //     where: { id: user.id },
-    //     data: { isVerified: true, verificationToken: null }
-    // });
+        const user = await this.authService.verifyEmail(token)
 
-    // return "Email verified successfully!";
-    // }
+        return res.redirect('http://localhost:3000/email-verified')
+    }
 }
-
-// godv hewn lwte kwti
