@@ -5,8 +5,12 @@ import Style from "../../Style.module.css";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { use } from "react";
 
 export default function SettingsProfile({ params }) {
+
+  const { id } = use(params)
+
   const router = useRouter()
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);

@@ -258,7 +258,6 @@ export default function Office({ params }) {
                                         } : null
                                     }
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Request Info</h5>
                                         <p>Ask user for details</p>
@@ -272,7 +271,6 @@ export default function Office({ params }) {
                                         } : null
                                     }
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Progress Update</h5>
                                         <p>Post case progress</p>
@@ -288,7 +286,6 @@ export default function Office({ params }) {
                                         } : null
                                     }                       
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Approve Closure</h5>
                                         <p>Accept closure  request</p>
@@ -304,7 +301,6 @@ export default function Office({ params }) {
                                         } : null
                                     }
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Reject Closure</h5>
                                         <p>Deny closure request</p>
@@ -318,7 +314,6 @@ export default function Office({ params }) {
                                         } : null
                                     }
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Close Complaint</h5>
                                         <p>Mark as resolved</p>
@@ -332,7 +327,6 @@ export default function Office({ params }) {
                                         } : null
                                     }
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Publish Complaint</h5>
                                         <p>Create New of Complaint</p>
@@ -356,7 +350,6 @@ export default function Office({ params }) {
                                     } : null
                                 }
                             >
-                                <div>Icon</div>
                                 <h5>Info</h5>
                             </div>
                             <div 
@@ -367,7 +360,6 @@ export default function Office({ params }) {
                                     } : null
                                 }
                             >
-                                <div>Icon</div>
                                 <h5>Update</h5>
                             </div>
                             <div 
@@ -380,7 +372,6 @@ export default function Office({ params }) {
                                     } : null
                                 }
                             >
-                                <div>Icon</div>
                                 <h5>Approve</h5>
                             </div>
                             <div 
@@ -393,7 +384,6 @@ export default function Office({ params }) {
                                     } : null
                                 }
                             >
-                                <div>Icon</div>
                                 <h5>Reject</h5>
                             </div>
                             <div 
@@ -404,7 +394,6 @@ export default function Office({ params }) {
                                     } : null
                                 }
                             >
-                                <div>Icon</div>
                                 <h5>Close</h5>
                             </div>
                             <div 
@@ -415,7 +404,6 @@ export default function Office({ params }) {
                                     } : null
                                 }
                             >
-                                <div>Icon</div>
                                 <h5>Publish</h5>
                             </div>
                         </div>

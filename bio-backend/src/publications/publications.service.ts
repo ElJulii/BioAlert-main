@@ -16,7 +16,8 @@ export class PublicationsService {
                  date_new: "desc"
             }, include: {
                 comments: true,
-                likes: true
+                likes: true,
+                worker: true
             }
         });
     }

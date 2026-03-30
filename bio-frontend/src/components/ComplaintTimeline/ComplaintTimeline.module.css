@@ -21,10 +21,14 @@
     border-radius: 15px;
     margin-top: 10px;
     background-color: #f4f6f5;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--strong-green) #f4f6f5;
 }
 
 .timeline__item_update {
-    padding: 0 0 10px 5px;
+    padding: 0 0 35px 5px;
     border-left: solid 2px var(--strong-green);
     position: relative;
 }

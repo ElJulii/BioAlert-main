@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import "../components/header/Header.js";
+import Styles from "./Style.module.css"
 import Header from "../components/header/Header.js";
 import HeaderAdmin from "../components/header/HeaderAdmin.js";
 import { use, useEffect, useState } from "react";
@@ -15,6 +14,7 @@ export default function Home() {
   const [ loading, setLoading ] = useState(true);
   const [ comments, setComments ] = useState([]);
   const [ commentInputs, setCommentInputs ] = useState([]);
+  const [ reports, setReports ] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -186,64 +186,129 @@ export default function Home() {
     <div className="container">
       {user && user?.role === "ADMIN" ? <HeaderAdmin/> : <Header/>}
 
-      <main>
-        <h1>Welcome to Next.js!</h1>
-        <div className="news">
+      <main className={Styles.news}>
+        <div className={Styles.news__header}>
+          <div>
+            <div className={Styles.news__header__introduction}>
+              <h1>Wildlife Protection News</h1>
+              <p>
+                Stay informed about wildlife protection efforts, case updates, environmental
+                laws, and conservation news from around the world. Your engagement helps 
+                raise awareness and protect endangered species.
+              </p>
+            </div>
+            <div className={Styles.news__header__objective}>
+              <h2>&#128204; OUR OBJECTIVE</h2>
+              <p>Record A wildlife protection cases solved with AI assistance and community support</p>
+            </div>
+          </div>
+          <div className={Styles.news__header__stats}>
+            <img src="https://png.pngtree.com/png-vector/20230419/ourmid/pngtree-white-shield-vector-png-image_6714259.png" alt="shield log"/>
+            <h2>847</h2>
+            <p>Cases Reported</p>
+          </div>
+        </div>
+        
+        <div className={Styles.news}>
           {
             news?.map((news, i) => (
-              <div key={i} className="news__item">
-                <div>
-                  <h2>{news.title}</h2>
-                  <p>{news.context}</p>
-                  <p>{news.place}</p>
-                  {
-                    news.image_url && (
-                      <img src={news.image_url} alt={news.title}/>
-                    )
-                  }
-                </div>
-                <div>
-                  <p>Likes: {news.likes.length}</p>
-                  <p>Comments: {comments[news.id]?.length || 0}</p>
-                </div>
-                <div>
-                  <button onClick={() => toggleLike(news.id)}>
+              <div key={i} className={Styles.news__item}>
+                <div className={Styles.item__author}>
+                  <div className={Styles.item__author__circle}>
                     {
-                      news.likes.some(l => l.userId === user?.id)
-                        ? "❤️"
-                        : "🤍"
+                      news.worker?.name.charAt(0).toUpperCase() + news.worker?.surname.charAt(0).toUpperCase()
+                    } 
+                  </div>
+                  <div className={Styles.item__author__info}>
+                    <p>{news.worker?.username} - BioAlert Team</p>
+                    <p>
+                      {new Date(news.date_new).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric"
+                      })}
+                    </p>
+                  </div>
+                </div>
+                <div className={Styles.item__content}>
+                  <div className={Styles.item__content__info}>
+                    <h2>{news.title}</h2>
+                    <p style={{marginBottom: "10px"}}>&#128205; {news.place}</p>
+                    <p>{news.context}</p>
+                  </div>
+                  <div className={Styles.item__content__image}>
+                    {
+                      news.image_url && (
+                        <img src={news.image_url} alt={news.title}/>
+                      )
                     }
-                  </button>
+                  </div>
+                </div>
 
-                  <input
-                    type="text"
-                    placeholder="Add comment..."
-                    value={commentInputs[news.id] || ""}
-                    onChange={(e) =>
-                      setCommentInputs(prev => ({
-                        ...prev,
-                        [news.id]: e.target.value
-                      }))
-                    }
-                  />
+                <div className={Styles.item__statistics}>
+                  <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"  strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    {news.likes.length}
+                  </p>
+                  <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+                    </svg>
+                    {comments[news.id]?.length || 0}
+                  </p>
+                </div>
 
-                  <button onClick={() => addComment(news.id)}>
-                    Post
-                  </button>
+                <div className={Styles.item__actions_comments}>
+                  <div className={Styles.item__actions}>
+                    <button className={Styles.item__like} onClick={() => toggleLike(news.id)}>
+                      {
+                        news.likes.some(l => l.userId === user?.id)
+                          ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#f00" stroke="currentColor"  strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                          )
+                          : (
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                          )
+                      }
+                    </button>
 
-                  <div>
+                    <input
+                      type="text"
+                      placeholder="Add comment..."
+                      value={commentInputs[news.id] || ""}
+                      onChange={(e) =>
+                        setCommentInputs(prev => ({
+                          ...prev,
+                          [news.id]: e.target.value
+                        }))
+                      }
+                    />
+
+                    <button className={Styles.item__post} onClick={() => addComment(news.id)}>
+                      Post
+                    </button>
+                  </div>
+              
+                  <div className={Styles.item__comments}>
+                    <h2>Comments</h2>
                     {
                       comments[news.id]?.map(comment => (
-                        <div key={comment.id}>
-                          <strong>{comment.user.username}</strong>
-                          <p>{comment.content}</p>
+                        <div key={comment.id} style={{lineHeight: "25.px"}}>
+                          <strong >{comment.user.username}</strong>
+                          <p style={{color: "#555", fontSize: "0.9rem"}} >{comment.content}</p>
 
                           {
                             comment.user.username === user.username && (
                               <button
                                 onClick={() => deleteComment(comment.id, news.id)}
                               >
-                                delete
+                                Delete
                               </button>
                             )
                           }

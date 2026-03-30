@@ -15,7 +15,7 @@ export default function ComplaintTimeline( { updates } ) {
                             <div className={Styles.timeline__data}>
                                 <div>
                                     <p>{update.user.username}</p>
-                                    <p>{update.type}</p>
+                                    <p style={{fontSize: "0.7rem"}}>{update.type}</p>
                                 </div>
                                 <div>
                                     <p>{  new Date (update.createdAt).toLocaleString() }</p>

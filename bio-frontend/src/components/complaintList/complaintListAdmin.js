@@ -48,10 +48,6 @@ export default function ComplaintListAdmin() {
         fetchUser()
     }, [])
 
-    const goToComplaint = (id) => {
-        router.push(`/admin/${username}/office/${id}`)
-    }
-
     return (
         <div className={Styles.complaints}>
             {complaints.length > 0 ? complaints.map(complaint => (

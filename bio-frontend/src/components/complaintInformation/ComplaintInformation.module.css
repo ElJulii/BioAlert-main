@@ -141,26 +141,4 @@
     opacity: 1;
     transition: opacity 0.2s ease-in-out;
     position: relative;
-    cursor: pointer;
-}
-
-.evidence__item img:hover {
-    opacity: 0.4;
-}
-
-.evidence__item::after {
-    content: "+";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    color: var(--background);
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-    pointer-events: none;
-}
-
-.evidence__item:hover::after {
-    opacity: 1;
 }

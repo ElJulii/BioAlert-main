@@ -12,11 +12,12 @@ export default function ComplaintInformation( { complaint, updates } ) {
                     <div className={Styles.container__updates_data__body}>
                         <div>
                             <h4>ANIMAL TYPE</h4>
-                            <p>{complaint.animal}</p>
+                            <p>&#127807; {complaint.animal}</p>
+
                         </div>
                         <div>
                             <h4>LOCATION</h4>
-                            <p>{complaint.country}, {complaint.city}</p>
+                            <p>&#128205; {complaint.country}, {complaint.city}</p>
                         </div>
                         <div>
                             <h4>ADDRESS</h4>
@@ -24,19 +25,19 @@ export default function ComplaintInformation( { complaint, updates } ) {
                         </div>
                         <div>
                             <h4>INCIDENT DATE</h4>
-                            <p>{new Date (complaint.date).toLocaleDateString()}</p>
+                            <p>&#128197; {new Date (complaint.date).toLocaleDateString()}</p>
                         </div>
                         <div>
                             <h4>PUBLISHED</h4>
-                            <p>{ new Date (complaint.createAt).toLocaleDateString() }</p>
+                            <p>&#128336; { new Date (complaint.createAt).toLocaleDateString() }</p>
                         </div>
                         <div>
                             <h4>REPORTED BY</h4>
-                            <p>{complaint.user.username}</p>
+                            <p>&#128100; {complaint.user.username}</p>
                         </div>
                         <div>
                             <h4>ASSIGNED TO</h4>
-                            <p>
+                            <p>&#128100;
                                 {
                                     complaint.assignedTo?.name 
                                     ? `${complaint.assignedTo.surname}, ${complaint.assignedTo.name}` 
@@ -46,7 +47,7 @@ export default function ComplaintInformation( { complaint, updates } ) {
                         </div>
                         <div>
                             <h4>LAST UPDATED</h4>
-                            <p>{ new Date (updates[0].createdAt).toLocaleDateString() }</p>
+                            <p>&#128336; { new Date (updates[0].createdAt).toLocaleDateString() }</p>
                         </div>
                     </div>
                 </div>

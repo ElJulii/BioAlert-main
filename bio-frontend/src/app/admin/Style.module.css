@@ -156,6 +156,7 @@
     border-radius: 10px;
     padding: 10px;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 /* Actions buttons phone */
@@ -184,9 +185,19 @@
     color: #bfdbfe;
 }
 
+.actions__info:hover {
+    background-color: #bfdbfe;
+    color: var(--background);
+}
+
 .actions__up {
     border-color: #15803d;
     color: #15803d;
+}
+
+.actions__up:hover {
+    background-color: #15803d;
+    color: var(--background);
 }
 
 .actions__app {
@@ -194,9 +205,19 @@
     color: #e39b48;
 }
 
+.actions__app:hover {
+    background-color: #e39b48;
+    color: var(--background);
+}
+
 .actions__rej {
     border-color: #c44537;
     color: #c44537;
+}
+
+.actions__rej:hover {
+    background-color: #c44537;
+    color: var(--background);
 }
 
 .actions__cl {
@@ -204,9 +225,19 @@
     color: #8446ee;
 }
 
+.actions__cl:hover {
+    background-color: #8446ee;
+    color: var(--background);
+}
+
 .actions__pub {
     border-color: #2312ff;
     color: #2312ff;
+}
+
+.actions__pub:hover {
+    background-color: #2312ff;
+    color: var(--background);
 }
 
 .dialog {
