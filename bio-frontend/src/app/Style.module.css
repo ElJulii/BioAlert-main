@@ -257,8 +257,8 @@
     color: var(--warning-color-weak);
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1075px) {
     .news {
-        padding: 0 20px;
+        padding: 0 20px 20px 0;
     }
 }

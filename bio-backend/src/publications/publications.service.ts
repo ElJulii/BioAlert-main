@@ -22,6 +22,16 @@ export class PublicationsService {
         });
     }
 
+    async getAllPublicationsAsReports() {
+        return await this.prisma.news.findMany({
+            where: {
+                idReport: {
+                    not: null
+                }
+            }
+        })
+    }
+
     async getPublicationById(id: number) {
         return await this.prisma.news.findMany({
             where: {

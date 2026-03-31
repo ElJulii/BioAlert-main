@@ -33,4 +33,9 @@ export class PublicationsController {
   async getPublicationById(@Param('id', ParseIntPipe) id: number) {
     return await this.publicationsService.getPublicationById(id);
   }
+
+  @Get('allAsReports')
+  async getAllPublicationsAsReports() {
+    return await this.publicationsService.getAllPublicationsAsReports();
+  }
 }

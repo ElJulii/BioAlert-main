@@ -6,6 +6,7 @@ import HeaderAdmin from "../components/header/HeaderAdmin.js";
 import { use, useEffect, useState } from "react";
 import Footer from "@/components/footer/Footer";
 import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
+import getAllReports from "../../api/getAllReports";
 
 export default function Home() {
 
@@ -15,6 +16,14 @@ export default function Home() {
   const [ comments, setComments ] = useState([]);
   const [ commentInputs, setCommentInputs ] = useState([]);
   const [ reports, setReports ] = useState([]);
+
+  useEffect(() => {
+    const getAllReportsByApi = async () => {
+      const data = await getAllReports()
+      setReports(data)
+    }
+    getAllReportsByApi()
+  }, [])
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -63,6 +72,7 @@ export default function Home() {
     }
     fetchNews();
   }, [])
+
 
   
   const toggleLike = async (publicationId) => {
@@ -204,7 +214,9 @@ export default function Home() {
           </div>
           <div className={Styles.news__header__stats}>
             <img src="https://png.pngtree.com/png-vector/20230419/ourmid/pngtree-white-shield-vector-png-image_6714259.png" alt="shield log"/>
-            <h2>847</h2>
+            <h2>
+              {reports?.length}
+            </h2>
             <p>Cases Reported</p>
           </div>
         </div>
