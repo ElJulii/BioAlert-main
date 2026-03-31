@@ -3,7 +3,8 @@
 import Styles from "./Style.module.css"
 import Header from "../components/header/Header.js";
 import HeaderAdmin from "../components/header/HeaderAdmin.js";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Footer from "@/components/footer/Footer";
 import NotificationLogo from "@/components/notificationsLogo/NotificationLogo";
 import getAllReports from "../../api/getAllReports";
@@ -16,7 +17,9 @@ export default function Home() {
   const [ comments, setComments ] = useState([]);
   const [ commentInputs, setCommentInputs ] = useState([]);
   const [ reports, setReports ] = useState([]);
+  const router = useRouter()
 
+  // Get just the reports with cases
   useEffect(() => {
     const getAllReportsByApi = async () => {
       const data = await getAllReports()
@@ -101,7 +104,10 @@ export default function Home() {
         },
       })
 
-      if (!res.ok) alert("Error setting like")
+      if (!res.ok) {
+        alert("Please log in to like this publication")
+        router.push("/login")
+      }
 
     } catch (error) {
       console.log(error)
