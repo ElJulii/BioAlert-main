@@ -34,32 +34,100 @@
     background-color: #15f03d;
 }
 
-.profile, .complaints {
+.profile {
+    background-color: transparent;
+    padding: 30px 20px;
+}
+
+.complaints {
     padding: 20px;
 }
 
 .profile__data {
-    padding: 1rem;
+    margin: 0 auto;
+    width: clamp(300px, 90%, 800px);
+    padding: 35px 20px;
     display: flex;
     flex-direction: column;
+    gap: 50px;
     align-items: center;
-    gap: 1rem;
     margin-bottom: 2rem;
-    border: 1px solid #000;
+    border: 1px solid #ccc;
+    background-color: var(--background);
     border-radius: 20px;
 }
 
 .profile__image {
-    width: clamp(180px, 60%, 200px);
-    height: 200px;   
-    border: 1px solid #000;
+    width: clamp(130px, 60%, 150px);
+    height: 150px;   
+    border: 1px solid transparent;
     border-radius: 50%;
 }
 
-/* Style settings */
-.previewContainer {
-  margin: 20px 0;
-  max-width: 300px;
-  height: 300px;
+.profile__data__body {
+    line-height: 35px;
 }
 
+.profile__data__body h2 {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.profile__data__body h3 {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555f5f;
+    font-weight: normal;
+}
+
+.profile__data__body h3 svg {
+    position: relative;
+    left: 1px;
+    top: 4px;
+}
+
+.profile__data__body h4 {
+    font-size: 1rem;
+    color: #6a7a68;
+    font-weight: normal;
+}
+
+.data__body__settings_btn {
+    margin: auto 30px;
+    border: solid transparent;
+    color: var(--background);
+    background-color: var(--strong-green);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.data__body__settings_btn:hover {
+    background-color: var(--week-green);
+}
+
+/* Style settings */
+.complaints__introduction {
+    margin-bottom: 10px;
+    background-color: var(--background);
+    padding: 10px;
+    border: solid;
+    border-radius: 10px;
+}
+
+/* Media query */
+
+@media screen and (min-width: 817px) {
+    .profile__data {
+        flex-direction: row;
+        padding: 35px 20px 35px 50px;
+    }
+    .profile__data__body h2 {
+        text-align: left;
+    }
+
+    .profile__data__body h3 {
+        text-align: left;
+    }
+}

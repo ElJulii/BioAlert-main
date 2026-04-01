@@ -184,7 +184,6 @@ export default function Office({ params }) {
                                     }
                                     
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Send Information</h5>
                                         <p>Text Worker</p>
@@ -198,7 +197,6 @@ export default function Office({ params }) {
                                     }
                                 
                                 >
-                                    <div>Icon</div>
                                     <div>
                                         <h5>Request Closure</h5>
                                         <p>Cancel the complaint</p>
@@ -223,11 +221,9 @@ export default function Office({ params }) {
                                     } : null
                                 }
                             >
-                                <div>Icon</div>
                                 <h5>Send Response</h5>
                             </div>
                             <div className={Styles.actions__req} onClick={() => setDialogRequestClose(true)}>
-                                <div>Icon</div>
                                 <h5>Request Closure</h5>
                             </div>
                         </div>

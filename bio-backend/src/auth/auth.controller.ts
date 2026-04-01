@@ -4,6 +4,7 @@ import { AuthService } from "./auth.service";
 import { JwtAuthGuard } from "./jwt-auth.guard";
 import { AuthGuard } from "@nestjs/passport";
 import { PrismaService } from "../prisma.service";
+import { create } from "axios";
 
 @Controller('auth')
 export class AuthController {
@@ -49,10 +50,14 @@ export class AuthController {
 
         return {
             id: user.id,
+            name: user.name,
+            surname: user.surname,
             username: user.username,
             email: user.email,
             picture: user.profilePicture,
-            role: user.role
+            role: user.role,
+            isVerified: user.isVerified,
+            createdAt: user.createdAt
         }
     }
 

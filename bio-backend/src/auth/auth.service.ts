@@ -55,10 +55,14 @@ export class AuthService {
             where: { id: userId },
             select: {
                 id: true,
+                name: true,
+                surname: true,
                 username: true,
                 email: true,
                 profilePicture: true,
-                role: true
+                role: true,
+                isVerified: true,
+                createdAt: true
             }
         })
     }

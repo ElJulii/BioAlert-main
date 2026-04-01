@@ -1,23 +1,91 @@
+.complaints__introduction {
+    margin: 0 auto 30px;
+    background-color: var(--background);
+    padding: 20px;
+    border: solid 1px #ddd;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    line-height: 40px;
+}
+
+.complaints__introduction h3 {
+    
+    color: #aaaaaa;
+    font-size: 0.7rem;
+}
+
+.complaints__icon {
+    margin: 0 auto 10px;
+    border: solid 1px transparent;
+    border-radius: 10px;
+    padding: 10px 2px;
+    font-size: 1.7rem;
+    background-color: #c8e6c9;
+    width: 60px;
+}
+
+.complaints__title {
+    margin-bottom: 30px;
+    padding: 0 40px;
+}
+
+.complaints__title h2 {
+    font-size: 1.2rem;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.complaints__title button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: var(--strong-green);
+    color: var(--background);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;  
+}
+
+.complaints__title button:hover {
+    background-color: var(--week-green);
+}
+
 .complaints {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    padding: 0 40px;
     gap: 30px;
 }
-
 .complaint__cell, .complaint__cell_user {
-    border: solid 1px #000;
+    border: solid 1px #bbb;
     border-radius: 10px;
-    padding: 20px;
     flex-grow: 1;
-    flex-basis: 300px;
+    flex-basis: 200px;
+    max-width: 350px;
+    background-color: var(--background);
 }
 
 .complaint__cell {
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: box-shadow 0.2s ease;
 }
 
 .complaint__cell:hover {
-    transform: scale(1.01);
+    box-shadow: 0 0 5px var(--foreground);
+}
+
+.complaint__item {    
+    padding: 10px;
+}
+
+.complaint__item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 7px;
+}
+
+.complaint__item p {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #555;
 }

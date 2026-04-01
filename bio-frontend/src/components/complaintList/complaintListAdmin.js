@@ -2,10 +2,9 @@ import Styles from "./Styles.module.css"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ComplaintListAdmin() {
+export default function ComplaintListAdmin({ username }) {
 
     const [ complaints, setComplaints ] = useState([]);
-    const [ username, setUsername ] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -26,44 +25,57 @@ export default function ComplaintListAdmin() {
         fetchComplaints()
     }, [])
 
-    useEffect(() => {
-        async function fetchUser() {
-            try {
-              const res = await fetch("http://localhost:3001/auth/profile", {
-                method: "GET",
-                credentials: "include",
-                headers: {
-                  "content-Type": "application/json",
-                }
-              });
-
-              if (!res.ok) throw new Error("Unauthorized"); 
-
-              const data = await res.json();
-              setUsername(data.username);
-          } catch (error) {
-            console.error("Error fetching user profile", error);
-          } 
-        }
-        fetchUser()
-    }, [])
-
     return (
-        <div className={Styles.complaints}>
-            {complaints.length > 0 ? complaints.map(complaint => (
+        <>
+            <div className={Styles.complaints__title}>
+                <h2>My Assigned Reports</h2>
+                <button onClick={() => {
+                    router.push(`/admin/${username}`)
+                }}>
+                    + Take Report
+                </button>
+            </div>
+            <div className={Styles.complaints}>
+                {complaints.length > 0 ? complaints.map(complaint => (
 
-                <div 
-                    key={complaint.id} 
-                    className={Styles.complaint__cell} 
-                    onClick={() => {
-                        router.push(`/admin/${username}/office/${complaint.id}`)
-                    }}>
-                <h3>{complaint.title}</h3>
-                <p>{complaint.description}</p>
-                </div>
-            )) :
-                <h3>You have no taken complaints</h3>
-            }
-        </div>
+                    <div 
+                        key={complaint.id} 
+                        className={Styles.complaint__cell} 
+                        onClick={() => {
+                            router.push(`/admin/${username}/office/${complaint.id}`)
+                        }}
+                    >
+                        <img
+                            src={complaint.evidences?.[0]?.url}
+                            width="100%"
+                            style={{
+                                borderRadius: "10px 10px 0 0",
+                                maxHeight: "200px",
+                                objectFit: "cover"
+                            }}
+                        >
+                        </img>
+                        <div className={Styles.complaint__item}>
+                            <h3>{complaint.title}</h3>
+                            <div>
+                                <p style={{marginRight: "25px"}}>&#128047; {complaint.animal}</p>
+                                <p>&#128205; {complaint.country + " - " + complaint.city}</p>
+                            </div>
+                            <p>
+                                {new Date(complaint.date).toLocaleDateString("en-US", {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric"
+                                }).replace(",", "")
+                                }
+                            </p>
+                        </div>
+                    </div>
+                )) :
+                    <h3>You have no taken complaints</h3>
+                }
+            </div>
+        </>
+        
     )
 }

@@ -209,10 +209,22 @@ input::placeholder, textarea::placeholder {
     color: #c44537;
 }
 
+.actions__req:hover {
+    background-color: #c44537;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
 .actions__info {
     border-color: #2312ff;
     color: #2312ff;
+    transition: all 0.2s ease-in-out;
 } 
+
+.actions__info:hover {
+    background-color: #2312ff;
+    color: #fff;
+}
 
 /* dialog*/
 
