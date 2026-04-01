@@ -107,7 +107,6 @@
     background-color: var(--week-green);
 }
 
-/* Style settings */
 .complaints__introduction {
     margin-bottom: 10px;
     background-color: var(--background);
@@ -116,6 +115,118 @@
     border-radius: 10px;
 }
 
+/* Style settings */
+.settings {
+    padding: 20px;
+}
+
+.settings > h2 {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.settings svg {
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+}
+
+.settings__edit {
+    padding: 20px;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    background-color: var(--background);
+    width: clamp(300px, 90%, 800px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    margin: 0 auto 30px;
+}
+
+.settings__edit span {
+    color: #999;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.settings__edit button {
+    align-self: center;
+    width: 200px;
+    padding: 7px 30px;
+    background-color: var(--strong-green);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.settings__edit button:hover {
+    background-color: var(--week-green);
+}
+
+.pictureSection, .settings__info_profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pictureSection {
+    align-items: center;
+}
+
+.previewContainer {
+  margin: 20px 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.pictureSection__upload {
+    border: solid 1px var(--strong-green);
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #e8f5ee;
+    color: var(--strong-green);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.settings__info_profile label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.settings__info_profile input {
+    padding: 10px 20px;
+    background-color: var(--background);
+    color: var(--foreground);
+    outline: none;
+    border: solid 1px #aaa;
+    border-radius: 10px;
+}
+
+.settings__info_profile input:disabled {
+    background-color: #dddddd;
+}
+
+.settings__danger_zone {
+    margin: 0 auto;
+    padding: 20px;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    background-color: var(--background);
+    width: clamp(300px, 90%, 800px);
+}
+
+.settings__danger_zone h2 {
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+    color: var(--warning-color-weak);
+}
+
+.settings__danger_zone button {
+    width: 100%;
+    margin-bottom: 20px;
+}
 /* Media query */
 
 @media screen and (min-width: 817px) {
