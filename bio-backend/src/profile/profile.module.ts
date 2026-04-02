@@ -4,10 +4,11 @@ import { ProfileService } from "./profile.service";
 import { PrismaService } from "../prisma.service";
 import { CloudinaryModule } from "src/cloudinary/cloudinary.module";
 import { AuthModule } from "src/auth/auth.module";
+import { CloudinaryService } from "src/cloudinary/cloudinary.service";
 
 @Module({
     imports: [CloudinaryModule, AuthModule],
     controllers: [ProfileController],
-    providers: [ProfileService, PrismaService],
+    providers: [ProfileService, PrismaService, CloudinaryService],
 })
 export class ProfileModule{}

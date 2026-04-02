@@ -1,4 +1,4 @@
-import { Post, UseInterceptors, UploadedFile, Controller, Get, Req, UseGuards  } from "@nestjs/common";
+import { Post, UseInterceptors, UploadedFile, Controller, Get, Req, UseGuards, Body  } from "@nestjs/common";
 import { ProfileService } from "./profile.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -7,13 +7,13 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class ProfileController {
     constructor(private readonly profileService: ProfileService) {}
 
-    @Post('upload-image')
+    @Post('edit-profile')
     @UseGuards(JwtAuthGuard)
     @UseInterceptors(FileInterceptor('image'))
-    async uploadImage(@UploadedFile() file: Express.Multer.File, @Req() req) {
+    async uploadImage(@Req() req, @UploadedFile() file: Express.Multer.File, @Body('username') username: string) {
         const userId = req.user.sub
 
-        return this.profileService.uploadImage(file, userId)
+        return this.profileService.editProfile(userId, file, username);
     }
     
 }

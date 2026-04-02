@@ -20,4 +20,14 @@ export class CloudinaryService {
             folder: "bioalert/publications",
         });
     }
+
+    async uploadImageProfile(file: Express.Multer.File, userId: number) {
+        const base64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+
+        return this.cloudinary.uploader.upload(base64, {
+            folder: "bioalert/profile",
+            public_id: `user_${userId}`,
+           overwrite: true,
+        });
+    }
 }

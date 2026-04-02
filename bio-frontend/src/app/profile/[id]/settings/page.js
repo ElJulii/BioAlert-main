@@ -3,7 +3,7 @@
 import Footer from "@/components/footer/Footer";
 import Style from "../../Style.module.css";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { set } from "react-hook-form";
 
@@ -13,6 +13,7 @@ export default function SettingsProfile({ params }) {
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [user, setUser] = useState({});
   const [ username, setUsername ] = useState("");
   const [ email, setEmail ] = useState("");
 
@@ -34,8 +35,8 @@ export default function SettingsProfile({ params }) {
         const data = await res.json();
 
         if (data.picture) {
-          console.log(data.picture)
-          setImagePreview(data.picture); // URL que viene del backend
+          setUser(data)
+          setImagePreview(data.picture) // URL que viene del backend
           setUsername(data.username)
           setEmail(data.email)
         }
@@ -77,20 +78,25 @@ export default function SettingsProfile({ params }) {
   };
 
   const handleUsernameChange = (event) => {
-    setUser({ ...user, username: event.target.value })
+    setUsername(event.target.value.replace(/\s/g, ''))
   }
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!selectedFile) return alert("Please select an image first.");
+    
+    if (!selectedFile && username === user?.username) {
+      return alert("Please change at least one field.");
+    }
 
     setUploading(true);
 
     const formData = new FormData();
-    formData.append("image", selectedFile);
+
+    if (selectedFile) formData.append("image", selectedFile);
+    if (username !== user?.username) formData.append("username", username);
 
     try {
-      const response = await fetch("http://localhost:3001/profile/upload-image", {
+      const response = await fetch("http://localhost:3001/profile/edit-profile", {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -98,13 +104,10 @@ export default function SettingsProfile({ params }) {
 
       const data = await response.json();
 
-      if (response.ok) {
-        alert("Profile picture updated!");
-        setImagePreview(data.image);
-        router.push(`/profile/${params.id}`)
-      } else {
-        alert("Upload failed: " + data.message);
-      }
+      if (!response.ok) alert("Upload failed: " + data.message);
+      if (data.image) setImagePreview(data.image);
+      alert(data.message);
+      
     } catch (error) {
       console.error(error);
       alert("Error uploading the image.");

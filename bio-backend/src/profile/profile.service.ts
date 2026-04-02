@@ -1,39 +1,43 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
+import { CloudinaryService } from "src/cloudinary/cloudinary.service";
 import { v2 as cloudinary } from 'cloudinary'
 
 @Injectable()
 export class ProfileService {
     constructor(
         private prismaService: PrismaService,
+        private cloudinaryService: CloudinaryService,
         @Inject('CLOUDINARY') private cloudinaryConfig
     ) {}
 
-    async uploadImage(file: Express.Multer.File, userId: number) {
-        if (!file) {
-            throw new Error("No file uploaded");
-        }
-        if (!userId) {
-            throw new Error("User not authenticated");
+    async editProfile(userId: number, file?: Express.Multer.File, username?: string) {
+
+        if (!file && !username) {
+            throw new Error("No Data Provided");
         }
 
-        const base64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+        const data: any = {}
 
-        const upload = await cloudinary.uploader.upload(base64, {
-           folder: 'bioalert/profile',
-           public_id: `user_${userId}`,
-           overwrite: true,
-        });
+        if (file) {
+            const upload = await this.cloudinaryService.uploadImageProfile(file, userId);
+            data.profilePicture = upload.secure_url;
+        }
+
+        if (username) {
+            data.username = username;
+        }
 
         const updateUser = await this.prismaService.user.update({
             where: { id: userId },
-            data: { profilePicture: upload.secure_url },
+            data
         });
 
         return {
-            message: 'Profile picture was updated successfully',
-            image: `${updateUser.profilePicture}`,
-        };
+            message: "Profile updated successfully",
+            image: updateUser.profilePicture,
+            username: updateUser.username
+        }
     }
 
 }
