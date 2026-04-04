@@ -254,13 +254,16 @@ export default function Home() {
                     <p style={{marginBottom: "10px"}}>&#128205; {news.place}</p>
                     <p>{news.context}</p>
                   </div>
-                  <div className={Styles.item__content__image}>
-                    {
-                      news.image_url && (
-                        <img src={news.image_url} alt={news.title}/>
-                      )
-                    }
-                  </div>
+                  {
+                    news?.image_url &&
+                      <div className={Styles.item__content__image}>
+                        {
+                          news.image_url && (
+                            <img src={news.image_url} alt={news.title}/>
+                          )
+                        }
+                      </div>
+                  }
                 </div>
 
                 <div className={Styles.item__statistics}>

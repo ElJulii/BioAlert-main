@@ -37,9 +37,9 @@ export default function SettingsProfile({ params }) {
         if (data.picture) {
           setUser(data)
           setImagePreview(data.picture) // URL que viene del backend
-          setUsername(data.username)
-          setEmail(data.email)
         }
+        setUsername(data.username)
+        setEmail(data.email)
       } catch (error) {
         console.error(error);
       }

@@ -82,7 +82,7 @@
     font-size: 3.5rem;
     background-color: transparent;
     border: none;
-    color: var(--strong-green);
+    color: var(--background);
 }
 
 .menu {

@@ -54,7 +54,7 @@ export default function Profile() {
       <div className={Style.profile}>
         <div className={Style.profile__data}>
           <div className={Style.profile__image} style={{ 
-              background: `url(${user.picture}) center / cover no-repeat` 
+              background: `url(${user.picture || "/default-profile.jpg"}) center / cover no-repeat`
             }}>
           </div>
           <div className={Style.profile__data__body}>

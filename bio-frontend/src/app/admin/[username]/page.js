@@ -57,6 +57,9 @@ export default function AdminPage() {
             case "canceled":
                 filtered = complaints.filter(complaint => complaint.state === "CANCELED")
                 break;
+            case "published":
+                filtered = complaints.filter(complaint => complaint.state === "PUBLISHED")
+                break;
             case "all":
                 filtered = complaints
                 break;
@@ -136,6 +139,7 @@ export default function AdminPage() {
                         <option value="in_progress">In progress</option>
                         <option value="resolved">Resolved</option>
                         <option value="canceled">Canceled</option>
+                        <option value="published">Published</option>
                         <option value="all">All</option>
                     </select>
                     <button className={Styles.admin__create_publication}

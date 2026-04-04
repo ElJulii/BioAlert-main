@@ -208,16 +208,16 @@ export class UpdatesService {
             }
         })
 
-        if (!workerId) throw new Error("Worker not found")
-
-        await this.prisma.notification.create({
-            data: {
-                userId: workerId,
-                reportId: reportId,
-                message: `The user ${user?.username} has requested to close the complaint`,
-                state: "REQUEST_CLOSE"
-            }
-        })
+        if (workerId) {
+            await this.prisma.notification.create({
+                data: {
+                    userId: workerId,
+                    reportId: reportId,
+                    message: `The user ${user?.username} has requested to close the complaint`,
+                    state: "REQUEST_CLOSE"
+                }
+            })
+        }
     
         return this.prisma.reportUpdate.create({
             data: {

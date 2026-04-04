@@ -69,8 +69,11 @@ export default function Notifications() {
 
             if (!res.ok) throw new Error("Error verifying notification")
 
-            if (user?.role === "ADMIN") router.push(`/admin/${user?.username}/office/${idComplaint}`)
-            else router.push(`/complaints/${user?.username}/case/${idComplaint}`)
+            if (user?.role === "ADMIN") {
+                if (idComplaint) router.push(`/admin/${user?.username}/office/${idComplaint}`)
+                else router.push(`/publication/${user?.username}`)
+            } else router.push(`/complaints/${user?.username}/case/${idComplaint}`)
+
             
         } catch (error) {
             console.error(error)
@@ -197,22 +200,26 @@ export default function Notifications() {
                                         <p>{notification.message}</p>
                                     </div>
                                     <div className={Styles.notifications__item__footer}>
-                                        <h3>
-                                            &#128196; 
-                                            <span
-                                                style={{
-                                                    padding: "2px 10px",
-                                                    border: "solid transparent",
-                                                    borderRadius: "10px",
-                                                    marginLeft: "10px",
-                                                    background: "var(--strong-green",
-                                                    color: "var(--background)",
-                                                    
-                                                }}
-                                            >
-                                              {notification.reportId}  
-                                            </span>
-                                        </h3>
+                                        {
+                                            notification?.reportId &&
+                                            <h3>
+                                                &#128196; 
+                                                <span
+                                                    style={{
+                                                        padding: "2px 10px",
+                                                        border: "solid transparent",
+                                                        borderRadius: "10px",
+                                                        marginLeft: "10px",
+                                                        background: "var(--strong-green",
+                                                        color: "var(--background)",
+                                                        
+                                                    }}
+                                                >
+                                                {notification.reportId}  
+                                                </span>
+                                            </h3>
+                                        }
+                                        
                                         <div>
                                             <p style={{color: "#888"}}>
                                                { timeAgo(notification.createAt) } 

@@ -1,5 +1,6 @@
 "use client"
 
+import Login from "@/app/login/page";
 import Style from "./Header.module.css"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,6 +16,7 @@ export default function Header() {
   const [ displayMenu, setDisplayMenu ] = useState('none') 
   const [ displaySecondMenu, setDisplaySecondMenu ] = useState(false)
   const [username, setUsername] = useState(null);
+  const [ shortName, setShortName ] = useState(null);
 
   // effect resize window
   useEffect(() => {
@@ -39,13 +41,16 @@ export default function Header() {
           });
 
           // if (!res.ok) throw new Error("Unauthorized"); 
-          if (!res.ok) {
-            console.log("user not found")
-            setUsername("someone")
+          if (res.ok) {
+            const data = await res.json();
+            setUsername(data.username);
+            setShortName(data.name.charAt(0).toUpperCase() + data.surname.charAt(0).toUpperCase());
+            console.log(shortName)
           }; 
 
-          const data = await res.json();
-          setUsername(data.username);
+          console.log("user not found")
+          setUsername("someone")
+          
       } catch (error) {
         console.error("Error fetching user profile", error);
       } 
@@ -168,7 +173,7 @@ export default function Header() {
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"/>
             </svg>
-            <span>Profile</span>
+            <span style={{fontWeight: "bold"}}>{shortName ? shortName : "Login"}</span>    
           </Link>
       </div>
       

@@ -107,7 +107,11 @@ export default function Publication() {
                                         <h3>{publication.title}</h3>
                                         <p>{publication.context}</p>
                                         <p>{publication.date_new}</p>
-                                        <img src={publication.image_url} alt="publication" />
+                                        {
+                                            publication?.image_url &&
+                                            <img src={publication?.image_url} alt="publication" />
+                                        }
+                                        
                                     </li>
                                 ))
                             }
