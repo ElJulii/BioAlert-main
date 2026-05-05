@@ -169,7 +169,7 @@ export default function AdminPage() {
                                             <h3>
                                                 {complaint.title}
                                             </h3>
-                                            <p>
+                                            <p className={Styles.com_item__description}>
                                                 <b className={Styles.com_item__b}>Description:</b> {complaint.description}
                                             </p>
                                             <p>

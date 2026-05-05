@@ -5,6 +5,8 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { Roles } from "src/auth/roles.decorator";
 import { RolesGuard } from "src/auth/roles.guard";
+import { Express } from "express";
+import { Multer } from "multer";
 
 @Controller("reports")
 export class ReportsController {

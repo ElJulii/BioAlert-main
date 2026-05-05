@@ -39,17 +39,16 @@ export default function Header() {
               "content-Type": "application/json",
             }
           });
-
-          // if (!res.ok) throw new Error("Unauthorized"); 
+ 
           if (res.ok) {
             const data = await res.json();
             setUsername(data.username);
             setShortName(data.name.charAt(0).toUpperCase() + data.surname.charAt(0).toUpperCase());
             console.log(shortName)
-          }; 
-
-          console.log("user not found")
-          setUsername("someone")
+          } else {
+            console.log("user not found")
+            setUsername("someone")
+          }
           
       } catch (error) {
         console.error("Error fetching user profile", error);
