@@ -7,7 +7,6 @@ import { PrismaService } from 'src/prisma.service';
 @Module({
   imports: [
     AuthModule,
-
   ],
   controllers: [CommentsController],
   providers: [CommentsService, PrismaService],

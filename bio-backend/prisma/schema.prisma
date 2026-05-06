@@ -30,6 +30,8 @@ model User {
   assignedReports Report[]       @relation("AssignedReports")
   reportUpdates   ReportUpdate[]
   publications    News[]         @relation("News")
+
+  donations       Donation[]
 }
 
 model Report {
@@ -136,6 +138,25 @@ model NewsLikes {
   @@unique([userId, newsId])
 }
 
+model Donation {
+  id          Int      @id @default(autoincrement())
+  amount      Int
+  currency    String   @default("usd")
+
+  // Stripe demo reference (aunque sea test)
+  stripeId    String?  @unique
+
+  // opcional (usuario logueado)
+  userId      Int?
+  user        User?    @relation(fields: [userId], references: [id])
+
+  // opcional (donador anónimo)
+  donorName   String?
+  donorEmail  String?
+
+  createdAt   DateTime @default(now())
+}
+
 enum UserRole {
   USER
   ADMIN
@@ -160,3 +181,4 @@ enum ReportUpdateType {
   CLOSE_REJECTED
   STATUS_CHANGE
 }
+

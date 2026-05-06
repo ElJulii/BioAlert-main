@@ -4,19 +4,19 @@
 
 .charity__data {
     text-align: center;
-    position: sticky;
-    top: 0;
-    font-size: 1.7rem;
+    font-size: 1.2rem;
     background-color: var(--background);
     padding: 20px 0 40px;
     border: transparent solid 1px;
+    background: linear-gradient(to bottom, #030, #050);
+    color: var(--background);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     border-radius: 20px;
-    
 }
 
 .charity__data h1 {
     font-size: 3rem;
+    margin-bottom: 10px;
 }
 
 .charity__data h2 {
@@ -28,35 +28,62 @@
     color: var(--week-green);
 }
 
-.charity__data a {
-    border: solid 2px var(--foreground);
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    color: var(--background);
+.charity__information {
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    margin-top: 40px;
+    padding: 20px;
+    width: clamp(300px, 50%, 500px);
+    margin: 30px auto;
+}
+
+.charity__information h2 {
+    margin-bottom: 20px;
+    color: #050;
+    font-size: 1.8rem;
+}
+
+.charity__information h2, .charity__information p {
+    text-align: center;
+}
+
+.charity__information p {
+    color: #666;
+    margin: 10px;
+}
+
+.charity__information input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--background);
+    margin: 20px 0;
+}
+
+.charity__standardButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.charity__standardButtons button {
+    background-color: #f0faf7;
+    color: var(--strong-green);
+    padding: 10px 35px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.charity__donateButton {
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
     background-color: var(--strong-green);
     transition: background-color 0.3s ease-in-out;
-    font-size: 1.3rem;
-    position: relative;
 }
 
-.charity__data a:hover {
-    background-color: var(--week-green);
-}
-
-.charity__data__heart {
-    font-size: 1.5rem;
-    position: absolute;
-    left: 50%;
-    bottom: 10%;
-    z-index: -1;
-    transition: left  0.3s ease-out;
-}
-
-.charity__data a:hover .charity__data__heart {
-    left: 105%;
-}
-
-.charity__information {
-    margin-top: 40px;
-    padding: 0 60px;
+.charity__donateButton:hover {
+    background-color: #050;;
 }
