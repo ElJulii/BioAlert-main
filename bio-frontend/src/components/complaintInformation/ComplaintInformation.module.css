@@ -26,12 +26,22 @@
     margin-right: 20px;
 }
 
+.updates_data__head_priority {
+    background-color: var(--warning-color-strong); 
+    color: var(--background);
+    padding: 10px 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    border-radius: 30px;
+}
+
 .updates_data__head_last_child {
     background-color: #f0fdf4; 
     color: #16803e;
     padding: 10px 10px 10px 25px;
     border-radius: 30px;
     position: relative;
+    margin-left: 20px;
 }
 
 .updates_data__head_last_child::before {

@@ -6,6 +6,13 @@ export default function ComplaintInformation( { complaint, updates } ) {
             <div className={Styles.container__updates_data}>
                     <div className={Styles.updates_data__head}>
                         <div> <p>{complaint.id}</p> </div>
+                        {
+                            complaint.priority && (
+                                <div className={Styles.updates_data__head_priority}>
+                                     <p>Priority</p>     
+                                </div>
+                            )
+                        }
                         <div className={Styles.updates_data__head_last_child}> <p>{complaint.state}</p> </div>
                         <h2>{complaint.title}</h2>
                     </div>

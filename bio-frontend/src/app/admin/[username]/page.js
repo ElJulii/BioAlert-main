@@ -13,7 +13,7 @@ export default function AdminPage() {
     const [user, setUser] = useState(null);
     const [ complaints, setComplaints ] = useState([]);
     const [filteredComplaints, setFilteredComplaints] = useState([])
-    const [ selectedComplaints, setSelectedComplaints ] = useState("available");
+    const [ selectedComplaints, setSelectedComplaints ] = useState("all");
     const [ dialog, setDialog ] = useState(false);
     const [ currentComplaint, setCurrentComplaint ] = useState(null);
     const router = useRouter();
@@ -62,6 +62,9 @@ export default function AdminPage() {
                 break;
             case "all":
                 filtered = complaints
+                break;
+            case "priority":
+                filtered = complaints.filter(complaint => complaint.priority)
                 break;
         }
 
@@ -135,12 +138,13 @@ export default function AdminPage() {
                 <div className={Styles.admin__filters}>
                     <h2>Filter by state: </h2>
                     <select className={Styles.admin__state_query} onChange={onChangeComplaints}>
+                        <option value="all">All</option>
+                        <option value="priority">Priority</option>
                         <option value="available">Available</option>
                         <option value="in_progress">In progress</option>
                         <option value="resolved">Resolved</option>
                         <option value="canceled">Canceled</option>
                         <option value="published">Published</option>
-                        <option value="all">All</option>
                     </select>
                     <button className={Styles.admin__create_publication}
                         onClick={() => {
@@ -185,6 +189,9 @@ export default function AdminPage() {
                                             </p>
                                             <p> 
                                                 <b className={Styles.com_item__b}>State:</b> {complaint.state}
+                                            </p>
+                                            <p style={{color: "var(--warning-color-strong)", fontWeight: "bold", textDecoration: "underline"}}>
+                                                {complaint?.priority ? "PRIORITY" : ""}
                                             </p>
                                         </div>
                                         

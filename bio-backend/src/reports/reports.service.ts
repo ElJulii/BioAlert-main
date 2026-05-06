@@ -41,7 +41,12 @@ export class ReportsService{
     }
 
     async getAll() {
-        return this.prisma.report.findMany()
+        return this.prisma.report.findMany({
+            orderBy: { createAt: 'desc' },
+            include: {
+                evidences: true
+            }
+        })
     }
 
     async getByUser(userId: number) {
@@ -96,6 +101,8 @@ export class ReportsService{
             type AIResponse = {
                 animalDetected: boolean;
                 animals: string[];
+                status: "ignored" | "rejected" | "accepted" | "priority";
+                priority: boolean;
                 error?: string;
             };
 
@@ -103,20 +110,32 @@ export class ReportsService{
                 headers: formData.getHeaders(),
             });
 
-            const { animalDetected, animals } = response.data
+            const { animalDetected, animals, status, priority } = response.data;
+
+            let reportState: ReportState = ReportState.REJECTED;
+
+            if (status === "accepted" || status === "priority") {
+                reportState = ReportState.ACCEPTED;
+            }
+
+            if (status === "rejected" || status === "ignored") {
+                reportState = ReportState.REJECTED;
+            }
 
             // Update state based on animals detected
             const report = await this.prisma.report.update({
                 where: { id: reportId },
                 data: {
-                    state: animalDetected ? ReportState.ACCEPTED : ReportState.REJECTED,
+                    state: reportState,
+                    priority: priority,
                     analysisStatus: "completed",
                     analysisResult: response.data
                 },
                 select: {
                     id: true,
                     userId: true,
-                    state: true
+                    state: true,
+                    priority: true
                 }
             })
 
@@ -138,7 +157,9 @@ export class ReportsService{
                         userId: report.userId,
                         actorRole: UserRole.USER,
                         type: ReportUpdateType.USER_RESPONSE,
-                        message: "Report created and accepted for review."
+                        message: priority
+                            ? "🚨 Priority case: endangered species detected."
+                            : "Report accepted for review."
                     }
                 });
 
@@ -147,14 +168,24 @@ export class ReportsService{
                     data: {
                         userId: report.userId,
                         reportId: report.id,
-                        message: "Report created and accepted for review. Waiting for operator's response.",
+                        message: priority
+                            ? "🚨 Priority report created. Immediate attention required. Waiting for operator response."
+                            : "Report accepted. Waiting for operator response.",
                         state: ReportUpdateType.USER_RESPONSE
                     }
                 });
             }
 
 
-            if (!animalDetected) {
+            if (reportState === ReportState.REJECTED) {
+                await this.prisma.notification.create({
+                    data: {
+                        userId: report.userId,
+                        reportId: report.id,
+                        message: "The report has been rejected. There was no animal detected or is not a wild animal. Please try again.",
+                        state: ReportUpdateType.STATUS_CHANGE
+                    }
+                });
                 setTimeout(async () => {
                     try {
                         await this.prisma.report.delete({ where: {id: reportId} })

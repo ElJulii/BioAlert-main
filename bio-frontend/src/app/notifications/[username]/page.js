@@ -13,7 +13,6 @@ export default function Notifications() {
     const [ loading, setLoading ] = useState(true);
     const [ notifications, setNotifications ] = useState([])
     const [ verifiedNotifications, setVerifiedNotifications ] = useState([])
-    const [ colors, setColors ] = useState([])
     const router = useRouter();
 
     useEffect(() => {

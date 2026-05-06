@@ -41,6 +41,7 @@ model Report {
   address        String         @db.VarChar(255)
   date           DateTime       @default(now())
   state          ReportState    @default(PENDING)
+  priority       Boolean        @default(false)
   createAt       DateTime       @default(now())
   animal         String         @db.VarChar(50)
   title          String         @db.VarChar(30)
