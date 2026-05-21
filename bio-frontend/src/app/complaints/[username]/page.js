@@ -115,7 +115,14 @@ export default function Complaints({ params }) {
                                 }}>
                                     <div className={Style.complaints__itemID}>
                                         <p>ID: {complaint.id}</p>
-                                        <p style={{color: "var(--warning-color-strong", position: "relative", right: "0"}}>
+                                        <p 
+                                            style={{
+                                                color: "var(--warning-color-strong", 
+                                                fontWeight: "bold",
+                                                fontSize :"1.2rem",
+                                                margin: "5px 0"
+                                            }}
+                                        >
                                             {complaint?.priority ? "Priority" : ""}
                                         </p>
                                     </div>
