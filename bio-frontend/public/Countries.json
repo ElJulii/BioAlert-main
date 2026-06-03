@@ -2,30 +2,206 @@
     "Countries": [
         {
             "name": "Ecuador",
-            "flag": "/flags/ecuador.png",
-            "map": "/maps/ecuador.png",
+            "flag": "/laws-imgs/flags/flag_ecu.png",
             "laws": [
                 "Ley 611 - Protección de la Fauna Silvestre (2000).",
                 "Ley Orgánica de Medio Ambiente (2008).",
                 "Código Orgánico Penal Ambiental - Art. 250 (2015)."
             ],
             "animals": [
-                {
-                    "name": "Condor Andino",
-                    "img": "/animals/condor.png"
-                },
-                {
-                    "name": "Mono Aullador",
-                    "img": "/animals/aullador.png"
-                },
-                {
-                    "name": "Jaguar",
-                    "img": "/animals/jaguar.png"
-                },
-                {
-                    "name": "Tortuga Galápagos",
-                    "img": "/animals/tortuga.png"
-                }
+                { "name": "Condor Andino", "img": "/laws-imgs/animals/condor.jpg" },
+                { "name": "Mono Aullador","img": "/laws-imgs/animals/mono-aullador.jpeg" },
+                { "name": "Jaguar", "img": "/laws-imgs/animals/jaguar.jpeg" },
+                { "name": "Tortuga Galápagos", "img": "/laws-imgs/animals/tortuga-galapagos.jpg" }
+            ]
+        },
+        {
+            "name": "Mexico",
+            "flag": "/laws-imgs/flags/flag_mex.png",
+            "laws": [
+                "Ley General de Vida Silvestre (2000).",
+                "Ley Federal de Sanidad Animal (2007).",
+                "Código Penal Federal - Art. 420 (2014)."
+            ],
+            "animals": [
+                { "name": "Ajolote", "img": "/laws-imgs/animals/ajolote.jpg" },
+                {"name": "red parrot", "img": "/laws-imgs/animals/guacamayo-rojo.jpg"},
+                {"name": "Ocelot", "img": "/laws-imgs/animals/ocelote.jpg"}
+            ]
+        },
+        {
+            "name": "Colombia",
+            "flag": "/laws-imgs/flags/flag_col.png",
+            "laws": [
+                "Ley 611 - Manejo y Protección de la Fauna Silvestre (2000).",
+                "Ley 1333 - Sanciones Ambientales (2009).",
+                "Ley 1774 - Protección Animal (2016)."
+            ],
+            "animals": [
+                { "name": "beard", "img": "/laws-imgs/animals/oso-anteojos.jpg" },
+                { "name": "Toucan", "img": "/laws-imgs/animals/tucan.jpg" },
+                { "name": "Dolphin", "img": "/laws-imgs/animals/pink-dolphin.jpg" },
+                { "name": "Puma", "img": "/laws-imgs/animals/puma.jpg" }
+            ]
+        },
+        {
+            "name": "Argentina",
+            "flag": "/laws-imgs/flags/flag_arg.png",
+            "laws": [
+                "Ley 22.421 - Conservación de Fauna Silvestre (1981).",
+                "Ley 27.499 - Ley de Protección Animal (2018).",
+                "Código Penal Argentino - Art. 206 (2019)."
+            ],
+            "animals": [
+                { "name": "Guanaco", "img": "/laws-imgs/animals/guanaco.jpg" },
+                { "name": "Condor", "img": "/laws-imgs/animals/zorro.jpg" }
+            ]
+        },
+        {
+            "name": "Brasil",
+            "flag": "/laws-imgs/flags/flag_mex.png",
+            "laws": [
+                "Ley 9.605 - Delitos Ambientales (1998).",
+                "Ley de Protección de la Biodiversidad (2015).",
+                "Constitución Federal - Art. 225 (1988)."
+            ],
+            "animals": [
+                { "name": "blue parrot", "img": "/laws-imgs/animals/blue.jpeg" },
+                { "name": "Capuchin Monkey", "img": "/laws-imgs/animals/capuchino.jpg" },
+                { "name": "Capuchin Monkey", "img": "/laws-imgs/animals/pecari.png" }
+            ]
+        },
+        {
+            "name": "Peru",
+            "flag": "/laws-imgs/flags/flag_per.png",
+            "laws": [
+                "Ley Forestal y de Fauna Silvestre N.º 29763.",
+                "Ley General del Ambiente N.º 28611.",
+                "Código Penal Peruano - Delitos contra la fauna silvestre."
+            ],
+            "animals": [
+                { "name": "Mono Choro de Cola Amarilla", "img": "/laws-imgs/animals/yellow_tail_monkey.jpg" }
+            ]
+        },
+        {
+            "name": "Chile",
+            "flag": "/laws-imgs/flags/flag_chi.png",
+            "laws": [
+                "Ley de Caza N.º 19.473.",
+                "Ley N.º 21.600 sobre protección de biodiversidad.",
+                "Código Penal - Delitos ambientales."
+            ],
+            "animals": [
+                { "name": "Gato Andino", "img": "/laws-imgs/animals/andean_cat.jpg" },
+                { "name": "Chinchilla Chilena", "img": "/laws-imgs/animals/chinchilla.jpg" },
+                { "name": "Picaflor de Arica", "img": "/laws-imgs/animals/arica_hummingbird.jpg" }
+            ]
+            },
+            {
+            "name": "Bolivia",
+            "flag": "/laws-imgs/flags/flag_bol.png",
+            "laws": [
+                "Ley de Medio Ambiente N.º 1333.",
+                "Ley Marco de la Madre Tierra N.º 300.",
+                "Código Penal - Tráfico de fauna silvestre."
+            ],
+            "animals": [
+                { "name": "Paraba Barba Azul", "img": "/laws-imgs/animals/blue_throated_macaw.jpg" },
+                { "name": "Bufeo Boliviano", "img": "/laws-imgs/animals/bolivian_dolphin.jpg" }
+            ]
+            },
+            {
+            "name": "Venezuela",
+            "flag": "/laws-imgs/flags/flag_ven.svg",
+            "laws": [
+                "Ley Penal del Ambiente.",
+                "Ley de Protección de la Fauna Silvestre.",
+                "Ley Orgánica del Ambiente."
+            ],
+            "animals": [
+                { "name": "Caimán del Orinoco", "img": "/laws-imgs/animals/orinoco_caiman.jpg" },
+                { "name": "Manatí del Caribe", "img": "/laws-imgs/animals/manatee.jpg" },
+                { "name": "Tortuga Arrau", "img": "/laws-imgs/animals/arrau_turtle.jpg" }
+            ]
+            },
+            {
+            "name": "Paraguay",
+            "flag": "/laws-imgs/flags/flag_par.png",
+            "laws": [
+                "Ley de Vida Silvestre N.º 96/92.",
+                "Ley de Delitos Ambientales.",
+                "Ley de Evaluación de Impacto Ambiental."
+            ],
+            "animals": [
+                { "name": "Tatú Carreta", "img": "/laws-imgs/animals/giant_armadillo.jpg" },
+                { "name": "Aguará Guazú", "img": "/laws-imgs/animals/maned_wolf.jpg" }
+            ]
+            },
+            {
+            "name": "Uruguay",
+            "flag": "/laws-imgs/flags/flag_uru.png",
+            "laws": [
+                "Ley General de Protección Ambiental.",
+                "Ley de Conservación de Fauna.",
+                "Normativa Nacional sobre Biodiversidad."
+            ],
+            "animals": [
+                { "name": "Delfín Franciscana", "img": "/laws-imgs/animals/franciscana.jpg" },
+                { "name": "Lobito de Río", "img": "/laws-imgs/animals/river_otter.jpg" },
+                { "name": "Cardenal Amarillo", "img": "/laws-imgs/animals/yellow_cardinal.jpg" }
+            ]
+            },
+            {
+            "name": "Costa Rica",
+            "flag": "/laws-imgs/flags/flag_cost.png",
+            "laws": [
+                "Ley de Conservación de Vida Silvestre.",
+                "Ley de Biodiversidad N.º 7788.",
+                "Ley Orgánica del Ambiente."
+            ],
+            "animals": [
+                { "name": "Lapa Verde", "img": "/laws-imgs/animals/green_macaw.jpg" },
+                { "name": "Tortuga Baula", "img": "/laws-imgs/animals/leatherback_turtle.jpg" }
+            ]
+            },
+            {
+            "name": "Panama",
+            "flag": "/laws-imgs/flags/flag_pan.svg",
+            "laws": [
+                "Ley General del Ambiente.",
+                "Ley de Vida Silvestre.",
+                "Código Penal Ambiental."
+            ],
+            "animals": [
+                { "name": "Águila Harpía", "img": "/laws-imgs/animals/harpy_eagle.jpg" },
+                { "name": "Perezoso Pigmeo", "img": "/laws-imgs/animals/pygmy_sloth.jpg" }
+            ]
+            },
+            {
+            "name": "Guatemala",
+            "flag": "/laws-imgs/flags/flag_gua.png",
+            "laws": [
+                "Ley de Áreas Protegidas.",
+                "Ley Forestal.",
+                "Ley de Protección y Mejoramiento del Medio Ambiente."
+            ],
+            "animals": [
+                { "name": "Quetzal", "img": "/laws-imgs/animals/quetzal.jpg" },
+                { "name": "Tapir Centroamericano", "img": "/laws-imgs/animals/tapir.jpg" }
+            ]
+            },
+            {
+            "name": "Russia",
+            "flag": "/laws-imgs/flags/flag_rus.png",
+            "laws": [
+                "Федеральный закон «О животном мире» №52-ФЗ.",
+                "Федеральный закон «Об охране окружающей среды».",
+                "Статья 258.1 УК РФ — незаконный оборот особо ценных диких животных."
+            ],
+            "animals": [
+                { "name": "Amur Tiger", "img": "/laws-imgs/animals/amur_tiger.jpg" },
+                { "name": "Far Eastern Leopard", "img": "/laws-imgs/animals/amur_leopard.jpg" },
+                { "name": "Polar Bear", "img": "/laws-imgs/animals/polar_bear.jpg" }
             ]
         }
     ]

@@ -96,7 +96,7 @@ def analyze_images(files):
 
     detected_animals = list(detected_animals)
 
-    # 🔴 NO ANIMALES
+    # No animals
     if len(detected_animals) == 0:
         return {
             "animalDetected": False,
@@ -105,7 +105,7 @@ def analyze_images(files):
             "priority": False
         }
 
-    # ❌ DOMÉSTICOS
+    # Domestics
     for animal in detected_animals:
         if animal in DOMESTIC_ANIMALS:
             return {
@@ -115,7 +115,7 @@ def analyze_images(files):
                 "priority": False
             }
 
-    # 🚨 EN PELIGRO
+    # In danger
     for animal in detected_animals:
         if animal in endangered_list:
             return {
@@ -125,7 +125,7 @@ def analyze_images(files):
                 "priority": True
             }
 
-    # 🟢 SILVESTRE NORMAL
+    # Wild animals
     for animal in detected_animals:
         if animal in WILD_ANIMALS:
             return {

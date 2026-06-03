@@ -92,8 +92,8 @@
     padding: 15px 10px;
     border-radius: 10px;
     border: solid 1px var(--foreground);
-    color: var(--background);
-    background-color: var(--strong-green);
+    color: var(--foreground);
+    background-color: var(--background);
     font-size: 0.9rem;
 }
 
@@ -109,8 +109,8 @@
     padding: 15px 10px;
     border-radius: 10px;
     border: solid 1px var(--foreground);
-    color: var(--background);
-    background-color: var(--strong-green);
+    color: var(--foreground);
+    background-color: var(--background);
     resize: none;
     font-size: 0.9rem;
 }
